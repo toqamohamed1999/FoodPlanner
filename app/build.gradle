@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -44,6 +45,11 @@ dependencies {
     //circle image
     implementation 'com.mikhaellopez:circularimageview:4.3.1'
     implementation 'com.joooonho:selectableroundedimageview:1.0.1'
-
+    //lottie animation
+    def lottieVersion = "5.2.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+    //fragment navigation
+    implementation "androidx.navigation:navigation-fragment:2.5.3"
+    implementation "androidx.navigation:navigation-ui:2.5.3"
 
 }

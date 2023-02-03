@@ -24,7 +24,11 @@
     <string name="register">Register</string>
     <string name="useOtherMethods">Use other Methods</string>
     <string name="haveAccount">Already have an account?</string>
-
+    <string name="search_by_ing">Search By Ingredients</string>
+    <string name="search_recipe">Search Recipes</string>
+<!--    <string name="search_by_">Search By Ingredients</string>-->
+<!--    <string name="search_by_ing">Search By Ingredients</string>-->
+<!--    <string name="search_recipe">Search Recipes</string>-->
 
 
 

@@ -4,4 +4,20 @@
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
     <string name="login_confirm_password_hint">Confirm Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="inspiration">Inspiration Meal</string>
+    <string name="backup">BackUp your data</string>
+    <string name="logout">Logout</string>
+    <string name="email">Email</string>
+    <string name="userName">User Name</string>
+    <string name="haveYourFirstStep">Here’s\nyour first\nstep with \nus! </string>
+    <string name="register">Register</string>
+    <string name="useOtherMethods">Use other Methods</string>
+    <string name="haveAccount">Already have an account?</string>
+
+
+
+
 </resources>

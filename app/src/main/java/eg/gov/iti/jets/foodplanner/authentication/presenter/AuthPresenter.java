@@ -13,22 +13,21 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import eg.gov.iti.jets.foodplanner.authentication.view.AuthViewInterface;
 import eg.gov.iti.jets.foodplanner.authentication.view.RegisterActivity;
 
 public class AuthPresenter implements AuthPresenterInterface {
 
     private static final String TAG = "AuthPresenter";
+    private AuthViewInterface authViewInterface;
 
     private FirebaseAuth firebaseAuth;
     private Context context;
 
-    public AuthPresenter(Context context) {
+    public AuthPresenter(Context context, AuthViewInterface authViewInterface) {
+        this.authViewInterface = authViewInterface;
         this.context = context;
         firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//        if (currentUser != null) {
-//
-//        }
     }
 
     @Override
@@ -59,6 +58,5 @@ public class AuthPresenter implements AuthPresenterInterface {
                         e.printStackTrace();
                     }
                 });
-
+        }
     }
-}

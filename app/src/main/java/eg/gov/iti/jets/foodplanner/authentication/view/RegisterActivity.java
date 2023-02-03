@@ -10,11 +10,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.presenter.AuthPresenter;
@@ -42,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements AuthViewInter
     }
 
     private void init(){
-        authPresenter = new AuthPresenter(getApplicationContext());
+        authPresenter = new AuthPresenter(getApplicationContext(),this);
     }
 
 

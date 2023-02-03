@@ -4,4 +4,12 @@
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
     <string name="login_confirm_password_hint">Confirm Password</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="favourite">Favourite</string>
+    <string name="plan">Plan</string>
+    <string name="login">Login</string>
+    <string name="forgotpassword">Forgot Password?</string>
+    <string name="register_now">New user? Register Now</string>
+    <string name="alreadyHaveAccount">Already \nhave an \nAccount?</string>
 </resources>

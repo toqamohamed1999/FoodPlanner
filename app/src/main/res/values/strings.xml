@@ -24,6 +24,13 @@
     <string name="register">Register</string>
     <string name="useOtherMethods">Use other Methods</string>
     <string name="haveAccount">Already have an account?</string>
+    <string name="ingradians_name">Ingredient Name</string>
+    <string name="category">"Category: "</string>
+    <string name="country">"Country:  "</string>
+    <string name="steps">"Steps: "</string>
+    <string name="addToPlan">Add To Plan</string>
+    <string name="currentWeekPlan">Current Week Plan</string>
+
     <string name="search_by_ing">By Ingredients</string>
     <string name="search_recipe">Search Recipes</string>
     <string name="search_by_category">By Category</string>

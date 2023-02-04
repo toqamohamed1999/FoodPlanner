@@ -19,8 +19,6 @@
         android:layout_centerInParent="true"
         android:paddingTop="20dp">
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +49,6 @@
                     style="@style/viewParent.headerText.NoMode"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/colorAccent"
                     android:text="@string/alreadyHaveAccount" />
 
                 <ImageView
@@ -65,6 +62,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
+                android:layout_marginTop="@dimen/loginViewsMargin"
+                app:errorEnabled="true"
+                app:endIconMode="clear_text">
+
+
+                <EditText
                 app:startIconDrawable="@drawable/ic_email_24"
                 android:layout_marginTop="@dimen/loginViewsMargin">
                 <androidx.appcompat.widget.AppCompatEditText
@@ -84,6 +87,11 @@
 
                 android:layout_marginTop="@dimen/loginViewsMargin">
                 <androidx.appcompat.widget.AppCompatEditText
+                android:layout_marginTop="@dimen/loginViewsMargin"
+                app:errorEnabled="true"
+                app:endIconMode="password_toggle">
+
+                <EditText
                     android:id="@+id/login_password_edittxt"
                     style="@style/modifiedEditText"
                     android:backgroundTint="@color/whiteTextColor"
@@ -167,18 +175,6 @@
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/ic_google_plus" />
             </LinearLayout>
-
-<!--            <androidx.appcompat.widget.AppCompatButton-->
-<!--                android:layout_width="100dp"-->
-<!--                android:id="@+id/login_skip_button"-->
-<!--                style="@style/loginButton"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:backgroundTint="#805C5252"-->
-<!--                android:drawableEnd="@drawable/baseline_keyboard_double_arrow_right_24"-->
-<!--                android:text="Skip"-->
-<!--                android:textColor="@color/black" />-->
-
 
         </LinearLayout>
     </ScrollView>

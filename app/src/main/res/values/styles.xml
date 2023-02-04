@@ -49,6 +49,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Button" parent="viewParent">
+        <item name="android:background">@drawable/button_add</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="spinnerHintText" parent="parent">
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
         <item name="android:textColor">@color/colorAccent</item>

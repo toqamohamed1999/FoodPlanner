@@ -42,9 +42,11 @@ dependencies {
 
     //google Authentication
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
+
     //circle image
     implementation 'com.mikhaellopez:circularimageview:4.3.1'
     implementation 'com.joooonho:selectableroundedimageview:1.0.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //navigation
     implementation "androidx.navigation:navigation-fragment:2.5.3"

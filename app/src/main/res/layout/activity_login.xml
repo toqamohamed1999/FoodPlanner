@@ -46,7 +46,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin">
+                android:layout_marginTop="@dimen/loginViewsMargin"
+                app:errorEnabled="true"
+                app:endIconMode="clear_text">
+
 
                 <EditText
                     android:id="@+id/login_email_edittxt"
@@ -60,7 +63,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputPassword"
                 style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin">
+                android:layout_marginTop="@dimen/loginViewsMargin"
+                app:errorEnabled="true"
+                app:endIconMode="password_toggle">
 
                 <EditText
                     android:id="@+id/login_password_edittxt"

@@ -7,7 +7,7 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="favourite">Favourite</string>
-    <string name="plan">Plan</string>
+    <string name="plan">eg.gov.iti.jets.foodplanner.PlanItem</string>
     <string name="login">Login</string>
     <string name="forgotpassword">Forgot Password?</string>
     <string name="register_now">New user? Register Now</string>
@@ -24,10 +24,15 @@
     <string name="register">Register</string>
     <string name="useOtherMethods">Use other Methods</string>
     <string name="haveAccount">Already have an account?</string>
-    <string name="search_by_ing">Search By Ingredients</string>
+    <string name="search_by_ing">By Ingredients</string>
     <string name="search_recipe">Search Recipes</string>
-<!--    <string name="search_by_">Search By Ingredients</string>-->
-<!--    <string name="search_by_ing">Search By Ingredients</string>-->
-<!--    <string name="search_recipe">Search Recipes</string>-->
+    <string name="search_by_category">By Category</string>
+    <string name="search_by_country">By Country</string>
+    <string name="viewAll"><u>View All</u></string>
+    <string name="category_name"><u>Category</u></string>
+    <string name="ingredients_name">Ingredients</string>
+    <string name="searchable_name">Searchable Name</string>
+    <string name="searchable_meals">Searchable Meals</string>
+    <string name="skip"><u>Skip</u></string>
 
 </resources>

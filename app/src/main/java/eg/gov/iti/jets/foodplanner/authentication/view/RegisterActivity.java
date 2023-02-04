@@ -45,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     private TextView haveAccountTv;
 
+    ImageView animButton;
+
     private RegisterPresenter authPresenter;
 
     private String userName, email, password;
@@ -60,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
         initUI();
         init();
+        setupAnimationBtn();
         onRegisterClick();
         onGoogleClick();
     }
@@ -73,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
         googleImageView = findViewById(R.id.register_google_ImageView);
         haveAccountTv = findViewById(R.id.register_haveAccount_textView);
         registerBtn = findViewById(R.id.register_register_btn);
+        animButton = findViewById(R.id.register_anim_imageView);
 
         getSupportActionBar().hide();
         changeStatusBarColor();
@@ -89,6 +93,15 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.register_bk_color));
         }
+    }
+    void setupAnimationBtn(){
+        animButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                overridePendingTransition(R.anim.slide_right_to_left,R.anim.slide_left_to_right);
+            }
+        });
     }
 
     private void onRegisterClick() {

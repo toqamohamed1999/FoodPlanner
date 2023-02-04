@@ -19,6 +19,8 @@
         android:layout_centerInParent="true"
         android:paddingTop="20dp">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,9 +32,26 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/login_skip_textView"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:layout_gravity="center"
+                    android:text="@string/skip"
+                    android:background="@drawable/ripple_effect_rectangle"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignEnd="@+id/login_skip_textView"
+                    android:src="@drawable/baseline_keyboard_double_arrow_right_24"/>
+
+                <TextView
                     style="@style/viewParent.headerText.NoMode"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorAccent"
                     android:text="@string/alreadyHaveAccount" />
 
                 <ImageView
@@ -46,9 +65,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
+                app:startIconDrawable="@drawable/ic_email_24"
                 android:layout_marginTop="@dimen/loginViewsMargin">
-
-                <EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/login_email_edittxt"
                     style="@style/modifiedEditText"
                     android:backgroundTint="@color/whiteTextColor"
@@ -60,9 +79,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputPassword"
                 style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin">
+                app:startIconDrawable="@drawable/ic_lock_24"
+                app:endIconMode="password_toggle"
 
-                <EditText
+                android:layout_marginTop="@dimen/loginViewsMargin">
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/login_password_edittxt"
                     style="@style/modifiedEditText"
                     android:backgroundTint="@color/whiteTextColor"
@@ -147,6 +168,18 @@
                     android:src="@drawable/ic_google_plus" />
             </LinearLayout>
 
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:layout_width="100dp"-->
+<!--                android:id="@+id/login_skip_button"-->
+<!--                style="@style/loginButton"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:backgroundTint="#805C5252"-->
+<!--                android:drawableEnd="@drawable/baseline_keyboard_double_arrow_right_24"-->
+<!--                android:text="Skip"-->
+<!--                android:textColor="@color/black" />-->
+
+
         </LinearLayout>
     </ScrollView>
 
@@ -159,6 +192,7 @@
         android:background="@drawable/ic_side_bg" />
 
     <ImageView
+        android:id="@+id/login_anim_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

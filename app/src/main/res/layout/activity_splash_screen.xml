@@ -23,9 +23,9 @@
         android:layout_below="@+id/foodanimation"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:fontFamily="cursive"
+        android:fontFamily="@font/daily_keisha"
         android:text="Develop Meal"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/primaryOrange"
         android:textStyle="bold"
         android:textSize="40sp" />
 

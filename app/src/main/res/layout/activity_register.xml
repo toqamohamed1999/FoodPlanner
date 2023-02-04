@@ -53,6 +53,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputName"
                         style="@style/parent"
+                        app:boxStrokeColor="@color/colorAccent"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/register_name_editText"
@@ -66,6 +67,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputEmail"
                         style="@style/parent"
+                        app:startIconDrawable="@drawable/ic_email_24"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/register_email_editText"
@@ -78,6 +80,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputMobile"
                         style="@style/parent"
+                        app:endIconMode="password_toggle"
+                        app:startIconDrawable="@drawable/ic_lock_24"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/register_password_editText"
@@ -90,7 +94,9 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputPassword"
+                        app:endIconMode="password_toggle"
                         style="@style/parent"
+                        app:startIconDrawable="@drawable/ic_lock_24"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/register_confirmPassword_editText"
@@ -189,6 +195,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/ic_side_bg"/>
     <ImageView
+        android:id="@+id/register_anim_imageView"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_width="wrap_content"

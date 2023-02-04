@@ -37,6 +37,7 @@
                 android:text="@string/inspiration"
                 android:textColor="@color/primaryOrange"
                 android:textSize="30dp"
+                android:layout_marginTop="5dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/daily_keisha"
                 app:layout_constraintTop_toBottomOf="@id/home_profile_imageView"
@@ -47,13 +48,14 @@
 
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/inspiration_meal_cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
             android:layout_margin="10dp"
             app:cardCornerRadius="20dp"
-            android:elevation="50dp"
+            android:elevation="20dp"
             app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inspiration_meal_tv"
@@ -68,7 +70,7 @@
                 <ImageView
                     android:id="@+id/home_card_imageview"
                     android:layout_width="match_parent"
-                    android:layout_height="211dp"
+                    android:layout_height="250dp"
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"

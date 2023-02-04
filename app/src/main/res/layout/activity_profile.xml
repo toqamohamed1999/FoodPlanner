@@ -12,19 +12,37 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginTop="-30dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="#B7E6EC"
         android:elevation="30dp"
         app:cardCornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+        <ImageButton
+            android:id="@+id/resultSearch_back_imageBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="36dp"
+            android:backgroundTint="#B7E6EC"
+            android:background="@drawable/ripple_effect"
+            />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="500dp"
+            android:layout_height="400dp"
+            android:id="@+id/profile_animation_view"
+            app:lottie_rawRes="@raw/profile_animation"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:src="@drawable/develop_meal_logo2" />
+        />
     </com.google.android.material.card.MaterialCardView>
 
 
@@ -33,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="-20dp"
         android:layout_marginEnd="20dp"
         android:backgroundTint="@color/white"
         android:elevation="30dp"

@@ -62,12 +62,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin"
                 app:errorEnabled="true"
-                app:endIconMode="clear_text">
-
-
-                <EditText
+                app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/ic_email_24"
                 android:layout_marginTop="@dimen/loginViewsMargin">
                 <androidx.appcompat.widget.AppCompatEditText
@@ -84,14 +80,10 @@
                 style="@style/parent"
                 app:startIconDrawable="@drawable/ic_lock_24"
                 app:endIconMode="password_toggle"
-
                 android:layout_marginTop="@dimen/loginViewsMargin">
-                <androidx.appcompat.widget.AppCompatEditText
-                android:layout_marginTop="@dimen/loginViewsMargin"
-                app:errorEnabled="true"
-                app:endIconMode="password_toggle">
 
-                <EditText
+
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/login_password_edittxt"
                     style="@style/modifiedEditText"
                     android:backgroundTint="@color/whiteTextColor"

@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class OnSearchingActivity extends AppCompatActivity {
+public class Meal_Details_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on_searching);
+        setContentView(R.layout.activity_meal_details);
     }
 }

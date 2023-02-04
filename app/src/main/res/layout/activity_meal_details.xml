@@ -89,15 +89,15 @@
                 tools:itemCount="20"
                 tools:listitem="@layout/ingredient" />
 
-    <ImageView
-        android:id="@+id/mealDetails_mealCate_txtView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/meal_food_icon"
-        app:layout_constraintStart_toEndOf="@+id/guideline_Right"
-        app:layout_constraintTop_toBottomOf="@+id/mealDetails_ingredientsList_recycleView"
-        tools:text="Category: " />
+            <ImageView
+                android:id="@+id/mealDetails_mealCate_txtView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/meal_food_icon"
+                app:layout_constraintStart_toEndOf="@+id/guideline_Right"
+                app:layout_constraintTop_toBottomOf="@+id/mealDetails_ingredientsList_recycleView"
+                tools:text="Category: " />
 
             <TextView
                 android:id="@+id/mealDetails_mealCateVal_txtView"

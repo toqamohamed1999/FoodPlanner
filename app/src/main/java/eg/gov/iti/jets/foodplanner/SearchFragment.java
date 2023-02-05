@@ -21,11 +21,13 @@ public class SearchFragment extends Fragment {
 
     private static final String TAG = "SearchFragment";
 
-    private RecyclerView recyclerView;
+    private RecyclerView categoryRecyclerView,ingredientRecyclerView;
 
     private ArrayList<Category> categoriesList = new ArrayList<>();
+    private ArrayList<Ingredient> ingredientsList = new ArrayList<>();
 
     CategoryAdapter categoryAdapter ;
+    IngredientsAdapter ingredientsAdapter;
 
     SearchView searchView;
 
@@ -58,8 +60,9 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.search_category_recyclerView);
+        categoryRecyclerView = view.findViewById(R.id.search_category_recyclerView);
         searchView = view.findViewById(R.id.searchFragment_searchView);
+        ingredientRecyclerView=view.findViewById(R.id.search_ing_recyclerView);
 
         fillData();
         setupRecyclerView();
@@ -76,9 +79,15 @@ public class SearchFragment extends Fragment {
         //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        categoryRecyclerView.setLayoutManager(linearLayoutManager);
         categoryAdapter = new CategoryAdapter(requireContext(), categoriesList);
-        recyclerView.setAdapter(categoryAdapter);
+        categoryRecyclerView.setAdapter(categoryAdapter);
+
+        LinearLayoutManager linearLayoutManagerIng = new LinearLayoutManager(requireContext());
+        linearLayoutManagerIng.setOrientation(RecyclerView.HORIZONTAL);
+        ingredientRecyclerView.setLayoutManager(linearLayoutManagerIng);
+        ingredientsAdapter = new IngredientsAdapter(requireContext(), ingredientsList);
+        ingredientRecyclerView.setAdapter(ingredientsAdapter);
     }
 
     private void fillData(){
@@ -88,6 +97,13 @@ public class SearchFragment extends Fragment {
         categoriesList.add(new Category("2","Chicken","https://www.themealdb.com/images/category/chicken.png",""));
         categoriesList.add(new Category("1","Beef","https://www.themealdb.com/images/category/beef.png",""));
         categoriesList.add(new Category("2","Chicken","https://www.themealdb.com/images/category/chicken.png",""));
+
+        ingredientsList.add(new Ingredient("1","Beef","https://www.themealdb.com/images/category/beef.png"));
+        ingredientsList.add(new Ingredient("2","Chicken","https://www.themealdb.com/images/category/chicken.png"));
+        ingredientsList.add(new Ingredient("1","Beef","https://www.themealdb.com/images/category/beef.png"));
+        ingredientsList.add(new Ingredient("2","Chicken","https://www.themealdb.com/images/category/chicken.png"));
+        ingredientsList.add(new Ingredient("1","Beef","https://www.themealdb.com/images/category/beef.png"));
+
     }
 
 

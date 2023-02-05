@@ -25,10 +25,8 @@
             android:exported="true" />
         <activity
             android:name=".SplashScreen"
-            android:exported="true" />
-        <activity
-            android:name=".authentication.view.LoginActivity"
-            android:exported="true">
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,11 +34,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".authentication.view.LoginActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".authentication.view.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".ProfileActivity"
             android:exported="true" />

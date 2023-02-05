@@ -22,21 +22,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
+                android:gravity="center"
                 android:fontFamily="cursive"
                 android:padding="25dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/currentWeekPlan"
                 android:textColor="@color/colorAccent"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_notes"
-                android:layout_width="409dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:orientation="vertical"

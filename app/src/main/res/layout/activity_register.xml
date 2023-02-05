@@ -31,10 +31,10 @@
                     android:textColor="@color/whiteTextColor"
                     android:text="@string/haveYourFirstStep"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_login_hero"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/food4"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
@@ -50,19 +50,19 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:orientation="vertical">
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputName"
-                        style="@style/parent"
-                        app:boxStrokeColor="@color/colorAccent"
-                        android:layout_marginTop="@dimen/loginViewsMargin">
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/register_name_editText"
-                            style="@style/modifiedEditText"
-                            android:inputType="textPersonName"
-                            android:backgroundTint="@color/whiteTextColor"
-                            android:maxLines="1"
-                            android:hint="Name"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/textInputName"-->
+<!--                        style="@style/parent"-->
+<!--                        app:boxStrokeColor="@color/colorAccent"-->
+<!--                        android:layout_marginTop="@dimen/loginViewsMargin">-->
+<!--                        <androidx.appcompat.widget.AppCompatEditText-->
+<!--                            android:id="@+id/register_name_editText"-->
+<!--                            style="@style/modifiedEditText"-->
+<!--                            android:inputType="textPersonName"-->
+<!--                            android:backgroundTint="@color/whiteTextColor"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:hint="Name"/>-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputEmail"

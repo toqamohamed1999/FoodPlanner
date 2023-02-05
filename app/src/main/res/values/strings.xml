@@ -27,7 +27,7 @@
     <string name="ingradians_name">Ingredient Name</string>
     <string name="category">"Category: "</string>
     <string name="country">"Country:  "</string>
-    <string name="steps">"Steps: "</string>
+    <string name="steps">"Steps"</string>
     <string name="addToPlan">Add To Plan</string>
     <string name="currentWeekPlan">Current Week Plan</string>
 

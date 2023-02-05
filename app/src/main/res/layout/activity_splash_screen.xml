@@ -12,7 +12,7 @@
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="150dp"
         app:lottie_autoPlay="true"
         app:lottie_fileName="food-animation.json"
         app:lottie_loop="true" />

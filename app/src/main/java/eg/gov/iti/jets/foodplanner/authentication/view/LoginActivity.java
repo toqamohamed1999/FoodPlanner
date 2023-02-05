@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         animButton = findViewById(R.id.login_anim_imageView);
         skipTv = findViewById(R.id.login_skip_textView);
 

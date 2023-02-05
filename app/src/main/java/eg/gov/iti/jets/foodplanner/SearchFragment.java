@@ -64,9 +64,9 @@ public class SearchFragment extends Fragment {
         fillData();
         setupRecyclerView();
 
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onFocusChange(View v, boolean hasFocus) {
                 startActivity(new Intent(requireContext(),OnSearchingActivity.class));
             }
         });

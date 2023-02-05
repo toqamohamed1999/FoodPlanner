@@ -101,11 +101,11 @@ public class SearchFragment extends Fragment {
         categoriesList.add(new Category("1","Beef","https://www.themealdb.com/images/category/beef.png",""));
         categoriesList.add(new Category("2","Chicken","https://www.themealdb.com/images/category/chicken.png",""));
 
-        ingredientsList.add(new Ingredient("1","Beef","https://www.themealdb.com/images/category/beef.png"));
-        ingredientsList.add(new Ingredient("2","Chicken","https://www.themealdb.com/images/category/chicken.png"));
-        ingredientsList.add(new Ingredient("1","Beef","https://www.themealdb.com/images/category/beef.png"));
-        ingredientsList.add(new Ingredient("2","Chicken","https://www.themealdb.com/images/category/chicken.png"));
-        ingredientsList.add(new Ingredient("1","Beef","https://www.themealdb.com/images/category/beef.png"));
+        ingredientsList.add(new Ingredient("1","Beef","","https://www.themealdb.com/images/category/beef.png"));
+        ingredientsList.add(new Ingredient("2","Chicken","","https://www.themealdb.com/images/category/chicken.png"));
+        ingredientsList.add(new Ingredient("1","Beef","","https://www.themealdb.com/images/category/beef.png"));
+        ingredientsList.add(new Ingredient("2","Chicken","","https://www.themealdb.com/images/category/chicken.png"));
+        ingredientsList.add(new Ingredient("1","Beef","","https://www.themealdb.com/images/category/beef.png"));
 
     }
 

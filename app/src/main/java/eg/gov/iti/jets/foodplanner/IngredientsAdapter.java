@@ -35,7 +35,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Ingredient ingredient = ingredientList.get(position);
-        Picasso.get().load(ingredient.getStrDescription())
+        Picasso.get().load(ingredient.getStrThumbnail())
                 .placeholder(R.drawable.cake)
                 .into(holder.ingredientImageView);
         holder.ingredientNameTv.setText(ingredient.getStrIngredient());

@@ -13,13 +13,15 @@ public class Ingredient {
     private String strIngredient;
     private String strDescription;
 
+    private String strThumbnail;
     public Ingredient() {
     }
 
-    public Ingredient(String idIngredient, String strIngredient, String strDescription) {
+    public Ingredient(String idIngredient, String strIngredient, String strDescription, String strThumbnail) {
         this.idIngredient = idIngredient;
         this.strIngredient = strIngredient;
         this.strDescription = strDescription;
+        this.strThumbnail = strThumbnail;
     }
 
     public String getIdIngredient() {
@@ -46,12 +48,21 @@ public class Ingredient {
         this.strDescription = strDescription;
     }
 
+    public String getStrThumbnail() {
+        return strThumbnail;
+    }
+
+    public void setStrThumbnail(String strThumbnail) {
+        this.strThumbnail = strThumbnail;
+    }
+
     @Override
     public String toString() {
         return "Ingredient{" +
                 "idIngredient='" + idIngredient + '\'' +
                 ", strIngredient='" + strIngredient + '\'' +
                 ", strDescription='" + strDescription + '\'' +
+                ", strThumbnail='" + strThumbnail + '\'' +
                 '}';
     }
 }

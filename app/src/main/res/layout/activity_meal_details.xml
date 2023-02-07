@@ -17,10 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
+            <RelativeLayout
                 android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="300dp"
                 app:cardPreventCornerOverlap="false"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_Left"
                 app:layout_constraintHorizontal_bias="0.466"
@@ -28,9 +28,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/meal_details_imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="300dp"
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/cake" />
 
@@ -38,13 +38,12 @@
                     android:id="@+id/mealDetails_card_fav_imageview"
                     android:layout_width="43dp"
                     android:layout_height="47dp"
-                    android:layout_marginStart="330dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:background="#57FFFFFF"
                     android:backgroundTint="#2AFFFFFF"
-                    app:layout_constraintEnd_toEndOf="@id/imageView3"
-                    app:layout_constraintTop_toTopOf="@id/imageView3"
+                    android:layout_alignParentEnd="true"
+                    app:layout_constraintTop_toTopOf="@id/meal_details_imageView"
                     app:srcCompat="@drawable/baseline_favorite_24" />
 
                 <ImageButton
@@ -52,14 +51,13 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorPrimary"
-                    android:backgroundTint="#B7E6EC"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/circle"
                     android:src="@drawable/baseline_arrow_back_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
 
             <TextView
@@ -67,7 +65,7 @@
                 android:layout_width="149dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="20dp"
-                android:text="TextView"
+                android:text="Meal Name"
                 android:textSize="20dp"
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toStartOf="@+id/mealDetails_addToPlan_btn"
@@ -104,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="Category Value"
                 app:layout_constraintEnd_toStartOf="@+id/mealDetails_mealArea_txtView"
                 app:layout_constraintHorizontal_bias="0.118"
                 app:layout_constraintStart_toEndOf="@+id/mealDetails_mealCate_txtView"
@@ -127,8 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_Left"
+                android:text="Area Value"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/mealDetails_mealArea_txtView"
                 tools:text="Area Value" />
 
@@ -136,12 +134,14 @@
                 android:id="@+id/mealDetails_steps_txtView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="TextView"
+                android:layout_marginTop="28dp"
+                android:text="@string/steps"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_Left"
-                app:layout_constraintHorizontal_bias="0.49"
+                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toEndOf="@+id/guideline_Right"
                 app:layout_constraintTop_toBottomOf="@+id/mealDetails_mealCateVal_txtView"
                 tools:text="@string/steps" />
@@ -150,20 +150,23 @@
                 android:id="@+id/mealDetails_stepsVal_txtView"
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="30dp"
                 android:inputType="textMultiLine"
-                android:text="Steps Value "
+                android:text="Steps Value Steps Value Steps Value Steps Value Steps Value Steps Value Steps Value Steps Value Steps Value Steps Value"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_Left"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="@+id/mealDetails_steps_txtView"
                 app:layout_constraintRight_toRightOf="@+id/mealDetails_steps_txtView"
                 app:layout_constraintStart_toEndOf="@+id/guideline_Right"
-                app:layout_constraintTop_toTopOf="@+id/mealDetails_steps_txtView" />
+                app:layout_constraintTop_toTopOf="@+id/mealDetails_steps_txtView"
+                tools:text="Steps Value" />
 
             <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_Left"
                 app:layout_constraintStart_toEndOf="@+id/guideline_Right"
                 app:layout_constraintTop_toBottomOf="@+id/mealDetails_stepsVal_txtView">
@@ -197,14 +200,15 @@
                 android:text="@string/addToPlan"
                 style="@style/Button"
                 android:paddingEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_Left"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:barrierDirection="left"
-                app:constraint_referenced_ids="mealDetails_stepsVal_txtView,frameLayout"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="mealDetails_stepsVal_txtView"
                 tools:layout_editor_absoluteX="13dp"
                 tools:layout_editor_absoluteY="437dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>

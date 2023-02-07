@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().hide();
 
         initUI();
         init();
@@ -69,7 +70,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     private void initUI() {
 
-        nameEditText = findViewById(R.id.register_name_editText);
         emailEditText = findViewById(R.id.register_email_editText);
         passwordEditText = findViewById(R.id.register_password_editText);
         confirmPasswordEditText = findViewById(R.id.register_confirmPassword_editText);
@@ -108,7 +108,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userName = nameEditText.getText().toString();
                 email = emailEditText.getText().toString();
                 password = passwordEditText.getText().toString();
                 authPresenter.Register(userName, email, password);

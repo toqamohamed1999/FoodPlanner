@@ -10,5 +10,6 @@ public class OnSearchingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_searching);
+        getSupportActionBar().hide();
     }
 }

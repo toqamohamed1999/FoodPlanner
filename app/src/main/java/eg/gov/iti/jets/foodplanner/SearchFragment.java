@@ -7,12 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -67,19 +69,20 @@ public class SearchFragment extends Fragment {
         fillData();
         setupRecyclerView();
 
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onFocusChange(View v, boolean hasFocus) {
                 startActivity(new Intent(requireContext(),OnSearchingActivity.class));
             }
         });
+
     }
 
     private void setupRecyclerView() {
-        //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        categoryRecyclerView.setLayoutManager(linearLayoutManager);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
+        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        categoryRecyclerView.setLayoutManager(layoutManager);
         categoryAdapter = new CategoryAdapter(requireContext(), categoriesList);
         categoryRecyclerView.setAdapter(categoryAdapter);
 

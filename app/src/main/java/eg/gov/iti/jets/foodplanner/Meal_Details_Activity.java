@@ -10,5 +10,6 @@ public class Meal_Details_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_details);
+        getSupportActionBar().hide();
     }
 }

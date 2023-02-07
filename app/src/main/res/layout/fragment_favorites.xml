@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FavoritesFragment">
+
+    <TextView
+        android:id="@+id/fav_item_category_textView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:text="Favorites"
+        android:fontFamily="@font/daily_keisha"
+        android:textColor="@color/primaryOrange"
+        android:textSize="30dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fav_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment"
-        tools:listitem="@layout/fav_item"/>
+        tools:listitem="@layout/fav_item"
+        android:layout_marginBottom="70dp"/>
 
-</FrameLayout>
+</LinearLayout>

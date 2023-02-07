@@ -41,10 +41,10 @@ public class LoginPresenter implements LoginPresenterInterface {
                             // Sign in success, update UI with the signed-in user's information
                             Log.i(TAG, "signInWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            if(user.isEmailVerified()) {
+//                            if(user.isEmailVerified()) {
                                 mySharedPref.sharedPrefWrite(email, password);
                                 loginViewInterface.OnLoginSuccess();
-                            }
+//                            }
 
                         } else {
                             // If sign in fails, display a message to the user.

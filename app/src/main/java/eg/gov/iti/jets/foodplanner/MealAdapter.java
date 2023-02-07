@@ -20,7 +20,7 @@ import eg.gov.iti.jets.foodplanner.model.Meal;
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> {
     private Context context;
     private List<Meal> mealsList;
-
+    public  static String MEAL_KEY="meal";
     public MealAdapter(Context context, List<Meal> mealsList) {
         this.context = context;
         this.mealsList = mealsList;
@@ -46,7 +46,9 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context,Meal_Details_Activity.class));
+                Intent i=new Intent(context,Meal_Details_Activity.class);
+                i.putExtra(MEAL_KEY,mealsList.get(position));
+                context.startActivity(i);
             }
         });
     }

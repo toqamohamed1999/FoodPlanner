@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import eg.gov.iti.jets.foodplanner.model.Meal;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> {
     private Context context;
@@ -37,7 +38,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Meal meal = mealsList.get(position);
         Picasso.get().load(meal.getStrMealThumb())
-                .placeholder(R.drawable.cake)
+                .placeholder(R.mipmap.ic_launcher)
                 .into(holder.mealImageView);
         holder.mealNameTv.setText(meal.getStrMeal());
         holder.mealCategoryTv.setText(meal.getStrCategory());
@@ -55,7 +56,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
         return mealsList.size();
     }
 
-    void setData(final List<Meal> mealsList) {
+    public void setData(final List<Meal> mealsList) {
         this.mealsList = mealsList;
         notifyDataSetChanged();
     }
@@ -69,7 +70,6 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
             mealImageView = mealView.findViewById(R.id.meal_item_imageView);
             mealNameTv = mealView.findViewById(R.id.meal_item_title_textview);
             mealCategoryTv = mealView.findViewById(R.id.meal_item_category_textView);
-
         }
     }
 }

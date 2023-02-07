@@ -1,8 +1,14 @@
-package eg.gov.iti.jets.foodplanner;
+package eg.gov.iti.jets.foodplanner.model;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class Meal{
+@Entity(tableName = "meal")
+public class Meal {
+
+    @PrimaryKey
+    @NonNull
     private String idMeal;
     private String strMeal;
     private String strDrinkAlternate;
@@ -33,7 +39,7 @@ public class Meal{
     private String strIngredient19;
     private String strIngredient20;
 
-    public Meal(){
+    public Meal() {
 
     }
 
@@ -313,29 +319,3 @@ public class Meal{
                 '}';
     }
 }
-
- class MealRoot{
-    private ArrayList<Meal> meals;
-
-     public MealRoot(ArrayList<Meal> meals) {
-         this.meals = meals;
-     }
-     public MealRoot(){
-
-     }
-
-     @Override
-     public String toString() {
-         return "MealRoot{" +
-                 "meals=" + meals +
-                 '}';
-     }
-
-     public ArrayList<Meal> getMeals() {
-         return meals;
-     }
-
-     public void setMeals(ArrayList<Meal> meals) {
-         this.meals = meals;
-     }
- }

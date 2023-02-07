@@ -1,6 +1,4 @@
-package eg.gov.iti.jets.foodplanner;
-
-import java.util.ArrayList;
+package eg.gov.iti.jets.foodplanner.model;
 
 public class Category {
 
@@ -15,7 +13,8 @@ public class Category {
         this.strCategoryThumb = strCategoryThumb;
         this.strCategoryDescription = strCategoryDescription;
     }
-    public Category(){
+
+    public Category() {
 
     }
 
@@ -61,31 +60,3 @@ public class Category {
                 '}';
     }
 }
-
-class CategoryRoot {
-    private ArrayList<Category> categories;
-
-    public CategoryRoot(ArrayList<Category> categories) {
-        this.categories = categories;
-    }
-    public CategoryRoot(){
-
-    }
-
-    @Override
-    public String toString() {
-        return "CategoryRoot{" +
-                "categories=" + categories +
-                '}';
-    }
-
-    public ArrayList<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
-    }
-
-}
-

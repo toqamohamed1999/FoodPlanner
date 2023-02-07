@@ -35,7 +35,7 @@ public class RegisterPresenter implements RegisterPresenterInterface {
     }
 
     @Override
-    public void Register(String userName, String email, String password) {
+    public void Register(String email, String password) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

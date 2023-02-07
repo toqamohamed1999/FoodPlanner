@@ -30,6 +30,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import eg.gov.iti.jets.foodplanner.MainActivity;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.presenter.RegisterPresenter;
 
@@ -110,7 +114,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
             public void onClick(View v) {
                 email = emailEditText.getText().toString();
                 password = passwordEditText.getText().toString();
-                authPresenter.Register(userName, email, password);
+                if(checkDataValidation()) {
+                    authPresenter.Register(email, password);
+                }
             }
         });
     }
@@ -129,7 +135,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     @Override
     public void onSuccessRegister() {
-        Toast.makeText(this, "Register success", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override
@@ -185,12 +193,51 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
                 .addOnSuccessListener(this, authResult -> {
                     Toast.makeText(this, "Google Register success", Toast.LENGTH_SHORT).show();
-                    Log.i(TAG, "firebaseAuthWithGoogle: success");
-                    //   startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                    //   finish();
+                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                     finish();
                 })
                 .addOnFailureListener(this, e -> Toast.makeText(RegisterActivity.this, "Google Register failed.",
                         Toast.LENGTH_SHORT).show());
         Log.i(TAG, "firebaseAuthWithGoogle: fail");
+    }
+
+    private boolean validEmail(String email) {
+
+        String emailRegex = "^.+@.+\\..+$";
+        Pattern emailPattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPattern.matcher(email);
+        return matcher.find();
+    }
+
+    private boolean validPassword(String password) {
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])"
+                + "(?=\\S+$).{8,20}$";
+
+        Pattern passwordPattern = Pattern.compile(regex);
+
+        if (password == null) {
+            return false;
+        }
+        Matcher m = passwordPattern.matcher(password);
+
+        return m.matches();
+
+    }
+
+    private boolean checkDataValidation(){
+
+        if(!validEmail(email)){
+            emailEditText.setError("invalid email");
+            return false;
+        }else if(!validPassword(password)) {
+            passwordEditText.setError("password must have at least 8 characters and contains uppercase letters, lowercase letters, numbers, and symbols");
+            return false;
+        }else if(!passwordEditText.getText().toString().equals(confirmPasswordEditText.getText().toString())) {
+            confirmPasswordEditText.setError("confirm password doesn't match your password");
+            return false;
+        }
+        return true;
     }
 }

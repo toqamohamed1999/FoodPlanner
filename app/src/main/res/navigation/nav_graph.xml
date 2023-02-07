@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="eg.gov.iti.jets.foodplanner.HomeFragment"
+        android:name="eg.gov.iti.jets.foodplanner.homeScreen.view.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment

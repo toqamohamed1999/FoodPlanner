@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.model.Category;
+
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
     private Context context;
     private List<Category> categoriesList;

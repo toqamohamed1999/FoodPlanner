@@ -1,4 +1,4 @@
-package eg.gov.iti.jets.foodplanner;
+package eg.gov.iti.jets.foodplanner.homeScreen.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,24 +9,48 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class HomeFragment extends Fragment {
+import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.MealAdapter;
+import eg.gov.iti.jets.foodplanner.ProfileActivity;
+import eg.gov.iti.jets.foodplanner.R;
+import eg.gov.iti.jets.foodplanner.database.ConcreteLocaleSource;
+import eg.gov.iti.jets.foodplanner.homeScreen.presenter.HomePresenter;
+import eg.gov.iti.jets.foodplanner.model.Repo;
+import eg.gov.iti.jets.foodplanner.network.ApiClient;
+
+public class HomeFragment extends Fragment implements HomeViewInterface{
 
     private static final String TAG = "HomeFragment";
 
     private RecyclerView recyclerView;
 
-    private ArrayList<Meal> mealsList = new ArrayList<>();
+    private List<Meal> mealsList = new ArrayList<>();
 
     private MealAdapter mealAdapter ;
 
     private ImageView profileImageView;
+
+    private  Meal meal;
+
+    private HomePresenter homePresenter;
+
+    private ImageView inspirationImageView,inspirationFavImageView;
+
+    private TextView inspirationNameTv,inspirationCategoryTv;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -58,19 +82,31 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.home_category_recyclerView);
-        profileImageView = view.findViewById(R.id.home_profile_imageView);
 
+        initUI(view);
+        onClickProfileImage();
+        setUpPresenter();
+        //////
         fillData();
         setupRecyclerView();
+    }
 
+    private void initUI(View view){
+        recyclerView = view.findViewById(R.id.home_category_recyclerView);
+        profileImageView = view.findViewById(R.id.home_profile_imageView);
+        inspirationImageView = view.findViewById(R.id.home_card_imageview);
+        inspirationFavImageView = view.findViewById(R.id.home_card_fav_imageview);
+        inspirationNameTv = view.findViewById(R.id.home_card_title_textview);
+        inspirationCategoryTv = view.findViewById(R.id.home_card_category_textView);
+    }
+
+    private void onClickProfileImage(){
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(requireContext(),ProfileActivity.class));
+                startActivity(new Intent(requireContext(), ProfileActivity.class));
             }
         });
-
     }
 
    private void setupRecyclerView() {
@@ -93,5 +129,44 @@ public class HomeFragment extends Fragment {
         mealsList.add(new Meal("52768","Apple Frangipan Tart","Dessert","British","Preheat the oven to 200C/180C Fan/Gas 6.\\r\\nPut the biscuits in a large re-sealable freezer bag and bash with a rolling pin into fine crumbs. Melt the butter in a small pan, then add the biscuit crumbs and stir until coated with butter. Tip into the tart tin and, using the back of a spoon, press over the base and sides of the tin to give an even layer. Chill in the fridge while you make the filling.\\r\\nCream together the butter and sugar until light and fluffy. You can do this in a food processor if you have one. Process for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond extract and blend until well combined.\\r\\nPeel the apples, and cut thin slices of apple. Do this at the last minute to prevent the apple going brown. Arrange the slices over the biscuit base. Spread the frangipane filling evenly on top. Level the surface and sprinkle with the flaked almonds.\\r\\nBake for 20-25 minutes until golden-brown and set.\\r\\nRemove from the oven and leave to cool for 15 minutes. Remove the sides of the tin. An easy way to do this is to stand the tin on a can of beans and push down gently on the edges of the tin.\\r\\nTransfer the tart, with the tin base attached, to a serving plate. Serve warm with cream, crème fraiche or ice cream.","https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg"));
         mealsList.add(new Meal("52768","Apple Frangipan Tart","Dessert","British","Preheat the oven to 200C/180C Fan/Gas 6.\\r\\nPut the biscuits in a large re-sealable freezer bag and bash with a rolling pin into fine crumbs. Melt the butter in a small pan, then add the biscuit crumbs and stir until coated with butter. Tip into the tart tin and, using the back of a spoon, press over the base and sides of the tin to give an even layer. Chill in the fridge while you make the filling.\\r\\nCream together the butter and sugar until light and fluffy. You can do this in a food processor if you have one. Process for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond extract and blend until well combined.\\r\\nPeel the apples, and cut thin slices of apple. Do this at the last minute to prevent the apple going brown. Arrange the slices over the biscuit base. Spread the frangipane filling evenly on top. Level the surface and sprinkle with the flaked almonds.\\r\\nBake for 20-25 minutes until golden-brown and set.\\r\\nRemove from the oven and leave to cool for 15 minutes. Remove the sides of the tin. An easy way to do this is to stand the tin on a can of beans and push down gently on the edges of the tin.\\r\\nTransfer the tart, with the tin base attached, to a serving plate. Serve warm with cream, crème fraiche or ice cream.","https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg"));
         mealsList.add(new Meal("52768","Apple Frangipan Tart","Dessert","British","Preheat the oven to 200C/180C Fan/Gas 6.\\r\\nPut the biscuits in a large re-sealable freezer bag and bash with a rolling pin into fine crumbs. Melt the butter in a small pan, then add the biscuit crumbs and stir until coated with butter. Tip into the tart tin and, using the back of a spoon, press over the base and sides of the tin to give an even layer. Chill in the fridge while you make the filling.\\r\\nCream together the butter and sugar until light and fluffy. You can do this in a food processor if you have one. Process for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond extract and blend until well combined.\\r\\nPeel the apples, and cut thin slices of apple. Do this at the last minute to prevent the apple going brown. Arrange the slices over the biscuit base. Spread the frangipane filling evenly on top. Level the surface and sprinkle with the flaked almonds.\\r\\nBake for 20-25 minutes until golden-brown and set.\\r\\nRemove from the oven and leave to cool for 15 minutes. Remove the sides of the tin. An easy way to do this is to stand the tin on a can of beans and push down gently on the edges of the tin.\\r\\nTransfer the tart, with the tin base attached, to a serving plate. Serve warm with cream, crème fraiche or ice cream.","https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg"));
+    }
+
+    void setUpPresenter(){
+        homePresenter = new HomePresenter(this, Repo.getInstance(requireContext(), ConcreteLocaleSource.getInstance(requireContext()), ApiClient.getClient()));
+        homePresenter.getRandomMeal();
+        homePresenter.getEgyptianMeals();
+        homePresenter.getMealById();
+    }
+    @Override
+    public void getRandomMeal(Meal meal) {
+        this.meal = meal;
+        setInspirationMealData();
+        Log.i(TAG, "getRandomMeal: "+meal);
+    }
+
+
+
+    private void setInspirationMealData(){
+        if(meal != null) {
+            Picasso.get().load(meal.getStrMealThumb())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(inspirationImageView);
+            inspirationNameTv.setText(meal.getStrMeal());
+            inspirationCategoryTv.setText(meal.getStrCategory());
+        }
+    }
+
+    @Override
+    public void getEgyptianMeals(List<Meal> mealsList) {
+        Log.i(TAG, "getEgyptianMeals: "+ mealsList.toString());
+        this.mealsList = mealsList;
+        mealAdapter.setData(mealsList);
+    }
+
+    @Override
+    public void getMealById(Meal meal) {
+        Meal meal1 = meal;
+        Log.i(TAG, "getMealById: "+meal1);
+
     }
 }

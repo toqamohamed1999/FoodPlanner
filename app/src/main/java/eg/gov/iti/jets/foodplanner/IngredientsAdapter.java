@@ -37,10 +37,9 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Ingredient ingredient = ingredientList.get(position);
         Picasso.get().load(ingredient.getStrThumbnail())
-                .placeholder(R.drawable.cake)
+                .placeholder(R.mipmap.ic_launcher)
                 .into(holder.ingredientImageView);
         holder.ingredientNameTv.setText(ingredient.getStrIngredient());
-
     }
 
     @Override
@@ -48,7 +47,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         return ingredientList.size();
     }
 
-    void setData(final List<Ingredient> ingredientList) {
+   public void setData(final List<Ingredient> ingredientList) {
         this.ingredientList = ingredientList;
         notifyDataSetChanged();
     }

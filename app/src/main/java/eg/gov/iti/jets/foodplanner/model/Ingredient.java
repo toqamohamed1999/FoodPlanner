@@ -17,6 +17,11 @@ public class Ingredient {
     public Ingredient() {
     }
 
+    public Ingredient(String strIngredient, String strThumbnail) {
+        this.strIngredient = strIngredient;
+        this.strThumbnail = strThumbnail;
+    }
+
     public Ingredient(String idIngredient, String strIngredient, String strDescription, String strThumbnail) {
         this.idIngredient = idIngredient;
         this.strIngredient = strIngredient;

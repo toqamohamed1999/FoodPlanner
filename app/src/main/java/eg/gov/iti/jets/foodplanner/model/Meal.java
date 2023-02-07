@@ -2,6 +2,7 @@ package eg.gov.iti.jets.foodplanner.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -41,6 +42,7 @@ public class Meal implements Serializable {
     private String strIngredient19;
     private String strIngredient20;
 
+    @Ignore
     public Meal() {
 
     }

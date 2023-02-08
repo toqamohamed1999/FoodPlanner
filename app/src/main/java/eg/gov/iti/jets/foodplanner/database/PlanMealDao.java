@@ -1,29 +1,28 @@
 package eg.gov.iti.jets.foodplanner.database;
 
-import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 
 import java.util.List;
-
-import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 
-public interface LocalSourceInterface {
+@Dao
+public interface PlanMealDao {
 
-    Observable<List<Meal>> getStoredMeals();
-
-    void insertMeal(Meal meal);
-
-    void deleteMeal(Meal meal);
-
-    void deleteMealTable();
-
+    @Query("SELECT * FROM planMeal")
     Observable<List<PlanMeal>> getStoredPlanMeals();
 
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPlanMeal(PlanMeal planMeal);
 
+    @Delete
     void deletePlanMeal(PlanMeal planMeal);
 
+    @Query("DELETE FROM planMeal")
     void deletePlanMealTable();
 }

@@ -1,10 +1,19 @@
 package eg.gov.iti.jets.foodplanner.model;
 
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "planMeal")
 public class PlanMeal {
 
+    @PrimaryKey
+    @NonNull
     private String weekDay;
 
+    @PrimaryKey
+    @NonNull
     private String idMeal;
 
     private String strMeal;

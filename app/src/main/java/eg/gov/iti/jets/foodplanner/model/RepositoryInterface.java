@@ -28,6 +28,6 @@ public interface RepositoryInterface {
 
       public void getMealsByCountry(NetworkDelegateOnSearching networkDelegateOnSearching,String Country) ;
 
-      public void getMealsByIngredients(NetworkDelegateOnSearching networkDelegateOnSearching,String ingredient) ;
+      public void getMealsByIngredients(NetworkDelegateOnSearching networkDelegateOnSearching,String ingredient);
 
 }

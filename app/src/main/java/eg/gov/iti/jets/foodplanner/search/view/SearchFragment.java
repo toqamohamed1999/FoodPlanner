@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -23,13 +22,13 @@ import eg.gov.iti.jets.foodplanner.CountryAdapter;
 import eg.gov.iti.jets.foodplanner.IngredientsAdapter;
 import eg.gov.iti.jets.foodplanner.OnSearchingActivity;
 import eg.gov.iti.jets.foodplanner.R;
-import eg.gov.iti.jets.foodplanner.database.ConcreteLocaleSource;
-import eg.gov.iti.jets.foodplanner.homeScreen.presenter.HomePresenter;
+import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Category;
 import eg.gov.iti.jets.foodplanner.model.Country;
 import eg.gov.iti.jets.foodplanner.model.Ingredient;
 import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.ApiClient;
+import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 import eg.gov.iti.jets.foodplanner.search.presenter.SearchFragmentPresenter;
 
 
@@ -125,7 +124,7 @@ public class SearchFragment extends Fragment implements SearchFragmentViewInterF
     }
 
     void setUpPresenter(){
-        searchFragmentPresenter = new SearchFragmentPresenter(this, Repo.getInstance(requireContext(), ConcreteLocaleSource.getInstance(requireContext()), ApiClient.getClient()));
+        searchFragmentPresenter = new SearchFragmentPresenter(this,Repo.getInstance(requireContext(), LocalSource.getLocalSource(requireContext()), RemoteSource.getRemoteSource()));
         searchFragmentPresenter.getAllCategories();
         searchFragmentPresenter.getAllCountries();
     }

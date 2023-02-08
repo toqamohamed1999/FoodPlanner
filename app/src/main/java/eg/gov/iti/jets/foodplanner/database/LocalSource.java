@@ -1,16 +1,48 @@
 package eg.gov.iti.jets.foodplanner.database;
 
-import androidx.lifecycle.LiveData;
+import android.content.Context;
 
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.model.Meal;
+import io.reactivex.rxjava3.core.Single;
 
-public interface LocalSource {
+public class LocalSource implements LocalSourceInterface{
 
-    LiveData<List<Meal>> getAllMeals();
+    private MealDao mealDao;
+    private static LocalSource localSource;
 
-//    void insertProduct(Product product);
+    private LocalSource(Context context) {
+        MyDataBase myDataBase = MyDataBase.getInstance(context);
+        mealDao = myDataBase.mealDao();
+    }
+
+    public static synchronized LocalSource getLocalSource(Context context) {
+        if (localSource == null) {
+            localSource = new LocalSource(context);
+        }
+        return localSource;
+    }
+
+//    public Single<List<Product>> getAllProducts() {
+//        return productsDao.getAllProducts();
+//    }
 //
-//    void deleteProduct(Product product);
+//    public void insertProduct(Product product) {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                productsDao.insertProduct(product);
+//            }
+//        }).start();
+//    }
+//
+//
+//    public void deleteProduct(Product product) {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                productsDao.deleteProduct(product);
+//            }
+//        }).start();
+//    }
 }

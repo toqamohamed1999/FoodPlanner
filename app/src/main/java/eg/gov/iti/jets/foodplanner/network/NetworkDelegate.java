@@ -3,15 +3,15 @@ package eg.gov.iti.jets.foodplanner.network;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.model.MealRoot;
+import io.reactivex.rxjava3.core.Single;
 
 public interface NetworkDelegate {
 
-    public void onSuccessGetRandomMeal(Meal meal);
-    public void onFailGetRandomMeal(String error);
+    public void getRandomMeal(Single<MealRoot> mealRoot);
 
-    public void onSuccessGetEgyptianMeals(List<Meal> mealsList);
-    public void onFailGetEgyptianMeals(String error);
+    public void getEgyptianMeals(Single<MealRoot> mealRoot);
 
-    public void onSuccessGetMealByName(Meal meal);
-    public void onFailGetMealByName(String error);
+    public void getMealByName(Single<MealRoot> mealRoot);
+
 }

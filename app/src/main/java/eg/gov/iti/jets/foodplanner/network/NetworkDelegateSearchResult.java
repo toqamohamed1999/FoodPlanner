@@ -3,13 +3,13 @@ package eg.gov.iti.jets.foodplanner.network;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.model.MealRoot;
+import io.reactivex.rxjava3.core.Single;
 
 public interface NetworkDelegateSearchResult {
 
 
-    public void onSuccessGetSpecificCategoryMeals(List<Meal> mealsList);
-    public void onFailGetSpecificCategoryMeals(String error);
+    public void getSpecificCategoryMeals(Single<MealRoot> mealRoot);
 
-    public void onSuccessGetSpecificCountryMeals(List<Meal> mealsList);
-    public void onFailGetSpecificCountryMeals(String error);
+    public void getSpecificCountryMeals(Single<MealRoot> mealRoot);
 }

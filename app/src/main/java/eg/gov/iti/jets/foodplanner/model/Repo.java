@@ -2,27 +2,27 @@ package eg.gov.iti.jets.foodplanner.model;
 
 import android.content.Context;
 
-import eg.gov.iti.jets.foodplanner.database.LocalSource;
+import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
-import eg.gov.iti.jets.foodplanner.network.RemoteSource;
+import eg.gov.iti.jets.foodplanner.network.RemoteSourceInterface;
 
 
 public class Repo implements RepositoryInterface {
 
     private Context context;
     private static Repo repo;
-    private LocalSource localSource;
-    private RemoteSource remoteSource;
+    private LocalSourceInterface localSource;
+    private RemoteSourceInterface remoteSource;
 
-    public Repo(Context context, LocalSource localSource, RemoteSource remoteSource) {
+    public Repo(Context context, LocalSourceInterface localSource, RemoteSourceInterface remoteSource) {
         this.context = context;
         this.localSource = localSource;
         this.remoteSource = remoteSource;
     }
 
-    public static Repo getInstance(Context context, LocalSource localSource, RemoteSource remoteSource) {
+    public static Repo getInstance(Context context, LocalSourceInterface localSource, RemoteSourceInterface remoteSource) {
         if (repo == null) {
             repo = new Repo(context, localSource, remoteSource);
         }

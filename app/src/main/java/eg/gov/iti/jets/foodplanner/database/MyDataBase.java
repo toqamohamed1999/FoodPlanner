@@ -14,7 +14,7 @@ import eg.gov.iti.jets.foodplanner.model.Meal;
 public abstract class MyDataBase extends RoomDatabase {
     private static  MyDataBase myDataBase = null;
 
-    public  abstract MealDao productsDao();
+    public  abstract MealDao mealDao();
 
     public static synchronized MyDataBase getInstance(Context context){
         if(myDataBase == null){

@@ -2,30 +2,25 @@ package eg.gov.iti.jets.foodplanner.searchResult.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+
 import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.MainActivity;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
-import eg.gov.iti.jets.foodplanner.ProfileActivity;
 import eg.gov.iti.jets.foodplanner.R;
-import eg.gov.iti.jets.foodplanner.database.ConcreteLocaleSource;
-import eg.gov.iti.jets.foodplanner.homeScreen.presenter.HomePresenter;
+import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.ApiClient;
+import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 import eg.gov.iti.jets.foodplanner.search.view.SearchFragment;
 import eg.gov.iti.jets.foodplanner.searchResult.presenter.SearchResultPresenter;
 
@@ -92,7 +87,7 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
     }
 
     void setUpPresenter(){
-        searchResultPresenter = new SearchResultPresenter(this, Repo.getInstance(getApplicationContext(), ConcreteLocaleSource.getInstance(getApplicationContext()), ApiClient.getClient()));
+        searchResultPresenter = new SearchResultPresenter(this,Repo.getInstance(getApplicationContext(), LocalSource.getLocalSource(getApplicationContext()), RemoteSource.getRemoteSource()));
         if(category != null) searchResultPresenter.getSpecificCategoryMeals(category);
         if(country != null) searchResultPresenter.getSpecificCountryMeals(country);
     }

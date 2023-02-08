@@ -112,7 +112,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity {
         ingredientList.add(new Ingredient(meal.getStrIngredient20(), "https://www.themealdb.com/images/ingredients/Lime.png"));
         Log.i(TAG, "getIngredientList: "+ingredientList.size());
         
-        ingredientList=ingredientList.stream().filter(e->!(e.getStrIngredient().equals(""))).collect(Collectors.toList());
+//        ingredientList=ingredientList.stream().filter(e->!(e.getStrIngredient().equals(""))).collect(Collectors.toList());
         return ingredientList;
     }
 

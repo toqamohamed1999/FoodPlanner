@@ -33,8 +33,8 @@
 
     <string name="search_by_ing">By Ingredients</string>
     <string name="search_recipe">Search Recipes</string>
-    <string name="search_by_category">By Category</string>
-    <string name="search_by_country">By Country</string>
+    <string name="search_by_category">Categories</string>
+    <string name="search_by_country">Countries</string>
     <string name="viewAll"><u>View All</u></string>
     <string name="category_name"><u>Category</u></string>
     <string name="ingredients_name">Ingredients</string>

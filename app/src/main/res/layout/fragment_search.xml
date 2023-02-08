@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".search.view.SearchFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="60dp">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginBottom="60dp">-->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
             <TextView
                 android:id="@+id/search_search_textView"
@@ -44,46 +44,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_search_textView" />
 
-            <TextView
-                android:id="@+id/search_searchByIng_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="68dp"
-                android:fontFamily="@font/daily_keisha"
-                android:text="@string/search_by_ing"
-                android:textColor="@color/primaryOrange"
-                android:textSize="22dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.093"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_search_textView" />
-
-<!--            <TextView-->
-<!--                android:id="@+id/search_viewAll_textView"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/viewAll"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="15dp"-->
-<!--                android:textStyle="bold|italic"-->
-<!--                android:layout_marginEnd="15dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.093"-->
-<!--                android:elevation="30dp"-->
-<!--                app:layout_constraintTop_toTopOf="@id/search_searchByIng_textView" />-->
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_ing_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="30dp"
-                android:layout_marginEnd="5dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/search_searchByIng_textView"
-                tools:itemCount="10"
-                tools:listitem="@layout/ingrediants_item" />
 
             <TextView
                 android:id="@+id/search_searchByCategory_textView"
@@ -97,7 +57,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.093"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_ing_recyclerView" />
+                app:layout_constraintTop_toBottomOf="@id/searchFragment_searchView" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_category_recyclerView"
@@ -136,7 +96,8 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/search_searchByCountry_textView"
                 tools:itemCount="10"
-                tools:listitem="@layout/category_item" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                tools:listitem="@layout/country_item"
+                android:layout_marginBottom="60dp"/>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </ScrollView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

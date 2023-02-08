@@ -80,6 +80,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity {
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
                 Toast.makeText(getApplicationContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "onInitializationFailure: "+youTubeInitializationResult.name());
 
             }
         });

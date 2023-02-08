@@ -5,17 +5,16 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "planMeal")
+@Entity(tableName = "planMeal",primaryKeys = {"weekDay", "strMeal"})
 public class PlanMeal {
 
-    @PrimaryKey
+
     @NonNull
     private String weekDay;
 
-    @PrimaryKey
-    @NonNull
     private String idMeal;
 
+    @NonNull
     private String strMeal;
     private String strDrinkAlternate;
     private String strCategory;

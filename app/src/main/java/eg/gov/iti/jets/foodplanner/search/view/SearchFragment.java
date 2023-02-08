@@ -90,7 +90,6 @@ public class SearchFragment extends Fragment implements SearchFragmentViewInterF
         categoryRecyclerView = view.findViewById(R.id.search_category_recyclerView);
         countryRecyclerView = view.findViewById(R.id.search_country_recyclerView);
         searchView = view.findViewById(R.id.searchFragment_searchView);
-        ingredientRecyclerView=view.findViewById(R.id.search_ing_recyclerView);
 
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -101,7 +100,7 @@ public class SearchFragment extends Fragment implements SearchFragmentViewInterF
 
     }
     private void setupRecyclerView() {
-        RecyclerView.LayoutManager categoryLayoutManager = new GridLayoutManager(requireContext(), 2);
+        RecyclerView.LayoutManager categoryLayoutManager = new GridLayoutManager(requireContext(), 2,GridLayoutManager.HORIZONTAL, false);
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         categoryRecyclerView.setLayoutManager(categoryLayoutManager);
         categoryAdapter = new CategoryAdapter(requireContext(), categoriesList);
@@ -112,12 +111,6 @@ public class SearchFragment extends Fragment implements SearchFragmentViewInterF
         countryAdapter = new CountryAdapter(requireContext(), countryList);
         countryRecyclerView.setAdapter(countryAdapter);
 
-
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
-//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        ingredientRecyclerView.setLayoutManager(layoutManager);
-//        ingredientsAdapter = new IngredientsAdapter(requireContext(), ingredientsList);
-//        ingredientRecyclerView.setAdapter(ingredientsAdapter);
     }
 
     void setUpPresenter(){

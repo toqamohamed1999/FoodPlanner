@@ -1,4 +1,4 @@
-package eg.gov.iti.jets.foodplanner;
+package eg.gov.iti.jets.foodplanner.search.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.model.Country;
-import eg.gov.iti.jets.foodplanner.search.view.SearchFragment;
 import eg.gov.iti.jets.foodplanner.searchResult.view.SearchResultActivity;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHolder> {

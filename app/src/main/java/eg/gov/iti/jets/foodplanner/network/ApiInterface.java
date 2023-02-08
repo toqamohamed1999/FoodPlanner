@@ -18,8 +18,8 @@ public interface ApiInterface {
     @GET("lookup.php?i=52772")
     Single<MealRoot> getMealById();
 
-    @GET("search.php") //aw s
-    Single<MealRoot> getMealByName(@Query("f") String name);
+    @GET("search.php") //f
+    Single<MealRoot> getMealByName(@Query("s") String name);
 
 
     @GET("list.php?c=list")
@@ -34,5 +34,10 @@ public interface ApiInterface {
     @GET("filter.php")
     Single<MealRoot> getSpecificCountryMeals(@Query("a") String selectedCountry);
 
+    @GET("filter.php")
+    Single<MealRoot> getMealsByCountry(@Query("a") String selectedCountry);
+
+    @GET("filter.php")
+    Single<MealRoot> getMealsByIngredients(@Query("i") String selectedCountry);
 
 }

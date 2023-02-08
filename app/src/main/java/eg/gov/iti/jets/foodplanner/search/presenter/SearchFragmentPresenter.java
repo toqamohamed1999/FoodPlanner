@@ -32,6 +32,7 @@ public class SearchFragmentPresenter implements SearchFragmentPresenterInterFace
     public void getAllCategories(Single<CategoryRoot> categoryRoot) {
 
         categoryRoot.subscribeOn(Schedulers.io())
+                .filter(categoryRoot1 -> categoryRoot1!=null && categoryRoot1.getCategories().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(categoryRoot1 -> searchFragmentViewInterFace.getAllCategories(categoryRoot1.getCategories()),
                         error -> Log.i(TAG, "getAllCategories: "+error));
@@ -40,6 +41,7 @@ public class SearchFragmentPresenter implements SearchFragmentPresenterInterFace
     @Override
     public void getAllCountries(Single<CountryRoot> countryRoot) {
         countryRoot.subscribeOn(Schedulers.io())
+                .filter(countryRoot1 -> countryRoot1!=null && countryRoot1.getCountries().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(countryRoot1 -> searchFragmentViewInterFace.getAllCountry(countryRoot1.getCountries()),
                         error -> Log.i(TAG, "getAllCountries: "+error));
@@ -55,34 +57,4 @@ public class SearchFragmentPresenter implements SearchFragmentPresenterInterFace
         repositoryInterface.getAllCountries(this);
     }
 
-
-//    @Override
-//    public void getAllCategories() {
-//        repositoryInterface.getAllCategories(this);
-//    }
-//
-//    @Override
-//    public void getAllCountries() {
-//          repositoryInterface.getAllCountries(this);
-//    }
-//
-//    @Override
-//    public void onSuccessGetAllCategories(List<Category> categoriesList) {
-//          searchFragmentViewInterFace.getAllCategories(categoriesList);
-//    }
-//
-//    @Override
-//    public void onFailGetAllCategories(String error) {
-//        Log.i(TAG, "onFailGetAllCategories: "+error);
-//    }
-//
-//    @Override
-//    public void onSuccessGetAllCountries(List<Country> countriesList) {
-//        searchFragmentViewInterFace.getAllCountry(countriesList);
-//    }
-//
-//    @Override
-//    public void onFailGetAllCountries(String error) {
-//        Log.i(TAG, "onFailGetAllCategories: "+error);
-//    }
 }

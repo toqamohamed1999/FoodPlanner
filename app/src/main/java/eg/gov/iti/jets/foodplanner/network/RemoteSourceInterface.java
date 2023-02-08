@@ -16,4 +16,7 @@ public interface RemoteSourceInterface {
 
      void enqueueGetSpecificCountryMealsCall(NetworkDelegateSearchResult networkDelegateSearchResult,String country);
 
+     void enqueueGetMealsByCountryCall(NetworkDelegateOnSearching networkDelegateOnSearching,String country);
+
+     void enqueueGetMealsByIngredientsCall(NetworkDelegateOnSearching networkDelegateOnSearching,String ingredient);
 }

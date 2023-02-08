@@ -3,6 +3,8 @@ package eg.gov.iti.jets.foodplanner;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import eg.gov.iti.jets.foodplanner.model.User;
+
 public class MySharedPref {
     public static final String PREF_NAME = "PREF";
     public static final String USERNAME = "username";

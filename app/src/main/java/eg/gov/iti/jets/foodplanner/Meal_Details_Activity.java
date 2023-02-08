@@ -63,9 +63,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity {
         Picasso.get().load(meal.getStrMealThumb())
                 .placeholder(R.mipmap.ic_launcher)
                 .into(meal_details_imageView);
-        //mealDetails_ingredientsList_recycleView
         setupRecyclerView();
-
         mealDetails_mealName_txtView.setText(meal.getStrMeal());
         mealDetails_mealCateVal_txtView.setText(meal.getStrCategory());
         mealDetails_mealAreaVal_txtView.setText(meal.getStrArea());
@@ -112,7 +110,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity {
         ingredientList.add(new Ingredient(meal.getStrIngredient20(), "https://www.themealdb.com/images/ingredients/Lime.png"));
         Log.i(TAG, "getIngredientList: "+ingredientList.size());
         
-//        ingredientList=ingredientList.stream().filter(e->!(e.getStrIngredient().equals(""))).collect(Collectors.toList());
+        ingredientList=ingredientList.stream().filter(e->!(e.getStrIngredient().equals(""))).collect(Collectors.toList());
         return ingredientList;
     }
 

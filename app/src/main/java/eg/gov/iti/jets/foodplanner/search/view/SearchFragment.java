@@ -17,17 +17,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.CategoryAdapter;
-import eg.gov.iti.jets.foodplanner.CountryAdapter;
 import eg.gov.iti.jets.foodplanner.IngredientsAdapter;
-import eg.gov.iti.jets.foodplanner.OnSearchingActivity;
+import eg.gov.iti.jets.foodplanner.searchBy.view.OnSearchingActivity;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Category;
 import eg.gov.iti.jets.foodplanner.model.Country;
 import eg.gov.iti.jets.foodplanner.model.Ingredient;
 import eg.gov.iti.jets.foodplanner.model.Repo;
-import eg.gov.iti.jets.foodplanner.network.ApiClient;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 import eg.gov.iti.jets.foodplanner.search.presenter.SearchFragmentPresenter;
 

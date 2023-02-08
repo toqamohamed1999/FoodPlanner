@@ -1,4 +1,4 @@
-package eg.gov.iti.jets.foodplanner;
+package eg.gov.iti.jets.foodplanner.model;
 
 public class User {
     String email;

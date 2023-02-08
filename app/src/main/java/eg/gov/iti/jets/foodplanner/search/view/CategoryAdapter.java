@@ -1,4 +1,4 @@
-package eg.gov.iti.jets.foodplanner;
+package eg.gov.iti.jets.foodplanner.search.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.model.Category;
-import eg.gov.iti.jets.foodplanner.search.view.SearchFragment;
 import eg.gov.iti.jets.foodplanner.searchResult.view.SearchResultActivity;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {

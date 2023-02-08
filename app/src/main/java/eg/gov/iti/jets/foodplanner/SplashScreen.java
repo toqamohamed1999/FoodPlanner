@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
+import eg.gov.iti.jets.foodplanner.model.User;
 
 public class SplashScreen extends AppCompatActivity {
     MySharedPref mySharedPref;

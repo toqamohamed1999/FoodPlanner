@@ -4,6 +4,7 @@ import android.content.Context;
 
 import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
+import eg.gov.iti.jets.foodplanner.network.NetworkDelegateOnSearching;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
 import eg.gov.iti.jets.foodplanner.network.RemoteSourceInterface;
@@ -70,24 +71,15 @@ public class Repo implements RepositoryInterface {
 
     }
 
+    @Override
+    public void getMealsByCountry(NetworkDelegateOnSearching networkDelegateOnSearching,String country) {
+        remoteSource.enqueueGetMealsByCountryCall(networkDelegateOnSearching,country);
+    }
 
-    //    @Override
-//    public void getAllProducts(NetworkDelegate networkDelegate) {
-//        remoteSource.enqueueCall(networkDelegate);
-//    }
-//
-//    @Override
-//    public LiveData<List<Product>> getStoreProducts() {
-//        return localSource.getAllProducts();
-//    }
-//
-//    @Override
-//    public void insertProduct(Product product) {
-//        localSource.insertProduct(product);
-//    }
-//
-//    @Override
-//    public void deleteProduct(Product product) {
-//        localSource.deleteProduct(product);
-//    }
+    @Override
+    public void getMealsByIngredients(NetworkDelegateOnSearching networkDelegateOnSearching,String ingredient) {
+        remoteSource.enqueueGetMealsByIngredientsCall(networkDelegateOnSearching,ingredient);
+    }
+
+
 }

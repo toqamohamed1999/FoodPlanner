@@ -46,6 +46,7 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
     public void getRandomMeal(Single<MealRoot> mealRoot) {
 
         mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> homeViewInterface.getRandomMeal(mealRoot1.getMeals().get(0)),
                         error -> Log.i(TAG, "getRandomMeal: "+error));
@@ -54,6 +55,7 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
     @Override
     public void getEgyptianMeals(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> homeViewInterface.getEgyptianMeals(mealRoot1.getMeals()),
                         error -> Log.i(TAG, "getEgyptianMeals: "+error));
@@ -62,56 +64,11 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
     @Override
     public void getMealByName(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> homeViewInterface.getMealById(mealRoot1.getMeals().get(0)),
                         error -> Log.i(TAG, "getMealByName: "+error));
     }
 
 
-
-
-//    @Override
-//    public void getRandomMeal() {
-//         repositoryInterface.getRandomMeal(this);
-//    }
-//
-//    @Override
-//    public void getEgyptianMeals() {
-//        repositoryInterface.getEgyptianMeals(this);
-//    }
-//
-//    @Override
-//    public void getMealById() {
-//        repositoryInterface.getMealById(this);
-//    }
-//
-//    @Override
-//    public void onSuccessGetRandomMeal(Meal meal) {
-//        homeViewInterface.getRandomMeal(meal);
-//    }
-//
-//    @Override
-//    public void onFailGetRandomMeal(String error) {
-//        Log.i(TAG, "onFailGetRandomMeal: "+error);
-//    }
-//
-//    @Override
-//    public void onSuccessGetEgyptianMeals(List<Meal> mealsList) {
-//        homeViewInterface.getEgyptianMeals(mealsList);
-//    }
-//
-//    @Override
-//    public void onFailGetEgyptianMeals(String error) {
-//        Log.i(TAG, "onFailGetEgyptianMeals: "+error);
-//    }
-//
-//    @Override
-//    public void onSuccessGetMealByName(Meal meal) {
-//        homeViewInterface.getMealById(meal);
-//    }
-//
-//    @Override
-//    public void onFailGetMealByName(String error) {
-//        Log.i(TAG, "onFailGetMealByName: "+error);
-//    }
 }

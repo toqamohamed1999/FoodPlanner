@@ -3,7 +3,6 @@ package eg.gov.iti.jets.foodplanner.authentication.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +12,7 @@ import android.widget.TextView;
 
 import eg.gov.iti.jets.foodplanner.MainActivity;
 import eg.gov.iti.jets.foodplanner.MySharedPref;
-import eg.gov.iti.jets.foodplanner.OnSearchingActivity;
 import eg.gov.iti.jets.foodplanner.R;
-import eg.gov.iti.jets.foodplanner.SplashScreen;
 import eg.gov.iti.jets.foodplanner.authentication.presenter.LoginPresenter;
 import eg.gov.iti.jets.foodplanner.authentication.presenter.LoginPresenterInterface;
 

@@ -90,9 +90,9 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
         searchResultPresenter = new SearchResultPresenter(this,Repo.getInstance(getApplicationContext(), LocalSource.getLocalSource(getApplicationContext()), RemoteSource.getRemoteSource()));
         if(category != null) searchResultPresenter.getSpecificCategoryMeals(category);
         if(country != null) searchResultPresenter.getSpecificCountryMeals(country);
-        handelSearchView();
+        handelSearchViewEvent();
     }
-    private void handelSearchView(){
+    private void handelSearchViewEvent(){
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

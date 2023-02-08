@@ -29,6 +29,7 @@ public class SearchResultPresenter implements SearchResultPresenterInterface, Ne
     @Override
     public void getSpecificCategoryMeals(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> searchResultViewInterface.getSpecificCategoryMeals(mealRoot1.getMeals()),
                         error -> Log.i(TAG, "getSpecificCategoryMeals: "+error));
@@ -37,6 +38,7 @@ public class SearchResultPresenter implements SearchResultPresenterInterface, Ne
     @Override
     public void getSpecificCountryMeals(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> searchResultViewInterface.getSpecificCountryMeals(mealRoot1.getMeals()),
                         error -> Log.i(TAG, "getSpecificCountryMeals: "+error));
@@ -45,6 +47,7 @@ public class SearchResultPresenter implements SearchResultPresenterInterface, Ne
     @Override
     public void getMealByName(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> searchResultViewInterface.getMealByName(mealRoot1.getMeals()),
                         error -> Log.i(TAG, "getMealByName: "+error));
@@ -66,33 +69,4 @@ public class SearchResultPresenter implements SearchResultPresenterInterface, Ne
     }
 
 
-//    @Override
-//    public void getSpecificCategoryMeals(String category) {
-//        repositoryInterface.getSpecificCategoryMeals(this,category);
-//    }
-//
-//    @Override
-//    public void getSpecificCountryMeals(String country) {
-//        repositoryInterface.getSpecificCountryMeals(this,country);
-//    }
-//
-//    @Override
-//    public void onSuccessGetSpecificCategoryMeals(List<Meal> mealsList) {
-//        searchResultViewInterface.getSpecificCategoryMeals(mealsList);
-//    }
-//
-//    @Override
-//    public void onFailGetSpecificCategoryMeals(String error) {
-//        Log.i(TAG, "onFailGetSpecificCategoryMeals: "+error);
-//    }
-//
-//    @Override
-//    public void onSuccessGetSpecificCountryMeals(List<Meal> mealsList) {
-//        searchResultViewInterface.getSpecificCountryMeals(mealsList);
-//    }
-//
-//    @Override
-//    public void onFailGetSpecificCountryMeals(String error) {
-//        Log.i(TAG, "onFailGetSpecificCountryMeals: "+error);
-//    }
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OnSearchingActivity">
+    tools:context=".searchBy.view.OnSearchingActivity">
 
     <ImageButton
         android:id="@+id/onSearching_back_imageBtn"

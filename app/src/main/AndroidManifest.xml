@@ -18,7 +18,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         >
         <activity
-            android:name=".OnSearchingActivity"
+            android:name=".searchBy.view.OnSearchingActivity"
             android:exported="false" />
         <activity
             android:name=".Meal_Details_Activity"

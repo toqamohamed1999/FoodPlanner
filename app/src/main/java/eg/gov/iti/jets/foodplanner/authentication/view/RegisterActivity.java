@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import eg.gov.iti.jets.foodplanner.MainActivity;
+import eg.gov.iti.jets.foodplanner.MySharedPref;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.presenter.RegisterPresenter;
 
@@ -57,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     private GoogleSignInClient googleSignInClient;
     public static int RC_SIGN_IN = 1001;
+
+    MySharedPref mySharedPref;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -87,7 +90,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
     }
 
     private void init() {
+
         authPresenter = new RegisterPresenter(this);
+        mySharedPref = new MySharedPref(getApplicationContext());
     }
 
 
@@ -136,6 +141,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
     @Override
     public void onSuccessRegister() {
         Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
+        mySharedPref.sharedPrefWrite(email,password);
         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
         finish();
     }
@@ -193,6 +199,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
                 .addOnSuccessListener(this, authResult -> {
                     Toast.makeText(this, "Google Register success", Toast.LENGTH_SHORT).show();
+     //////////////////                mySharedPref.sharedPrefWrite(email,password);
                      startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                      finish();
                 })

@@ -7,4 +7,12 @@ public interface RemoteSource {
 
      void enqueueGetMealByIdCall(NetworkDelegate networkDelegate);
 
+     void enqueueGetAllCategoriesCall(NetworkDelegateSearch networkDelegateSearch);
+
+     void enqueueGetAllCountriesCall(NetworkDelegateSearch networkDelegateSearch);
+
+     void enqueueGetSpecificCategoryMealsCall(NetworkDelegateSearchResult networkDelegateSearchResult,String category);
+
+     void enqueueGetSpecificCountryMealsCall(NetworkDelegateSearchResult networkDelegateSearchResult,String country);
+
 }

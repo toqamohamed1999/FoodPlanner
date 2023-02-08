@@ -1,9 +1,13 @@
 package eg.gov.iti.jets.foodplanner.model;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 import eg.gov.iti.jets.foodplanner.model.Country;
 
-class CountryRoot {
+public class CountryRoot {
+
+    @SerializedName("meals")
     private ArrayList<Country> countries;
 
     public CountryRoot(ArrayList<Country> countries) {

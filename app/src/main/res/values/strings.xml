@@ -24,7 +24,7 @@
     <string name="register">Register</string>
     <string name="useOtherMethods">Use other Methods</string>
     <string name="haveAccount">Already have an account?</string>
-    <string name="ingradians_name">Ingredient Name</string>
+    <string name="ingredient_name">Ingredient Name</string>
     <string name="category">"Category: "</string>
     <string name="country">"Country:  "</string>
     <string name="steps">"Steps"</string>
@@ -41,5 +41,7 @@
     <string name="searchable_name">Searchable Name</string>
     <string name="searchable_meals">Searchable Meals</string>
     <string name="skip"><u>Skip</u></string>
+    <string name="search_by">Search By</string>
+
 
 </resources>

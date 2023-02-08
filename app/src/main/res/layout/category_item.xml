@@ -35,7 +35,7 @@
             android:padding="5dp"
             android:layout_marginEnd="10dp"
             android:text="category"
-            android:textColor="@color/primaryOrange"
+            android:textColor="@color/black"
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/category_item_imageView"

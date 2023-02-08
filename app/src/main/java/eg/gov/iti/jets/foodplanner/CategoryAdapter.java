@@ -16,8 +16,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.model.Category;
+import eg.gov.iti.jets.foodplanner.search.view.SearchFragment;
+import eg.gov.iti.jets.foodplanner.searchResult.view.SearchResultActivity;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
+
+
     private Context context;
     private List<Category> categoriesList;
 
@@ -36,16 +40,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Category meal = categoriesList.get(position);
-        Picasso.get().load(meal.getStrCategoryThumb())
+        Category category = categoriesList.get(position);
+        Picasso.get().load(category.getStrCategoryThumb())
                 .placeholder(R.drawable.cake)
                 .into(holder.categoryImageView);
-        holder.categoryNameTv.setText(meal.getStrCategory());
+        holder.categoryNameTv.setText(category.getStrCategory());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context,SearchResultActivity.class));
+                Intent intent = new Intent(context, SearchResultActivity.class);
+                intent.putExtra(SearchFragment.CATEGORY_KEY,category.getStrCategory());
+                context.startActivity(intent);
             }
         });
     }
@@ -55,7 +61,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         return categoriesList.size();
     }
 
-    void setData(final List<Category> categoryList) {
+    public void setData(final List<Category> categoryList) {
         this.categoriesList = categoryList;
         notifyDataSetChanged();
     }

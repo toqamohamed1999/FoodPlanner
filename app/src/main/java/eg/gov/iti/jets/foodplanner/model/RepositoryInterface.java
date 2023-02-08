@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
+import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
+import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
 
 public interface RepositoryInterface {
 
@@ -13,6 +15,15 @@ public interface RepositoryInterface {
       public void getEgyptianMeals(NetworkDelegate networkDelegate);
 
       public void getMealById(NetworkDelegate networkDelegate);
+
+      public void getAllCategories(NetworkDelegateSearch networkDelegateSearch);
+
+      public void getAllCountries(NetworkDelegateSearch networkDelegateSearch) ;
+
+      public void getSpecificCategoryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String category);
+
+      public void getSpecificCountryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String country);
+
 
 //    void getAllProducts(NetworkDelegate networkDelegate);
 //

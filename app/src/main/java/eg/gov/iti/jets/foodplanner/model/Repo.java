@@ -4,6 +4,8 @@ import android.content.Context;
 
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
+import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
+import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 
 
@@ -41,6 +43,32 @@ public class Repo implements RepositoryInterface {
     public void getMealById(NetworkDelegate networkDelegate) {
         remoteSource.enqueueGetMealByIdCall(networkDelegate);
     }
+
+    @Override
+    public void getAllCategories(NetworkDelegateSearch networkDelegateSearch) {
+        remoteSource.enqueueGetAllCategoriesCall(networkDelegateSearch);
+    }
+
+    @Override
+    public void getAllCountries(NetworkDelegateSearch networkDelegateSearch) {
+        remoteSource.enqueueGetAllCountriesCall(networkDelegateSearch);
+    }
+
+    @Override
+    public void getSpecificCategoryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String category) {
+        remoteSource.enqueueGetSpecificCategoryMealsCall(networkDelegateSearchResult, category);
+    }
+
+    @Override
+    public void getSpecificCountryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String country) {
+        remoteSource.enqueueGetSpecificCountryMealsCall(networkDelegateSearchResult,country);
+    }
+
+
+
+
+
+
 
     //    @Override
 //    public void getAllProducts(NetworkDelegate networkDelegate) {

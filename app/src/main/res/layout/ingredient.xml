@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/ingradians_name"
+        android:text="@string/ingredient_name"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@+id/ingredientImage"
         app:layout_constraintHorizontal_bias="0.471"

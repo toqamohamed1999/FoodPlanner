@@ -9,4 +9,5 @@ public interface SearchResultViewInterface {
     public void getSpecificCategoryMeals(List<Meal> mealsList);
 
     public void getSpecificCountryMeals(List<Meal> mealsList);
+    public void getMealByName(List<Meal> mealsList);
 }

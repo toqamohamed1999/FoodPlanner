@@ -43,6 +43,14 @@ public class SearchResultPresenter implements SearchResultPresenterInterface, Ne
     }
 
     @Override
+    public void getMealByName(Single<MealRoot> mealRoot) {
+        mealRoot.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealRoot1 -> searchResultViewInterface.getMealByName(mealRoot1.getMeals()),
+                        error -> Log.i(TAG, "getMealByName: "+error));
+    }
+
+    @Override
     public void getSpecificCategoryMeals(String category) {
          repositoryInterface.getSpecificCategoryMeals(this,category);
     }
@@ -50,6 +58,11 @@ public class SearchResultPresenter implements SearchResultPresenterInterface, Ne
     @Override
     public void getSpecificCountryMeals(String country) {
          repositoryInterface.getSpecificCountryMeals(this,country);
+    }
+
+    @Override
+    public void getMealByName(String Name) {
+        repositoryInterface.getMealByName(this,Name);
     }
 
 

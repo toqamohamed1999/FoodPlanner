@@ -23,6 +23,7 @@ public interface RepositoryInterface {
       public void getSpecificCategoryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String category);
 
       public void getSpecificCountryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String country);
+      public void getMealByName(NetworkDelegateSearchResult networkDelegateSearchResult,String Name);
 
 
 //    void getAllProducts(NetworkDelegate networkDelegate);

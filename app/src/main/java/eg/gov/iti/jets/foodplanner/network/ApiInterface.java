@@ -18,6 +18,9 @@ public interface ApiInterface {
     @GET("lookup.php?i=52772")
     Single<MealRoot> getMealById();
 
+    @GET("search.php") //aw s
+    Single<MealRoot> getMealByName(@Query("f") String name);
+
 
     @GET("list.php?c=list")
     Single<CategoryRoot> getAllCategories();

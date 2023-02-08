@@ -64,10 +64,11 @@ public class Repo implements RepositoryInterface {
         remoteSource.enqueueGetSpecificCountryMealsCall(networkDelegateSearchResult,country);
     }
 
+    @Override
+    public void getMealByName(NetworkDelegateSearchResult networkDelegateSearchResult, String Name) {
+        remoteSource.enqueueGetMealByNameCall(networkDelegateSearchResult,Name);
 
-
-
-
+    }
 
 
     //    @Override

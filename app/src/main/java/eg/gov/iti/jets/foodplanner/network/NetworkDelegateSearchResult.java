@@ -12,4 +12,5 @@ public interface NetworkDelegateSearchResult {
     public void getSpecificCategoryMeals(Single<MealRoot> mealRoot);
 
     public void getSpecificCountryMeals(Single<MealRoot> mealRoot);
+    public void getMealByName(Single<MealRoot> mealRoot);
 }

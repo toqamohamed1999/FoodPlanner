@@ -90,8 +90,22 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
         searchResultPresenter = new SearchResultPresenter(this,Repo.getInstance(getApplicationContext(), LocalSource.getLocalSource(getApplicationContext()), RemoteSource.getRemoteSource()));
         if(category != null) searchResultPresenter.getSpecificCategoryMeals(category);
         if(country != null) searchResultPresenter.getSpecificCountryMeals(country);
+        handelSearchView();
     }
+    private void handelSearchView(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+              searchResultPresenter.getMealByName(newText);
+              return true;
+            }
+        });
+    }
 
     @Override
     public void getSpecificCategoryMeals(List<Meal> mealsList) {
@@ -100,6 +114,11 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
 
     @Override
     public void getSpecificCountryMeals(List<Meal> mealsList) {
+        mealAdapter.setData(mealsList);
+    }
+
+    @Override
+    public void getMealByName(List<Meal> mealsList) {
         mealAdapter.setData(mealsList);
     }
 }

@@ -2,10 +2,13 @@ package eg.gov.iti.jets.foodplanner.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "meal")
-public class Meal {
+public class Meal implements Serializable {
 
     @PrimaryKey
     @NonNull
@@ -39,6 +42,7 @@ public class Meal {
     private String strIngredient19;
     private String strIngredient20;
 
+    @Ignore
     public Meal() {
 
     }

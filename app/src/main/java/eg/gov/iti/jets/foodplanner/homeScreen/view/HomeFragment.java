@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.Meal_Details_Activity;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
 import eg.gov.iti.jets.foodplanner.ProfileActivity;
@@ -50,6 +52,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface{
     private ImageView inspirationImageView,inspirationFavImageView;
 
     private TextView inspirationNameTv,inspirationCategoryTv;
+    private CardView inspiration_meal_cardView;
 
 
     public HomeFragment() {
@@ -98,6 +101,15 @@ public class HomeFragment extends Fragment implements HomeViewInterface{
         inspirationFavImageView = view.findViewById(R.id.home_card_fav_imageview);
         inspirationNameTv = view.findViewById(R.id.home_card_title_textview);
         inspirationCategoryTv = view.findViewById(R.id.home_card_category_textView);
+        inspiration_meal_cardView=view.findViewById(R.id.inspiration_meal_cardView);
+        inspiration_meal_cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(requireContext(), Meal_Details_Activity.class);
+                i.putExtra(MealAdapter.MEAL_KEY,meal);
+                startActivity(i);
+            }
+        });
     }
 
     private void onClickProfileImage(){

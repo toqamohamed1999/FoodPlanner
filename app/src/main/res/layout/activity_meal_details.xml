@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Meal_Details_Activity">
-
+    tools:context=".MealDetails.view.Meal_Details_Activity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -216,18 +215,46 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="395dp" />
 
-            <androidx.appcompat.widget.AppCompatButton
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/mealDetails_addToPlan_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                android:drawableStart="@drawable/baseline_add_24"-->
+<!--                android:text="@string/addToPlan"-->
+<!--                style="@style/Button"-->
+<!--                android:paddingEnd="10dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/view" />-->
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/mealDetails_addToPlan_btn"
-                android:layout_width="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:drawableStart="@drawable/baseline_add_24"
-                android:text="@string/addToPlan"
-                style="@style/Button"
-                android:paddingEnd="10dp"
+                android:hint="@string/addToPlan"
                 android:layout_marginEnd="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:boxStrokeColor="@color/colorAccent"
+                app:startIconDrawable="@drawable/baseline_add_24"
+                app:startIconTint="@color/black"
+                app:hintTextColor="@color/colorAccent"
+                android:paddingEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/view">
+
+                <AutoCompleteTextView
+                    android:id="@+id/mealDetails_autoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/white"
+                    android:inputType="none"
+                    android:textSize="15sp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.constraintlayout.widget.Barrier
                 android:layout_width="wrap_content"

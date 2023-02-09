@@ -24,10 +24,14 @@ public interface MealDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMeal(Meal meal);
 
+    @Query("SELECT EXISTS(SELECT * FROM Meal WHERE idMeal = :idMeal)")
+    boolean isRowIsExist(String idMeal );
     @Delete
     void deleteMeal(Meal meal);
 
     @Query("DELETE FROM Meal")
     void deleteMealTable();
+
+
 
 }

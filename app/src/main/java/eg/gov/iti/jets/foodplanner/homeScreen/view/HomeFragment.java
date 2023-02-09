@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,9 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.FavInsertListener;
-import eg.gov.iti.jets.foodplanner.Meal_Details_Activity;
+import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
-import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
 import eg.gov.iti.jets.foodplanner.ProfileActivity;
@@ -110,6 +110,14 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
                 Intent i=new Intent(requireContext(), Meal_Details_Activity.class);
                 i.putExtra(MealAdapter.MEAL_KEY,meal);
                 startActivity(i);
+            }
+        });
+        inspirationFavImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inspirationFavImageView.setImageResource(R.drawable.ic_baseline_favorite_red);
+                homePresenter.insertFavMeal(meal);
+                Toast.makeText(getActivity(), "Added To Favourite..", Toast.LENGTH_SHORT).show();
             }
         });
     }

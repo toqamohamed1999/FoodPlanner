@@ -116,5 +116,25 @@ public class Repo implements RepositoryInterface {
         localSource.deleteMeal(meal);
     }
 
+    @Override
+    public boolean MealIsExistInFav(String idMeal) {
+      return localSource.MealIsExistInFav(idMeal);
+    }
+
+    @Override
+    public Flowable<List<PlanMeal>> getStoredPlanMeals() {
+        return localSource.getStoredPlanMeals();
+    }
+
+    @Override
+    public void insertPlanMeal(PlanMeal meal) {
+        localSource.insertPlanMeal(meal);
+    }
+
+    @Override
+    public void deletePlanMeal(PlanMeal meal) {
+        localSource.deletePlanMeal(meal);
+    }
+
 
 }

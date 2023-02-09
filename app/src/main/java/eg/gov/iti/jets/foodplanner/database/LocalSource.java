@@ -1,6 +1,7 @@
 package eg.gov.iti.jets.foodplanner.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -10,8 +11,8 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
-public class LocalSource implements LocalSourceInterface{
-
+public class LocalSource implements LocalSourceInterface {
+    private static final String TAG = "LocalSource";
     private MealDao mealDao;
 
     private PlanMealDao planMealDao;
@@ -66,7 +67,7 @@ public class LocalSource implements LocalSourceInterface{
     }
 
     @Override
-    public Single<List<PlanMeal>> getStoredPlanMeals() {
+    public Flowable<List<PlanMeal>> getStoredPlanMeals() {
         return planMealDao.getStoredPlanMeals();
     }
 
@@ -98,6 +99,19 @@ public class LocalSource implements LocalSourceInterface{
                 planMealDao.deletePlanMealTable();
             }
         }).start();
+    }
+
+    @Override
+    public boolean MealIsExistInFav(String idMeal) {
+        final boolean[] flag = new boolean[1];
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                 flag[0] =mealDao.isRowIsExist(idMeal);
+            }
+        }).start();
+        Log.i(TAG, "MealIsExistInFav: "+flag[0]);
+        return flag[0];
     }
 
 }

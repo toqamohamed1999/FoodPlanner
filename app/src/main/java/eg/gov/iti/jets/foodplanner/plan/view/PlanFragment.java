@@ -1,4 +1,4 @@
-package eg.gov.iti.jets.foodplanner;
+package eg.gov.iti.jets.foodplanner.plan.view;
 
 import android.os.Bundle;
 
@@ -15,16 +15,23 @@ import android.view.ViewGroup;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlanFragment extends Fragment {
+import eg.gov.iti.jets.foodplanner.PlanRecycleAdapter;
+import eg.gov.iti.jets.foodplanner.R;
+import eg.gov.iti.jets.foodplanner.database.LocalSource;
+import eg.gov.iti.jets.foodplanner.model.Repo;
+import eg.gov.iti.jets.foodplanner.network.RemoteSource;
+import eg.gov.iti.jets.foodplanner.plan.presenter.PlanPresenter;
+
+public class PlanFragment extends Fragment implements PlanViewInterface{
     PlanRecycleAdapter planRecycleAdapter;
+    PlanPresenter planPresenter;
 
     private RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        planPresenter=new PlanPresenter(this, Repo.getInstance(requireContext(), LocalSource.getLocalSource(requireContext()), RemoteSource.getRemoteSource()));
 
     }
 

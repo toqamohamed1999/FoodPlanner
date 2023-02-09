@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "planMeal",primaryKeys = {"weekDay", "strMeal"})
 public class PlanMeal {
 
-
     @NonNull
     private String weekDay;
 

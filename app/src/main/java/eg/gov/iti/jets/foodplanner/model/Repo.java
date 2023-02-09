@@ -56,31 +56,45 @@ public class Repo implements RepositoryInterface {
     }
 
     @Override
-    public void getSpecificCategoryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String category) {
+    public void getSpecificCategoryMeals(NetworkDelegateSearchResult networkDelegateSearchResult, String category) {
         remoteSource.enqueueGetSpecificCategoryMealsCall(networkDelegateSearchResult, category);
     }
 
     @Override
-    public void getSpecificCountryMeals(NetworkDelegateSearchResult networkDelegateSearchResult,String country) {
-        remoteSource.enqueueGetSpecificCountryMealsCall(networkDelegateSearchResult,country);
+    public void getSpecificCountryMeals(NetworkDelegateSearchResult networkDelegateSearchResult, String country) {
+        remoteSource.enqueueGetSpecificCountryMealsCall(networkDelegateSearchResult, country);
     }
 
     @Override
     public void getMealByName(NetworkDelegateSearchResult networkDelegateSearchResult, String Name) {
-        remoteSource.enqueueGetMealByNameCall(networkDelegateSearchResult,Name);
+        remoteSource.enqueueGetMealByNameCall(networkDelegateSearchResult, Name);
 
     }
 
     @Override
-    public void getMealsByCountry(NetworkDelegateOnSearching networkDelegateOnSearching,String country) {
-        remoteSource.enqueueGetMealsByCountryCall(networkDelegateOnSearching,country);
+    public void getMealsByCountry(NetworkDelegateOnSearching networkDelegateOnSearching, String country) {
+        remoteSource.enqueueGetMealsByCountryCall(networkDelegateOnSearching, country);
     }
 
     @Override
-    public void getMealsByIngredients(NetworkDelegateOnSearching networkDelegateOnSearching,String ingredient) {
-        remoteSource.enqueueGetMealsByIngredientsCall(networkDelegateOnSearching,ingredient);
+    public void getMealsByIngredients(NetworkDelegateOnSearching networkDelegateOnSearching, String ingredient) {
+        remoteSource.enqueueGetMealsByIngredientsCall(networkDelegateOnSearching, ingredient);
     }
 
+    @Override
+    public void getMealsByCategory(NetworkDelegateOnSearching networkDelegateOnSearching, String category) {
+        remoteSource.enqueueGetMealsByCategoryCall(networkDelegateOnSearching, category);
+    }
+
+    @Override
+    public void getMealsByFirstLetter(NetworkDelegateOnSearching networkDelegateOnSearching, String firstLetter) {
+        remoteSource.enqueueGetMealsByFirstLetter(networkDelegateOnSearching, firstLetter);
+    }
+
+    @Override
+    public void getMealByName(NetworkDelegateOnSearching networkDelegateOnSearching, String name) {
+        remoteSource.enqueueGetMealByNameCall(networkDelegateOnSearching, name);
+    }
 
 
 }

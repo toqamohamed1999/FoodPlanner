@@ -28,15 +28,12 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         this.context = context;
         this.ingredientList = ingredientList;
     }
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.ingrediants_item, parent, false);
-
         return new MyViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Ingredient ingredient = ingredientList.get(position);

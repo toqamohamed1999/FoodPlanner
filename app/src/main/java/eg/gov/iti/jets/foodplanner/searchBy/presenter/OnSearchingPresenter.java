@@ -26,28 +26,70 @@ public class OnSearchingPresenter implements OnSearchingPresenterInterface, Netw
     @Override
     public void getMealsByCountry(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
-                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
+                .filter(mealRoot1 -> mealRoot1 != null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> onSearchingViewInterface.getMealsByCountry(mealRoot1.getMeals()),
-                        error -> Log.i(TAG, "getMealsByCountry: "+error));
+                        error -> Log.i(TAG, "getMealsByCountry: " + error));
     }
 
     @Override
     public void getMealsByIngredients(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
-                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
+                .filter(mealRoot1 -> mealRoot1 != null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> onSearchingViewInterface.getMealsByIngredient(mealRoot1.getMeals()),
-                        error -> Log.i(TAG, "getMealsByIngredients: "+error));
+                        error -> Log.i(TAG, "getMealsByIngredients: " + error));
+    }
+
+    @Override
+    public void getMealsByCategory(Single<MealRoot> mealRoot) {
+        mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1 != null && mealRoot1.getMeals().size() > 0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealRoot1 -> onSearchingViewInterface.getMealsByCategory(mealRoot1.getMeals()),
+                        error -> Log.i(TAG, "getMealsByCategory: " + error));
+    }
+
+    @Override
+    public void getMealByName(Single<MealRoot> mealRoot) {
+        mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1 != null && mealRoot1.getMeals().size() > 0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealRoot1 -> onSearchingViewInterface.getMealByName(mealRoot1.getMeals()),
+                        error -> Log.i(TAG, "getMealByName: " + error));
+    }
+
+    @Override
+    public void getMealsByFirstLetter(Single<MealRoot> mealRoot) {
+        mealRoot.subscribeOn(Schedulers.io())
+                .filter(mealRoot1 -> mealRoot1 != null && mealRoot1.getMeals().size() > 0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealRoot1 -> onSearchingViewInterface.getMealsByFirstletter(mealRoot1.getMeals()),
+                        error -> Log.i(TAG, "getMealsByFirstLetter: " + error));
     }
 
     @Override
     public void getMealsBYCountry(String country) {
-        repositoryInterface.getMealsByCountry(this,country);
+        repositoryInterface.getMealsByCountry(this, country);
     }
 
     @Override
     public void getMealsByIngredients(String ingredient) {
-       repositoryInterface.getMealsByIngredients(this,ingredient);
+        repositoryInterface.getMealsByIngredients(this, ingredient);
+    }
+
+    @Override
+    public void getMealsByCategory(String category) {
+        repositoryInterface.getMealsByCategory(this, category);
+    }
+
+    @Override
+    public void getMealsByFirstLetter(String firstLetter) {
+        repositoryInterface.getMealsByFirstLetter(this, firstLetter);
+    }
+
+    @Override
+    public void getMealByName(String name) {
+        repositoryInterface.getMealByName(this, name);
     }
 }

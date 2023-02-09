@@ -19,4 +19,9 @@ public interface RemoteSourceInterface {
      void enqueueGetMealsByCountryCall(NetworkDelegateOnSearching networkDelegateOnSearching,String country);
 
      void enqueueGetMealsByIngredientsCall(NetworkDelegateOnSearching networkDelegateOnSearching,String ingredient);
+     void enqueueGetMealsByCategoryCall(NetworkDelegateOnSearching networkDelegateOnSearching,String category);
+     void enqueueGetMealByNameCall(NetworkDelegateOnSearching networkDelegateOnSearching,String name);
+     void enqueueGetMealsByFirstLetter(NetworkDelegateOnSearching networkDelegateOnSearching,String firstLetter);
+
+
 }

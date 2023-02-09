@@ -29,5 +29,9 @@ public interface RepositoryInterface {
       public void getMealsByCountry(NetworkDelegateOnSearching networkDelegateOnSearching,String Country) ;
 
       public void getMealsByIngredients(NetworkDelegateOnSearching networkDelegateOnSearching,String ingredient);
+      public void getMealsByCategory(NetworkDelegateOnSearching networkDelegateOnSearching,String category);
+      public void getMealsByFirstLetter(NetworkDelegateOnSearching networkDelegateOnSearching,String firstLetter);
+      public void getMealByName(NetworkDelegateOnSearching networkDelegateOnSearching,String name);
+
 
 }

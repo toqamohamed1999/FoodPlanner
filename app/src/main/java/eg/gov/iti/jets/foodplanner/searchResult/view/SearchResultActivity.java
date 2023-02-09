@@ -98,7 +98,6 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
               searchResultPresenter.getMealByName(newText);

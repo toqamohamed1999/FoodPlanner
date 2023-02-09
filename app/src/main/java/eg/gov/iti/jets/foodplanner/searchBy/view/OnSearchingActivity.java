@@ -127,8 +127,14 @@ public class OnSearchingActivity extends AppCompatActivity implements OnSearchin
              case "Ingredient":
                  onSearchingPresenter.getMealsByIngredients(text);
                  break;
+             case "Category":
+                 onSearchingPresenter.getMealsByCategory(text);
+                 break;
+             case "Meal name":
+                 onSearchingPresenter.getMealByName(text);
+                 break;
              default:
-                 //by meal
+                 onSearchingPresenter.getMealByName(text);
          }
     }
 
@@ -139,5 +145,22 @@ public class OnSearchingActivity extends AppCompatActivity implements OnSearchin
     @Override
     public void getMealsByIngredient(List<Meal> mealsList) {
         mealAdapter.setData(mealsList);
+    }
+
+    @Override
+    public void getMealsByCategory(List<Meal> mealsList) {
+        mealAdapter.setData(mealsList);
+    }
+
+    @Override
+    public void getMealsByFirstletter(List<Meal> mealsList) {
+        mealAdapter.setData(mealsList);
+
+    }
+
+    @Override
+    public void getMealByName(List<Meal> mealsList) {
+        mealAdapter.setData(mealsList);
+
     }
 }

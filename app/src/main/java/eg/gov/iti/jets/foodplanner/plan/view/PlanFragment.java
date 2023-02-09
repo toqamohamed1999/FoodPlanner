@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
     PlanRecycleAdapter planRecycleAdapter;
     PlanMealsAdapter planMealsAdapter;
     PlanPresenter planPresenter;
+    private static final String TAG = "PlanFragment";
 
     private RecyclerView recyclerView, plan_day_recyclerView;
     String selectedDay;
@@ -86,6 +88,7 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
 
     @Override
     public void getStoredPlanMeals(List<PlanMeal> mealList) {
+        Log.i(TAG, "getStoredPlanMeals: "+mealList.toString());
         planMealsAdapter.setData(mealList);
     }
 }

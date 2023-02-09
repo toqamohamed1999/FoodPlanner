@@ -26,19 +26,13 @@ public class PlanPresenter implements  PlanPresenterInterface{
     public void deletePlanMeal(PlanMeal meal) {
         repositoryInterface.deletePlanMeal(meal);
     }
-//    @Override
-//    public void getStoredFavMeals() {
-//        repositoryInterface.getStoreFavMeals().subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(meals -> favViewInterface.getStoredFavMeals(meals),
-//                        error-> Log.i(TAG, "getStoredFavMeals: "+error));
-//
-//    }
 
     @Override
     public void getStoredPlanMeals(String day) {
-        repositoryInterface.getStoredPlanMeals(day);
+        repositoryInterface.getStoredPlanMeals(day).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(meals -> planViewInterface.getStoredPlanMeals(meals),
+                        error-> Log.i(TAG, "getStoredPlanMeals: "+error));
     }
-
-
+    
 }

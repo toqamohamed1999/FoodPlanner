@@ -122,8 +122,8 @@ public class Repo implements RepositoryInterface {
     }
 
     @Override
-    public Flowable<List<PlanMeal>> getStoredPlanMeals() {
-        return localSource.getStoredPlanMeals();
+    public Flowable<List<PlanMeal>> getStoredPlanMeals(String day) {
+        return localSource.getStoredPlanMeals(day);
     }
 
     @Override

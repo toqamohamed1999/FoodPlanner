@@ -3,6 +3,7 @@ package eg.gov.iti.jets.foodplanner.MealDetails.presenter;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.MealDetailsViewInterface;
 import eg.gov.iti.jets.foodplanner.homeScreen.view.HomeViewInterface;
 import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import eg.gov.iti.jets.foodplanner.model.RepositoryInterface;
 
 public class MealDetailsPresenter implements MealDetailsPresenterInterface {
@@ -27,5 +28,10 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface {
     @Override
     public Boolean MealIsExistInFav(String idMeal) {
        return repositoryInterface.MealIsExistInFav(idMeal);
+    }
+
+    @Override
+    public void insertPlanMeal(PlanMeal meal) {
+        repositoryInterface.insertPlanMeal(meal);
     }
 }

@@ -35,12 +35,14 @@ import eg.gov.iti.jets.foodplanner.YouTupeConfig;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Ingredient;
 import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 import eg.gov.iti.jets.foodplanner.searchBy.view.OnSearchingActivity;
 
 public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDetailsViewInterface {
     private Meal meal;
+    private PlanMeal planMeal;
     private static final String TAG = "Meal_Details_Activity";
     ImageView meal_details_imageView, mealDetails_card_fav_imageview;
     ImageButton resultSearch_back_imageBtn;
@@ -50,7 +52,6 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
     List<Ingredient> ingredientList = new ArrayList<>();
     IngredientsAdapter ingredientsAdapter;
     MealDetailsPresenter mealDetailsPresenter;
-
     AutoCompleteTextView autoCompleteTextView;
 
     private ArrayAdapter<String> arrayAdapter;
@@ -69,6 +70,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         setUpAutoCompleteTv();
         updateUI();
     }
+
     private void setUpAutoCompleteTv() {
         ArrayList<String> searchByList = new ArrayList<>();
         searchByList.add("Saturday");
@@ -78,22 +80,26 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         searchByList.add("Wednesday");
         searchByList.add("Thursday");
         searchByList.add("Friday");
-        
+
         arrayAdapter = new ArrayAdapter<>(Meal_Details_Activity.this, android.R.layout.simple_list_item_1, searchByList);
         autoCompleteTextView.setAdapter(arrayAdapter);
-        autoCompleteTextView.setText(arrayAdapter.getItem(0),false);
+        autoCompleteTextView.setText(arrayAdapter.getItem(0), false);
         selectedDay = searchByList.get(0);
 
         setOnSelectFilterEvent();
     }
-    private void setOnSelectFilterEvent(){
+    private void setOnSelectFilterEvent() {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedDay = parent.getItemAtPosition(position).toString();
+                planMeal = planMeal.getPlanMealFromMeal(meal, selectedDay);
+                mealDetailsPresenter.insertPlanMeal(planMeal);
+                Toast.makeText(Meal_Details_Activity.this, "Meal Added to "+selectedDay, Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     private void iniUI() {
         meal_details_imageView = findViewById(R.id.meal_details_imageView);
         mealDetails_card_fav_imageview = findViewById(R.id.mealDetails_card_fav_imageview);
@@ -107,8 +113,6 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         progressBar = findViewById(R.id.meal_details_progressbar);
 
         autoCompleteTextView = findViewById(R.id.mealDetails_autoCompleteTextView);
-
-
         mealDetails_card_fav_imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +156,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
                 youTubePlayer.loadVideo(url[1]);
                 youTubePlayer.play();
             }
+
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
                 Toast.makeText(getApplicationContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
@@ -166,10 +171,11 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
     public void init() {
         mealDetailsPresenter = new MealDetailsPresenter(this, Repo.getInstance(getApplicationContext(), LocalSource.getLocalSource(getApplicationContext()), RemoteSource.getRemoteSource()));
+        planMeal = new PlanMeal();
     }
 
     boolean MealIsExistInFav(String idMeal) {
-        Log.i(TAG, "MealIsExistInFav: meal details activity "+mealDetailsPresenter.MealIsExistInFav(idMeal));
+        Log.i(TAG, "MealIsExistInFav: meal details activity " + mealDetailsPresenter.MealIsExistInFav(idMeal));
         return mealDetailsPresenter.MealIsExistInFav(idMeal);
     }
 

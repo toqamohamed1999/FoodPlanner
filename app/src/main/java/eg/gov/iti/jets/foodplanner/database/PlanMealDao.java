@@ -15,8 +15,8 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface PlanMealDao {
 
-    @Query("SELECT * FROM planMeal")
-    Flowable<List<PlanMeal>> getStoredPlanMeals();
+    @Query("SELECT * FROM planMeal where weekDay=:day")
+    Flowable<List<PlanMeal>> getStoredPlanMeals(String  day);
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

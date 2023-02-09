@@ -19,30 +19,54 @@
 
 
             <TextView
+                android:id="@+id/plan_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:fontFamily="cursive"
                 android:padding="25dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/currentWeekPlan"
                 android:textColor="@color/colorAccent"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/plan_dayName_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:paddingLeft="15dp"
+                android:text="Week Day"
+                android:textColor="@color/light_brown"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_notes"
+                android:id="@+id/plan_day_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/home_category_textview"
+                tools:listitem="@layout/plan_meal_item"
+                android:elevation="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="7dp"
+                tools:itemCount="10"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/plan_weekDays_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="7"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/week_item" />

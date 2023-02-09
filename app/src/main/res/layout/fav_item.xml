@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="@color/colorAccent"
+    android:backgroundTint="@color/light_brown"
     android:layout_margin="10dp"
     app:cardCornerRadius="30dp"
     app:cardPreventCornerOverlap="false">
@@ -25,6 +25,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/cake" />
+
+
 
         <TextView
             android:id="@+id/fav_item_title_textview"

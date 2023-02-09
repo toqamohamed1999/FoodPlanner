@@ -32,7 +32,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="fitXY"
+                    android:backgroundTint="@color/gray"
                     app:srcCompat="@drawable/cake" />
+
+                <ProgressBar
+                    android:id="@+id/meal_details_progressbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/meal_details_imageView"
+                    app:layout_constraintEnd_toEndOf="@id/meal_details_imageView"
+                    app:layout_constraintTop_toTopOf="@id/meal_details_imageView"
+                    app:layout_constraintBottom_toBottomOf="@id/meal_details_imageView"/>
 
                 <ImageView
                     android:id="@+id/mealDetails_card_fav_imageview"

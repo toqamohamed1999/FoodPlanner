@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,8 @@ public class Meal_Details_Activity extends YouTubeBaseActivity {
     List<Ingredient> ingredientList = new ArrayList<>();
     IngredientsAdapter ingredientsAdapter;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +61,28 @@ public class Meal_Details_Activity extends YouTubeBaseActivity {
         mealDetails_mealAreaVal_txtView = findViewById(R.id.mealDetails_mealAreaVal_txtView);
         mealDetails_stepsVal_txtView = findViewById(R.id.mealDetails_stepsVal_txtView);
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.videoView);
+        progressBar = findViewById(R.id.meal_details_progressbar);
     }
 
     public void updateUI() {
-        Picasso.get().load(meal.getStrMealThumb())
-                .placeholder(R.mipmap.ic_launcher)
-                .into(meal_details_imageView);
+//        Picasso.get().load(meal.getStrMealThumb())
+//                .placeholder(R.mipmap.ic_launcher)
+//                .into(meal_details_imageView);
+
+        Picasso.with(getApplicationContext()).load(meal.getStrMealThumb())
+                .into(meal_details_imageView, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
         setupRecyclerView();
         mealDetails_mealName_txtView.setText(meal.getStrMeal());
         mealDetails_mealCateVal_txtView.setText(meal.getStrCategory());

@@ -23,7 +23,7 @@ public interface ApiInterface {
     Single<MealRoot> getMealByName(@Query("s") String name);
 
 
-    @GET("list.php?c=list")
+    @GET("categories.php")
     Single<CategoryRoot> getAllCategories();
 
     @GET("list.php?a=list")

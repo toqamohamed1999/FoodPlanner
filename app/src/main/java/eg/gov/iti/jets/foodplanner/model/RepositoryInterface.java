@@ -8,6 +8,8 @@ import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateOnSearching;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public interface RepositoryInterface {
 
@@ -32,6 +34,12 @@ public interface RepositoryInterface {
       public void getMealsByCategory(NetworkDelegateOnSearching networkDelegateOnSearching,String category);
       public void getMealsByFirstLetter(NetworkDelegateOnSearching networkDelegateOnSearching,String firstLetter);
       public void getMealByName(NetworkDelegateOnSearching networkDelegateOnSearching,String name);
+
+      Flowable<List<Meal>> getStoreFavMeals();
+
+      void insertFavMeal(Meal meal);
+
+      void deleteFavMeal(Meal meal);
 
 
 }

@@ -2,12 +2,17 @@ package eg.gov.iti.jets.foodplanner.model;
 
 import android.content.Context;
 
+import java.util.List;
+
 import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateOnSearching;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
 import eg.gov.iti.jets.foodplanner.network.RemoteSourceInterface;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 
 
 public class Repo implements RepositoryInterface {
@@ -94,6 +99,21 @@ public class Repo implements RepositoryInterface {
     @Override
     public void getMealByName(NetworkDelegateOnSearching networkDelegateOnSearching, String name) {
         remoteSource.enqueueGetMealByNameCall(networkDelegateOnSearching, name);
+    }
+
+    @Override
+    public Flowable<List<Meal>> getStoreFavMeals() {
+        return localSource.getStoredMeals();
+    }
+
+    @Override
+    public void insertFavMeal(Meal meal) {
+         localSource.insertMeal(meal);
+    }
+
+    @Override
+    public void deleteFavMeal(Meal meal) {
+        localSource.deleteMeal(meal);
     }
 
 

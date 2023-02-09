@@ -6,6 +6,7 @@ import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
@@ -30,66 +31,73 @@ public class LocalSource implements LocalSourceInterface{
     }
 
     @Override
-    public Observable<List<Meal>> getStoredMeals() {
+    public Flowable<List<Meal>> getStoredMeals() {
         return mealDao.getStoredMeals();
     }
 
     @Override
     public void insertMeal(Meal meal) {
-        mealDao.insertMeal(meal);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mealDao.insertMeal(meal);
+            }
+        }).start();
     }
 
     @Override
     public void deleteMeal(Meal meal) {
-        mealDao.deleteMeal(meal);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mealDao.deleteMeal(meal);
+            }
+        }).start();
     }
 
     @Override
     public void deleteMealTable() {
-          mealDao.deleteMealTable();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mealDao.deleteMealTable();
+            }
+        }).start();
     }
 
     @Override
-    public Observable<List<PlanMeal>> getStoredPlanMeals() {
+    public Single<List<PlanMeal>> getStoredPlanMeals() {
         return planMealDao.getStoredPlanMeals();
     }
 
     @Override
     public void insertPlanMeal(PlanMeal planMeal) {
-        planMealDao.insertPlanMeal(planMeal);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                planMealDao.insertPlanMeal(planMeal);
+            }
+        }).start();
     }
 
     @Override
     public void deletePlanMeal(PlanMeal planMeal) {
-          planMealDao.deletePlanMeal(planMeal);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                planMealDao.deletePlanMeal(planMeal);
+            }
+        }).start();
     }
 
     @Override
     public void deletePlanMealTable() {
-        planMealDao.deletePlanMealTable();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                planMealDao.deletePlanMealTable();
+            }
+        }).start();
     }
 
-
-//    public Single<List<Meal>> getAllProducts() {
-//        return mealDao.getStoredMeals();
-//    }
-//
-//    public void insertProduct(Product product) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                productsDao.insertProduct(product);
-//            }
-//        }).start();
-//    }
-//
-//
-//    public void deleteProduct(Product product) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                productsDao.deleteProduct(product);
-//            }
-//        }).start();
-//    }
 }

@@ -9,12 +9,13 @@ import androidx.room.Query;
 import java.util.List;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface PlanMealDao {
 
     @Query("SELECT * FROM planMeal")
-    Observable<List<PlanMeal>> getStoredPlanMeals();
+    Single<List<PlanMeal>> getStoredPlanMeals();
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

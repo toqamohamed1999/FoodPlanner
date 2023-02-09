@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/colorAccent"
+    android:backgroundTint="@color/light_brown"
     app:cardCornerRadius="32dp"
     android:layout_marginStart="5dp"
     app:cardUseCompatPadding="true"
@@ -20,7 +20,7 @@
 
 
         <ImageView
-            android:id="@+id/meal_item_imageView"
+            android:id="@+id/planMeal_item_imageView"
             android:layout_width="200dp"
             android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,11 +28,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/cake"
-            android:background="@color/gray"
             android:scaleType="fitXY" />
 
         <TextView
-            android:id="@+id/meal_item_title_textview"
+            android:id="@+id/planMeal_item_title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -44,10 +43,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.193"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/meal_item_imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/planMeal_item_imageView" />
 
         <TextView
-            android:id="@+id/meal_item_category_textView"
+            android:id="@+id/planMeal_item_category_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -56,29 +55,34 @@
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.056"
-            app:layout_constraintStart_toStartOf="@id/meal_item_title_textview"
-            app:layout_constraintTop_toBottomOf="@id/meal_item_title_textview" />
+            app:layout_constraintStart_toStartOf="@id/planMeal_item_title_textview"
+            app:layout_constraintTop_toBottomOf="@id/planMeal_item_title_textview" />
 
-        <ProgressBar
-            android:id="@+id/meal_item_progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/meal_item_imageView"
-            app:layout_constraintEnd_toEndOf="@id/meal_item_imageView"
-            app:layout_constraintTop_toTopOf="@id/meal_item_imageView"
-            app:layout_constraintBottom_toBottomOf="@id/meal_item_imageView"/>
-        <ImageView
-            android:id="@+id/meal_item_fav_imageview"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="#2AFFFFFF"
-            android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="@id/meal_item_imageView"
-            app:layout_constraintTop_toTopOf="@id/meal_item_imageView"
-            app:srcCompat="@drawable/baseline_favorite_24" />
+                <ImageView
+                    android:id="@+id/planMeal_item_delete_imageview"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="#2AFFFFFF"
+                    android:padding="5dp"
+                    app:layout_constraintEnd_toEndOf="@id/planMeal_item_imageView"
+                    app:layout_constraintTop_toTopOf="@id/planMeal_item_imageView"
+                    app:srcCompat="@drawable/baseline_delete_24" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/meal_item_fav_imageview"-->
+<!--            android:layout_width="35dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="#57FFFFFF"-->
+<!--            android:backgroundTint="#2AFFFFFF"-->
+<!--            android:padding="5dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/meal_item_imageView"-->
+<!--            app:layout_constraintTop_toTopOf="@id/meal_item_imageView"-->
+<!--            app:srcCompat="@drawable/baseline_favorite_24" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="eg.gov.iti.jets.foodplanner.FavoritesFragment"
+        android:name="eg.gov.iti.jets.foodplanner.favorites.view.FavoritesFragment"
         android:label="@string/favourite"
         tools:layout="@layout/fragment_favorites" />
     <fragment

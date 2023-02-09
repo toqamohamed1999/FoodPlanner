@@ -10,6 +10,7 @@ import androidx.room.Query;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.model.Meal;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
@@ -17,7 +18,7 @@ import io.reactivex.rxjava3.core.Single;
 public interface MealDao {
 
     @Query("SELECT * FROM Meal")
-    Observable<List<Meal>> getStoredMeals();
+    Flowable<List<Meal>> getStoredMeals();
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -29,12 +30,4 @@ public interface MealDao {
     @Query("DELETE FROM Meal")
     void deleteMealTable();
 
-//    @Query("select * from product")
-//    Single<List<Product>> getAllProducts();
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    void insertProduct(Product product);
-//
-//    @Delete
-//    void deleteProduct(Product product);
 }

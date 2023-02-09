@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import eg.gov.iti.jets.foodplanner.model.Category;
 
 public class CategoryRoot {
-
-    @SerializedName("meals")
     private ArrayList<Category> categories;
 
     public CategoryRoot(ArrayList<Category> categories) {

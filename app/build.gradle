@@ -53,7 +53,7 @@ dependencies {
     def lottieVersion = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
     //picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+   // implementation 'com.squareup.picasso:picasso:2.71828'
     //gson,retrofit and retrofit converter
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -85,5 +85,9 @@ dependencies {
 
     //youtube viewer
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 
 }

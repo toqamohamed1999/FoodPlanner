@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,10 +38,24 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Ingredient ingredient = ingredientList.get(position);
-        Log.i(TAG, "onBindViewHolder: "+ingredient.getStrIngredient());
-        Picasso.get().load(String.format("https://www.themealdb.com/images/ingredients/%s-Small.png",ingredient.getStrIngredient()))
-                .placeholder(R.mipmap.ic_launcher)
-                .into(holder.ingredientImageView);
+//        Picasso.get().load(String.format("https://www.themealdb.com/images/ingredients/%s-Small.png",ingredient.getStrIngredient()))
+//                .placeholder(R.mipmap.ic_launcher)
+//                .into(holder.ingredientImageView);
+
+        Picasso.with(context).load(String.format("https://www.themealdb.com/images/ingredients/%s-Small.png",ingredient.getStrIngredient()))
+                .into(holder.ingredientImageView, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (holder.progressBar != null) {
+                            holder.progressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
         holder.ingredientNameTv.setText(ingredient.getStrIngredient());
     }
@@ -59,10 +74,12 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         ImageView ingredientImageView;
         TextView ingredientNameTv;
 
+        ProgressBar progressBar;
         public MyViewHolder(@NonNull View ingredientView) {
             super(ingredientView);
             ingredientImageView = ingredientView.findViewById(R.id.ingredientImage);
             ingredientNameTv = ingredientView.findViewById(R.id.ingredientName);
+            progressBar = ingredientView.findViewById(R.id.ingredient_progressbar);
         }
     }
 }

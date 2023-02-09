@@ -1,11 +1,15 @@
 package eg.gov.iti.jets.foodplanner.search.view;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,9 +45,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Category category = categoriesList.get(position);
-        Picasso.get().load(category.getStrCategoryThumb())
-                .placeholder(R.drawable.cake)
-                .into(holder.categoryImageView);
+
+        Picasso.with(context).load(category.getStrCategoryThumb())
+                .into(holder.categoryImageView, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (holder.progressBar != null) {
+                            holder.progressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
         holder.categoryNameTv.setText(category.getStrCategory());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +87,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         ImageView categoryImageView;
         TextView categoryNameTv;
 
+        ProgressBar progressBar;
+
         public MyViewHolder(@NonNull View categoryView) {
             super(categoryView);
             categoryImageView = categoryView.findViewById(R.id.category_item_imageView);
             categoryNameTv = categoryView.findViewById(R.id.category_item_title_textView);
+            progressBar = categoryView.findViewById(R.id.category_item_progressbar);
         }
     }
 }

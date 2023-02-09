@@ -6,12 +6,13 @@ import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public interface LocalSourceInterface {
 
-    Observable<List<Meal>> getStoredMeals();
+    Flowable<List<Meal>> getStoredMeals();
 
     void insertMeal(Meal meal);
 
@@ -19,7 +20,7 @@ public interface LocalSourceInterface {
 
     void deleteMealTable();
 
-    Observable<List<PlanMeal>> getStoredPlanMeals();
+    Single<List<PlanMeal>> getStoredPlanMeals();
 
     void insertPlanMeal(PlanMeal planMeal);
 

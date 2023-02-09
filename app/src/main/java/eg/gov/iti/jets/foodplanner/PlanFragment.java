@@ -18,6 +18,8 @@ import java.util.List;
 public class PlanFragment extends Fragment {
     PlanRecycleAdapter planRecycleAdapter;
 
+    private RecyclerView recyclerView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +38,17 @@ public class PlanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list_notes);
-        final LinearLayoutManager dayslayoutManager  = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(dayslayoutManager);
+        recyclerView = view.findViewById(R.id.plan_weekDays_recyclerView);
 
-        List<String> alldays = Arrays.asList("Monday", "Tuesday", "wednesday", "Thursday", "Friday" , "Saturday" , "Sunday");
-        planRecycleAdapter = new PlanRecycleAdapter(view.getContext() , alldays);
+        setUpRecyclerView(view);
+
+    }
+
+    private void setUpRecyclerView(View view){
+        final LinearLayoutManager daysLayoutManager  = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(daysLayoutManager);
+        List<String> allDays = Arrays.asList("Saturday", "Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+        planRecycleAdapter = new PlanRecycleAdapter(view.getContext() , allDays);
         recyclerView.setAdapter(planRecycleAdapter);
     }
 }

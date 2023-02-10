@@ -27,7 +27,9 @@ import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyViewHolder>{
     private Context context;
     private List<PlanMeal> mealsList;
-    public  static String MEAL_KEY="meal";
+    public  static String PlAN_MEAL_KEY="planMeal";
+
+    public  static String PLAN_MEAL_ADAPTER_TYPE="PlanMealsAdapter";
 
     public PlanMealsAdapter(Context context, List<PlanMeal> mealsList) {
         this.context = context;
@@ -45,9 +47,6 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         PlanMeal meal = mealsList.get(position);
-//        Picasso.get().load(meal.getStrMealThumb())
-//                .placeholder(R.mipmap.ic_launcher)
-//                .into(holder.mealImageView);
 
         Picasso.with(context).load(meal.getStrMealThumb())
                 .into(holder.mealImageView);
@@ -58,18 +57,17 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                favInsertListener.insertFavClick(meal);
-//                holder.favImageView.setImageResource(R.drawable.ic_baseline_favorite_red);
-                //Toast.makeText(context, "Meal deleted from plan", Toast.LENGTH_SHORT).show();
+//////////////////////////////////
             }
         });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i=new Intent(context, Meal_Details_Activity.class);
-//                i.putExtra(MEAL_KEY,mealsList.get(position));
-//                context.startActivity(i);
+                Intent i=new Intent(context, Meal_Details_Activity.class);
+                i.putExtra(PlAN_MEAL_KEY,mealsList.get(position));
+                i.putExtra("adapterType",PLAN_MEAL_ADAPTER_TYPE);
+                context.startActivity(i);
             }
         });
     }

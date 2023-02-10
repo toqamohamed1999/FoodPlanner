@@ -37,6 +37,7 @@ import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
+import eg.gov.iti.jets.foodplanner.plan.view.PlanMealsAdapter;
 
 public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDetailsViewInterface {
     private Meal meal;
@@ -190,10 +191,15 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
     private void getMeal() {
         Intent i = getIntent();
-        meal = (Meal) i.getSerializableExtra(MealAdapter.MEAL_KEY);
-        if(meal.getStrCategory() == null){
-            mealDetailsPresenter.getMealDetailsById(meal.getIdMeal());
+        if(i.getStringExtra("adapterType").equals(MealAdapter.MEAL_ADAPTER_TYPE)) {
+            meal = (Meal) i.getSerializableExtra(MealAdapter.MEAL_KEY);
         }else{
+            planMeal = (PlanMeal) i.getSerializableExtra(PlanMealsAdapter.PlAN_MEAL_KEY);
+            meal = planMeal.getMealFromMealPlanMeal(planMeal);
+        }
+        if (meal.getStrCategory() == null) {
+            mealDetailsPresenter.getMealDetailsById(meal.getIdMeal());
+        } else {
             updateUI();
         }
     }

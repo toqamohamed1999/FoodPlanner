@@ -1,34 +1,45 @@
 package eg.gov.iti.jets.foodplanner.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.MealDetails.view.CheckFavInterface;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.MealDetailsViewInterface;
 import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
+import eg.gov.iti.jets.foodplanner.network.FirebaseInterface;
+import eg.gov.iti.jets.foodplanner.network.MyFireBase.MyFirebase;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateDetails;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateOnSearching;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
+import eg.gov.iti.jets.foodplanner.network.NetworkProfileDelegate;
 import eg.gov.iti.jets.foodplanner.network.RemoteSourceInterface;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class Repo implements RepositoryInterface {
+public class Repo implements RepositoryInterface, FirebaseInterface {
 
+    private static final String TAG = "Repo";
     private Context context;
     private static Repo repo;
     private LocalSourceInterface localSource;
     private RemoteSourceInterface remoteSource;
 
+    private MyFirebase myFirebase;
+
     public Repo(Context context, LocalSourceInterface localSource, RemoteSourceInterface remoteSource) {
         this.context = context;
         this.localSource = localSource;
         this.remoteSource = remoteSource;
+
+        myFirebase = new MyFirebase(this);
     }
 
     public static Repo getInstance(Context context, LocalSourceInterface localSource, RemoteSourceInterface remoteSource) {
@@ -141,4 +152,24 @@ public class Repo implements RepositoryInterface {
     }
 
 
+    public void getMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate){
+        myFirebase.getMealsFromFirebase(networkProfileDelegate);
+
+    }
+
+    public void storeMealsToFirebase(NetworkProfileDelegate networkProfileDelegate){
+        localSource.getStoredMeals().subscribeOn(Schedulers.io())
+                .filter(meals -> meals!=null && meals.size() > 0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(meals -> myFirebase.storeMealsToFirebase(networkProfileDelegate,meals),
+                        error -> Log.i(TAG, "getRandomMeal: "+error));
+
+    }
+
+    @Override
+    public void getMealsFromFirebase(List<Meal> mealList) {
+        for(int i = 0;i< mealList.size(); i++) {
+            localSource.insertMeal(mealList.get(i));
+        }
+    }
 }

@@ -11,6 +11,7 @@ import eg.gov.iti.jets.foodplanner.network.NetworkDelegateDetails;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateOnSearching;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
+import eg.gov.iti.jets.foodplanner.network.NetworkProfileDelegate;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
@@ -48,5 +49,8 @@ public interface RepositoryInterface {
       void insertPlanMeal(PlanMeal meal);
       void deletePlanMeal(PlanMeal meal);
 
+      public void getMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate);
+
+      public void storeMealsToFirebase(NetworkProfileDelegate networkProfileDelegate);
 
 }

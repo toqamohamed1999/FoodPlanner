@@ -58,8 +58,6 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
     @Override
     public void getEgyptianMeals(Single<MealRoot> mealRoot) {
 
-        Observable observable = mealRoot.toObservable();
-
          mealRoot.toObservable().subscribeOn(Schedulers.io())
                 .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,12 +65,6 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
                         error -> Log.i(TAG, "getEgyptianMeals: "+error));
 
 
-
-//        mealRoot.subscribeOn(Schedulers.io())
-//                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(mealRoot1 -> homeViewInterface.getEgyptianMeals(mealRoot1.getMeals()),
-//                        error -> Log.i(TAG, "getEgyptianMeals: "+error));
     }
 
     @Override

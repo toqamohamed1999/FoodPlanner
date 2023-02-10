@@ -53,7 +53,6 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MyViewHolder> {
         holder.mealNameTv.setText(meal.getStrMeal());
         holder.mealCategoryTv.setText(meal.getStrCategory());
 
-
         holder.favImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

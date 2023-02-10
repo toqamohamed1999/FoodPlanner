@@ -71,6 +71,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         getMeal();
         checkFav();
         setUpAutoCompleteTv();
+        handelBackButton();
     }
 
     private void iniUI() {
@@ -123,8 +124,17 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
                 Toast.makeText(Meal_Details_Activity.this, "Meal Added to "+selectedDay, Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
+    private void handelBackButton(){
+        resultSearch_back_imageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
 
     private void handleMealAddToFav(){

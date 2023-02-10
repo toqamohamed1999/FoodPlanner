@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.widget.SearchView;
@@ -54,7 +55,7 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
         setupRecyclerView();
         getMyIntent();
         setUpPresenter();
-
+        handelBackButton();
     }
 
     private void initUI(){
@@ -62,6 +63,14 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
         searchView = findViewById(R.id.searchResult_searchView);
         titleTextView = findViewById(R.id.resultSearch_title_textView);
         backImageButton = findViewById(R.id.resultSearch_back_imageBtn);
+    }
+    private void handelBackButton(){
+        backImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     void getMyIntent(){

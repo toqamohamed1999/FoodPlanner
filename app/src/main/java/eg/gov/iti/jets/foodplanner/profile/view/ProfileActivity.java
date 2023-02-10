@@ -1,14 +1,17 @@
 package eg.gov.iti.jets.foodplanner.profile.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,47 +31,53 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import eg.gov.iti.jets.foodplanner.MyDialog;
+import eg.gov.iti.jets.foodplanner.MySharedPref;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
+import eg.gov.iti.jets.foodplanner.model.User;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
-
     public static final int BACKUP_CODE = 12;
-    private Button logoutBtn,backupButton;
+    private Button logoutBtn, backupButton;
 
     private ImageButton backBtn;
 
-    private TextView emailTv,userNameTV;
+    private TextView emailTv, userNameTV;
 
     private FirebaseAuth firebaseAuth;
-
+    MySharedPref mySharedPref;
 
     private LottieAnimationView lottieAnimationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
 
-
         initUI();
         setUpLottieAnimationView();
+        setupUserNameAndEmail();
         logout();
         handleSaveBackupToFirebase();
+        handelBackButton();
     }
 
-    private void initUI(){
+    private void initUI() {
         lottieAnimationView = findViewById(R.id.profile_animation_view);
         userNameTV = findViewById(R.id.profile_userName_textView);
         emailTv = findViewById(R.id.profile_email_textView);
         logoutBtn = findViewById(R.id.profile_logout_button);
         backupButton = findViewById(R.id.profile_backup_button);
         backBtn = findViewById(R.id.profile_back_imageBtn);
+        mySharedPref = new MySharedPref(getApplicationContext());
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    private void setUpLottieAnimationView(){
+    private void setUpLottieAnimationView() {
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
         animator.addUpdateListener(animation -> {
             lottieAnimationView.setProgress((Float) animation.getAnimatedValue());
@@ -76,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
         animator.start();
     }
 
-    private void handleSaveBackupToFirebase(){
+    private void handleSaveBackupToFirebase() {
         backupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,40 +93,52 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+    private void handelBackButton(){
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
-    private void logout(){
+    private void logout() {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                     final AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
-//                     alert.setTitle("Logout");
-//                     alert.setMessage("Are you sure you wish to logout?")
-//                             .setCancelable(false)
-//                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                 @Override
-//                                 public void onClick(DialogInterface dialogInterface, int i) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    finish();
-//                                     }
-//                                 }
-//                             })
-//                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                 @Override
-//                                 public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                                 }
-//                             });
-//                     alert.show();
-                }
+                AlertDialog.Builder builder = MyDialog.myDialog(ProfileActivity.this);
+                builder.setMessage("Do you want to logout ?");
+
+                builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    // finish();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    Log.i(TAG, "onClick: " + user);
+                    if (user != null) {
+                        mySharedPref.sharedPrefWrite("not found", "not found");
+                        firebaseAuth.signOut();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        finish();
+                    }
+                });
+
+                builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    dialog.cancel();
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
-
     }
 
-
+    void setupUserNameAndEmail() {
+        User user = mySharedPref.sharedPrefRead();
+        if (!user.getEmail().equals("not found") && !user.getPassword().equals("not found")) {
+            emailTv.setText(user.getEmail());
+            String[] arr = user.getEmail().split("@");
+            userNameTV.setText(arr[0]);
+        }
+    }
 
 
 //    private void restoreDBIntent() {

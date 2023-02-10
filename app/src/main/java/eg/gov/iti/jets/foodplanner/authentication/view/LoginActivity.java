@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
 
     private static final String TAG = "LoginActivity";
     ImageView animButton;
-    TextView skipTv;
+    TextView skipTv,login_registerNow_txtview;
     MySharedPref mySharedPref;
     LoginPresenter loginPresenter;
     EditText login_email_editTxt;
@@ -72,8 +72,16 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         login_email_editTxt =findViewById(R.id.login_email_edittxt);
         login_password_editTxt =findViewById(R.id.login_password_edittxt);
         login_login_btn=findViewById(R.id.login_login_btn);
+        login_registerNow_txtview=findViewById(R.id.login_registerNow_txtview);
         login_google_imageView = findViewById(R.id.login_google_imageView);
         skipTv = findViewById(R.id.login_skip_textView);
+        login_registerNow_txtview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(i);
+            }
+        });
 
         loginPresenter=new LoginPresenter(getApplicationContext(),this);
     }
@@ -188,7 +196,4 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     }
 
 
-
-
 }
-

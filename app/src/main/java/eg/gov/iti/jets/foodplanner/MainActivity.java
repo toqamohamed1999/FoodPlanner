@@ -19,6 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     }
     void initUi(){
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
     }
     void setupBottomNav(){
         ActionBar actionBar=getSupportActionBar();

@@ -1,7 +1,5 @@
 package eg.gov.iti.jets.foodplanner.authentication.view;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;

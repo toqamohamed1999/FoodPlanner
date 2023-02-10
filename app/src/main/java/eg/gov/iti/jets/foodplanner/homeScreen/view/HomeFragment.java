@@ -21,12 +21,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
+import eg.gov.iti.jets.foodplanner.NetworkChecker;
 import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Meal;
@@ -36,6 +38,7 @@ import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.homeScreen.presenter.HomePresenter;
 import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
+import io.reactivex.rxjava3.core.Observable;
 
 public class HomeFragment extends Fragment implements HomeViewInterface, FavInsertListener {
 
@@ -45,17 +48,17 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
 
     private List<Meal> mealsList = new ArrayList<>();
 
-    private MealAdapter mealAdapter ;
+    private MealAdapter mealAdapter;
 
     private ImageView profileImageView;
 
-    private  Meal meal;
+    private Meal meal;
 
     private HomePresenter homePresenter;
 
-    private ImageView inspirationImageView,inspirationFavImageView;
+    private ImageView inspirationImageView, inspirationFavImageView;
 
-    private TextView inspirationNameTv,inspirationCategoryTv;
+    private TextView inspirationNameTv, inspirationCategoryTv;
     private CardView inspiration_meal_cardView;
 
     private ProgressBar progressBar;
@@ -97,21 +100,21 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
         setUpPresenter();
     }
 
-    private void initUI(View view){
+    private void initUI(View view) {
         recyclerView = view.findViewById(R.id.home_category_recyclerView);
         profileImageView = view.findViewById(R.id.home_profile_imageView);
         inspirationImageView = view.findViewById(R.id.home_card_imageview);
         inspirationFavImageView = view.findViewById(R.id.home_card_fav_imageview);
         inspirationNameTv = view.findViewById(R.id.home_card_title_textview);
         inspirationCategoryTv = view.findViewById(R.id.home_card_category_textView);
-        inspiration_meal_cardView=view.findViewById(R.id.inspiration_meal_cardView);
-        progressBar =view.findViewById(R.id.home_card_progressbar);
+        inspiration_meal_cardView = view.findViewById(R.id.inspiration_meal_cardView);
+        progressBar = view.findViewById(R.id.home_card_progressbar);
         inspiration_meal_cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(requireContext(), Meal_Details_Activity.class);
-                i.putExtra(MealAdapter.MEAL_KEY,meal);
-                i.putExtra("adapterType",MEAL_ADAPTER_TYPE);
+                Intent i = new Intent(requireContext(), Meal_Details_Activity.class);
+                i.putExtra(MealAdapter.MEAL_KEY, meal);
+                i.putExtra("adapterType", MEAL_ADAPTER_TYPE);
                 startActivity(i);
             }
         });
@@ -125,7 +128,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
         });
     }
 
-    private void onClickProfileImage(){
+    private void onClickProfileImage() {
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,35 +137,49 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
         });
     }
 
-   private void setupRecyclerView() {
+    private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mealAdapter = new MealAdapter(requireContext(), mealsList,this);
+        mealAdapter = new MealAdapter(requireContext(), mealsList, this);
         recyclerView.setAdapter(mealAdapter);
     }
 
 
-    void setUpPresenter(){
-        homePresenter = new HomePresenter(this,Repo.getInstance(requireContext(), LocalSource.getLocalSource(requireContext()), RemoteSource.getRemoteSource()));
-        homePresenter.getRandomMeal();
-        homePresenter.getEgyptianMeals();
-        homePresenter.getMealById();
+    void setUpPresenter() {
+        homePresenter = new HomePresenter(this, Repo.getInstance(requireContext(), LocalSource.getLocalSource(requireContext()), RemoteSource.getRemoteSource()));
+        if (NetworkChecker.isNetworkAvailable(requireContext())) {
+            homePresenter.getRandomMeal();
+            homePresenter.getEgyptianMeals();
+            homePresenter.getMealById();
+        } else {
+
+//            Snackbar snackbar = Snackbar
+//                    .make(requireView(), "No Network Connection!", Snackbar.LENGTH_LONG)
+//                    .setAction("UNDO", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Snackbar snackbar1 = Snackbar.make(requireView(), "No Network Connection!", Snackbar.LENGTH_SHORT);
+//                            snackbar1.show();
+//                        }
+//                    });
+//
+//            snackbar.show();
+            Snackbar.make(getActivity().findViewById(android.R.id.content),
+                    "No Network Connection!", Snackbar.LENGTH_LONG).show();
+        }
     }
+
     @Override
     public void getRandomMeal(Meal meal) {
         this.meal = meal;
         setInspirationMealData();
-        Log.i(TAG, "getRandomMeal: "+meal);
+        Log.i(TAG, "getRandomMeal: " + meal);
     }
 
 
-
-    private void setInspirationMealData(){
-        if(meal != null) {
-//            Picasso.get().load(meal.getStrMealThumb())
-//                    .placeholder(R.mipmap.ic_launcher)
-//                    .into(inspirationImageView);
+    private void setInspirationMealData() {
+        if (meal != null) {
 
             Picasso.with(requireContext()).load(meal.getStrMealThumb())
                     .into(inspirationImageView, new com.squareup.picasso.Callback() {
@@ -185,7 +202,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
 
     @Override
     public void getEgyptianMeals(List<Meal> mealsList) {
-        Log.i(TAG, "getEgyptianMeals: "+ mealsList.toString());
+        Log.i(TAG, "getEgyptianMeals: " + mealsList.toString());
         this.mealsList = mealsList;
         mealAdapter.setData(mealsList);
     }
@@ -193,7 +210,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
     @Override
     public void getMealById(Meal meal) {
         Meal meal1 = meal;
-        Log.i(TAG, "getMealById: "+meal1);
+        Log.i(TAG, "getMealById: " + meal1);
 
     }
 
@@ -201,4 +218,6 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
     public void insertFavClick(Meal meal) {
         homePresenter.insertFavMeal(meal);
     }
+
+
 }

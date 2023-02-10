@@ -2,11 +2,13 @@ package eg.gov.iti.jets.foodplanner.homeScreen.view;
 
 import static eg.gov.iti.jets.foodplanner.MealAdapter.MEAL_ADAPTER_TYPE;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,7 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
+import eg.gov.iti.jets.foodplanner.MyDialog;
+import eg.gov.iti.jets.foodplanner.MySharedPref;
 import eg.gov.iti.jets.foodplanner.NetworkChecker;
+import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
 import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Meal;
@@ -62,6 +67,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
     private CardView inspiration_meal_cardView;
 
     private ProgressBar progressBar;
+    MySharedPref mySharedPref;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -109,21 +115,42 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
         inspirationCategoryTv = view.findViewById(R.id.home_card_category_textView);
         inspiration_meal_cardView = view.findViewById(R.id.inspiration_meal_cardView);
         progressBar = view.findViewById(R.id.home_card_progressbar);
+        mySharedPref=new MySharedPref(requireContext());
         inspiration_meal_cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(requireContext(), Meal_Details_Activity.class);
-                i.putExtra(MealAdapter.MEAL_KEY, meal);
-                i.putExtra("adapterType", MEAL_ADAPTER_TYPE);
-                startActivity(i);
+                if(NetworkChecker.isNetworkAvailable(requireContext())) {
+                    Intent i = new Intent(requireContext(), Meal_Details_Activity.class);
+                    i.putExtra(MealAdapter.MEAL_KEY, meal);
+                    i.putExtra("adapterType", MEAL_ADAPTER_TYPE);
+                    startActivity(i);
+                }
             }
         });
         inspirationFavImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inspirationFavImageView.setImageResource(R.drawable.ic_baseline_favorite_red);
-                homePresenter.insertFavMeal(meal);
-                Toast.makeText(getActivity(), "Added To Favourite..", Toast.LENGTH_SHORT).show();
+                if(mySharedPref.sharedPrefRead().getEmail().equals("not found")){
+                    AlertDialog.Builder builder=MyDialog.myDialog(requireContext());
+                    builder.setMessage("Do yo want to login?");
+                    builder.setTitle("You are not logged in!");
+                    builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // finish();
+                        Intent i=new Intent(requireContext(), LoginActivity.class);
+                        startActivity(i);
+                    });
+
+                    builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+                else {
+                    inspirationFavImageView.setImageResource(R.drawable.ic_baseline_favorite_red);
+                    homePresenter.insertFavMeal(meal);
+                    Toast.makeText(getActivity(), "Added To Favourite..", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -132,7 +159,25 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(requireContext(), ProfileActivity.class));
+                if(mySharedPref.sharedPrefRead().getEmail().equals("not found")){
+                    AlertDialog.Builder builder= MyDialog.myDialog(requireContext());
+                    builder.setMessage("Do yo want to login?");
+                    builder.setTitle("You are not logged in!");
+                    builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // finish();
+                        Intent i=new Intent(requireContext(), LoginActivity.class);
+                        startActivity(i);
+                    });
+
+                    builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+                else {
+                    startActivity(new Intent(requireContext(), ProfileActivity.class));
+                }
             }
         });
     }

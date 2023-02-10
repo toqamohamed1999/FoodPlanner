@@ -23,7 +23,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import eg.gov.iti.jets.foodplanner.model.Ingredient;
 import eg.gov.iti.jets.foodplanner.model.Meal;
@@ -88,7 +87,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity {
         mealDetails_mealCateVal_txtView.setText(meal.getStrCategory());
         mealDetails_mealAreaVal_txtView.setText(meal.getStrArea());
         mealDetails_stepsVal_txtView.setText(meal.getStrInstructions());
-        youTubePlayerView.initialize(YouTupeConfig.API_KEY, new YouTubePlayer.OnInitializedListener() {
+        youTubePlayerView.initialize(YouTubeConfig.API_KEY, new YouTubePlayer.OnInitializedListener() {
 
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {

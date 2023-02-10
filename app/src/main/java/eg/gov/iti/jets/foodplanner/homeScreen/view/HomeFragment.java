@@ -23,13 +23,12 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.FavInsertListener;
+import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.Meal_Details_Activity;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
-import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
-import eg.gov.iti.jets.foodplanner.ProfileActivity;
+import eg.gov.iti.jets.foodplanner.profile.view.ProfileActivity;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.homeScreen.presenter.HomePresenter;
 import eg.gov.iti.jets.foodplanner.model.Repo;

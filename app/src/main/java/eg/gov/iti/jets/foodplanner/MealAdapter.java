@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> {

@@ -46,8 +46,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     private Button registerBtn;
 
-    private ImageView googleImageView;
-
     private TextView haveAccountTv;
 
     ImageView animButton;
@@ -72,7 +70,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
         init();
         setupAnimationBtn();
         onRegisterClick();
-        onGoogleClick();
     }
 
     private void initUI() {
@@ -80,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
         emailEditText = findViewById(R.id.register_email_editText);
         passwordEditText = findViewById(R.id.register_password_editText);
         confirmPasswordEditText = findViewById(R.id.register_confirmPassword_editText);
-        googleImageView = findViewById(R.id.register_google_ImageView);
         haveAccountTv = findViewById(R.id.register_haveAccount_textView);
         registerBtn = findViewById(R.id.register_register_btn);
         animButton = findViewById(R.id.register_anim_imageView);
@@ -132,17 +128,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
         });
     }
 
-    private void onGoogleClick() {
-        googleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                email = emailEditText.getText().toString();
-                String webClientId = getString(R.string.default_web_client_id);
-                authPresenter.googleRegister(email, webClientId);
-            }
-        });
-    }
-
 
     @Override
     public void onSuccessRegister() {
@@ -157,62 +142,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
         Toast.makeText(this, "Register failed, Try again", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onGoogleRegisterSuccess(String error) {
-        Toast.makeText(this, "Google Register success", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onGoogleRegisterFail(String error) {
-        Toast.makeText(this, "Google Register fail", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void callGoogleBuilder(GoogleSignInOptions googleSignInOptions) {
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
-        startGoogleSignInIntent();
-    }
-
-    public void startGoogleSignInIntent() {
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        someActivityResultLauncher.launch(signInIntent);
-    }
-
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        // intent
-                        Intent data = result.getData();
-                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                        try {
-                            GoogleSignInAccount account = task.getResult(ApiException.class);
-                            firebaseAuthWithGoogle(account);
-                        } catch (ApiException e) {
-                            Log.w(TAG, "Google sign in failed", e);
-                        }
-                    }
-                }
-            });
-
-
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-
-                .addOnSuccessListener(this, authResult -> {
-                    Toast.makeText(this, "Google Register success", Toast.LENGTH_SHORT).show();
-     //////////////////                mySharedPref.sharedPrefWrite(email,password);
-                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                     finish();
-                })
-                .addOnFailureListener(this, e -> Toast.makeText(RegisterActivity.this, "Google Register failed.",
-                        Toast.LENGTH_SHORT).show());
-        Log.i(TAG, "firebaseAuthWithGoogle: fail");
-    }
 
     private boolean validEmail(String email) {
 

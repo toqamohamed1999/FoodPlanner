@@ -60,6 +60,9 @@ public class LoginPresenter implements LoginPresenterInterface {
                                 mySharedPref.sharedPrefWrite(email, password);
                                 loginViewInterface.OnLoginSuccess();
                             }
+                            else {
+                                Toast.makeText(context, "Not a Valid Email!", Toast.LENGTH_LONG).show();
+                            }
 
                         } else {
                             // If sign in fails, display a message to the user.

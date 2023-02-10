@@ -50,19 +50,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:orientation="vertical">
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/textInputName"-->
-<!--                        style="@style/parent"-->
-<!--                        app:boxStrokeColor="@color/colorAccent"-->
-<!--                        android:layout_marginTop="@dimen/loginViewsMargin">-->
-<!--                        <androidx.appcompat.widget.AppCompatEditText-->
-<!--                            android:id="@+id/register_name_editText"-->
-<!--                            style="@style/modifiedEditText"-->
-<!--                            android:inputType="textPersonName"-->
-<!--                            android:backgroundTint="@color/whiteTextColor"-->
-<!--                            android:maxLines="1"-->
-<!--                            android:hint="Name"/>-->
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputEmail"
@@ -172,16 +159,7 @@
                 android:gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_facebook"/>
-                <ImageView
-                    android:id="@+id/register_google_ImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_google_plus"
-                    android:layout_marginLeft="10dp"/>
+
             </LinearLayout>
 
 

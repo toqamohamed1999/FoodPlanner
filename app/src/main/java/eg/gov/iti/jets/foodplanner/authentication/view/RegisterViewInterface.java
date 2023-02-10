@@ -7,8 +7,4 @@ public interface RegisterViewInterface {
     public void onSuccessRegister();
     public void onFailRegister(String error);
 
-    public void onGoogleRegisterSuccess(String error);
-    public void onGoogleRegisterFail(String error);
-
-    public void callGoogleBuilder(GoogleSignInOptions googleSignInOptions);
 }

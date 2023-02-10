@@ -58,13 +58,4 @@ public class RegisterPresenter implements RegisterPresenterInterface {
                 });
     }
 
-    @Override
-    public void googleRegister(String email,String webClientId) {
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder()
-                .requestIdToken(webClientId)
-                .requestEmail()
-                .build();
-
-        regViewInterface.callGoogleBuilder(googleSignInOptions);
-    }
 }

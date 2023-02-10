@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MealDetails.view.CheckFavInterface;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import io.reactivex.rxjava3.core.Flowable;
@@ -27,5 +28,5 @@ public interface LocalSourceInterface {
     void deletePlanMeal(PlanMeal planMeal);
 
     void deletePlanMealTable();
-    boolean MealIsExistInFav(String idMeal);
+    void MealIsExistInFav(CheckFavInterface checkFavInterface,String idMeal);
 }

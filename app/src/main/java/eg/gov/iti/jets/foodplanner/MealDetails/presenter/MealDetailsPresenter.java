@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.util.Log;
 
+import eg.gov.iti.jets.foodplanner.MealDetails.view.CheckFavInterface;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.MealDetailsViewInterface;
 import eg.gov.iti.jets.foodplanner.homeScreen.view.HomeViewInterface;
 import eg.gov.iti.jets.foodplanner.model.Meal;
@@ -15,7 +16,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class MealDetailsPresenter implements MealDetailsPresenterInterface , NetworkDelegateDetails {
+public class MealDetailsPresenter implements MealDetailsPresenterInterface , NetworkDelegateDetails, CheckFavInterface {
 
     MealDetailsViewInterface mealDetailsViewInterface;
 
@@ -37,9 +38,15 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface , Net
     }
 
     @Override
-    public Boolean MealIsExistInFav(String idMeal) {
-       return repositoryInterface.MealIsExistInFav(idMeal);
+    public void MealIsExistInFav(String idMeal) {
+        repositoryInterface.MealIsExistInFav(this,idMeal);
     }
+
+    @Override
+    public void isFav(boolean isFav) {
+        mealDetailsViewInterface.checkMealIsFav(isFav);
+    }
+
 
     @Override
     public void insertPlanMeal(PlanMeal meal) {
@@ -49,14 +56,15 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface , Net
     @Override
     public void getMealDetailsById(Single<MealRoot> mealRoot) {
         mealRoot.subscribeOn(Schedulers.io())
-                .filter(mealRoot1 -> mealRoot1!=null && mealRoot1.getMeals().size() > 0)
+                .filter(mealRoot1 -> mealRoot1 != null && mealRoot1.getMeals().size() > 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealRoot1 -> mealDetailsViewInterface.getMealDetailsById(mealRoot1.getMeals().get(0)),
-                        error -> Log.i(TAG, "getMealDetailsById: "+error));
+                        error -> Log.i(TAG, "getMealDetailsById: " + error));
     }
 
     @Override
     public void getMealDetailsById(String idMeal) {
-        repositoryInterface.getMealById(this,idMeal);
+        repositoryInterface.getMealById(this, idMeal);
     }
+
 }

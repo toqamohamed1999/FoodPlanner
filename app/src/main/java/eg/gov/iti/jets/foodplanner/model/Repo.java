@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MealDetails.view.CheckFavInterface;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.MealDetailsViewInterface;
 import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
@@ -120,8 +121,8 @@ public class Repo implements RepositoryInterface {
     }
 
     @Override
-    public boolean MealIsExistInFav(String idMeal) {
-      return localSource.MealIsExistInFav(idMeal);
+    public void MealIsExistInFav(CheckFavInterface checkFavInterface,String idMeal) {
+        localSource.MealIsExistInFav(checkFavInterface,idMeal);
     }
 
     @Override

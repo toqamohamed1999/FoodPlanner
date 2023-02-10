@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MealDetails.view.CheckFavInterface;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.MealDetailsViewInterface;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateDetails;
@@ -42,7 +43,7 @@ public interface RepositoryInterface {
       void insertFavMeal(Meal meal);
 
       void deleteFavMeal(Meal meal);
-      boolean MealIsExistInFav(String idMeal);
+      void MealIsExistInFav(CheckFavInterface checkFavInterface,String idMeal);
       Flowable<List<PlanMeal>> getStoredPlanMeals(String day);
       void insertPlanMeal(PlanMeal meal);
       void deletePlanMeal(PlanMeal meal);

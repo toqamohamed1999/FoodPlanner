@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MealDetails.view.CheckFavInterface;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import io.reactivex.rxjava3.core.Flowable;
@@ -102,16 +103,13 @@ public class LocalSource implements LocalSourceInterface {
     }
 
     @Override
-    public boolean MealIsExistInFav(String idMeal) {
-        final boolean[] flag = new boolean[1];
+    public void MealIsExistInFav(CheckFavInterface checkFavInterface,String idMeal) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                 flag[0] =mealDao.isRowIsExist(idMeal);
+                checkFavInterface.isFav(mealDao.isRowIsExist(idMeal));
             }
         }).start();
-        Log.i(TAG, "MealIsExistInFav: "+flag[0]);
-        return flag[0];
     }
 
 }

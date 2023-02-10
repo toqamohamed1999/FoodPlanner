@@ -41,7 +41,7 @@ import eg.gov.iti.jets.foodplanner.plan.view.PlanMealsAdapter;
 
 public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDetailsViewInterface {
     private Meal meal;
-    private PlanMeal planMeal;
+    private PlanMeal planMeal = new PlanMeal();
     private static final String TAG = "Meal_Details_Activity";
     ImageView meal_details_imageView, mealDetails_card_fav_imageview;
     ImageButton resultSearch_back_imageBtn;
@@ -58,6 +58,8 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
     private ProgressBar progressBar;
     String selectedDay;
 
+    boolean isFavMeal = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +67,34 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
         iniUI();
         init();
+        setupRecyclerView();
         getMeal();
+        checkFav();
         setUpAutoCompleteTv();
+    }
+
+    private void iniUI() {
+        meal_details_imageView = findViewById(R.id.meal_details_imageView);
+        mealDetails_card_fav_imageview = findViewById(R.id.mealDetails_card_fav_imageview);
+        resultSearch_back_imageBtn = findViewById(R.id.resultSearch_back_imageBtn);
+        mealDetails_mealName_txtView = findViewById(R.id.mealDetails_mealName_txtView);
+        mealDetails_ingredientsList_recycleView = findViewById(R.id.mealDetails_ingredientsList_recycleView);
+        mealDetails_mealCateVal_txtView = findViewById(R.id.mealDetails_mealCateVal_txtView);
+        mealDetails_mealAreaVal_txtView = findViewById(R.id.mealDetails_mealAreaVal_txtView);
+        mealDetails_stepsVal_txtView = findViewById(R.id.mealDetails_stepsVal_txtView);
+        youTubePlayerView = (YouTubePlayerView) findViewById(R.id.videoView);
+        progressBar = findViewById(R.id.meal_details_progressbar);
+        autoCompleteTextView = findViewById(R.id.mealDetails_autoCompleteTextView);
+
+        handleMealAddToFav();
+    }
+
+    public void init() {
+        mealDetailsPresenter = new MealDetailsPresenter(this, Repo.getInstance(getApplicationContext(), LocalSource.getLocalSource(getApplicationContext()), RemoteSource.getRemoteSource()));
+    }
+
+    private void checkFav() {
+        if (meal != null) mealDetailsPresenter.MealIsExistInFav(meal.getIdMeal());
     }
 
     private void setUpAutoCompleteTv() {
@@ -81,7 +109,6 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
         arrayAdapter = new ArrayAdapter<>(Meal_Details_Activity.this, android.R.layout.simple_list_item_1, searchByList);
         autoCompleteTextView.setAdapter(arrayAdapter);
-       // autoCompleteTextView.setText(arrayAdapter.getItem(0), false);
         selectedDay = searchByList.get(0);
 
         setOnSelectFilterEvent();
@@ -98,29 +125,21 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         });
     }
 
-    private void iniUI() {
-        meal_details_imageView = findViewById(R.id.meal_details_imageView);
-        mealDetails_card_fav_imageview = findViewById(R.id.mealDetails_card_fav_imageview);
-        resultSearch_back_imageBtn = findViewById(R.id.resultSearch_back_imageBtn);
-        mealDetails_mealName_txtView = findViewById(R.id.mealDetails_mealName_txtView);
-        mealDetails_ingredientsList_recycleView = findViewById(R.id.mealDetails_ingredientsList_recycleView);
-        mealDetails_mealCateVal_txtView = findViewById(R.id.mealDetails_mealCateVal_txtView);
-        mealDetails_mealAreaVal_txtView = findViewById(R.id.mealDetails_mealAreaVal_txtView);
-        mealDetails_stepsVal_txtView = findViewById(R.id.mealDetails_stepsVal_txtView);
-        youTubePlayerView = (YouTubePlayerView) findViewById(R.id.videoView);
-        progressBar = findViewById(R.id.meal_details_progressbar);
 
-        autoCompleteTextView = findViewById(R.id.mealDetails_autoCompleteTextView);
+
+    private void handleMealAddToFav(){
         mealDetails_card_fav_imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MealIsExistInFav(meal.getIdMeal())) {
+                if (isFavMeal) {
                     mealDetailsPresenter.deleteFavMeal(meal);
                     mealDetails_card_fav_imageview.setImageResource(R.drawable.baseline_favorite_24);
+                    isFavMeal = false;
                     Toast.makeText(Meal_Details_Activity.this, "Removed From Favourite ", Toast.LENGTH_SHORT).show();
                 } else {
                     mealDetailsPresenter.insertFavMeal(meal);
                     mealDetails_card_fav_imageview.setImageResource(R.drawable.ic_baseline_favorite_red);
+                    isFavMeal = true;
                     Toast.makeText(Meal_Details_Activity.this, "Added To Favourite.. ", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -142,11 +161,18 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
                     }
                 });
-        setupRecyclerView();
+
         mealDetails_mealName_txtView.setText(meal.getStrMeal());
         mealDetails_mealCateVal_txtView.setText(meal.getStrCategory());
         mealDetails_mealAreaVal_txtView.setText(meal.getStrArea());
         mealDetails_stepsVal_txtView.setText(meal.getStrInstructions());
+        ingredientList = getIngredientList();
+        ingredientsAdapter.setData(ingredientList);
+
+        handleYoutubeEvent();
+    }
+
+    private void handleYoutubeEvent(){
         youTubePlayerView.initialize(YouTubeConfig.API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
@@ -162,19 +188,15 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
             }
         });
-        if (MealIsExistInFav(meal.getIdMeal())) {
+    }
+
+
+    @Override
+    public void checkMealIsFav(boolean isFav) {
+        isFavMeal = isFav;
+        if(isFav){
             mealDetails_card_fav_imageview.setImageResource(R.drawable.ic_baseline_favorite_red);
         }
-    }
-
-    public void init() {
-        mealDetailsPresenter = new MealDetailsPresenter(this, Repo.getInstance(getApplicationContext(), LocalSource.getLocalSource(getApplicationContext()), RemoteSource.getRemoteSource()));
-        planMeal = new PlanMeal();
-    }
-
-    boolean MealIsExistInFav(String idMeal) {
-        Log.i(TAG, "MealIsExistInFav: meal details activity " + mealDetailsPresenter.MealIsExistInFav(idMeal));
-        return mealDetailsPresenter.MealIsExistInFav(idMeal);
     }
 
 
@@ -185,7 +207,6 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         mealDetails_ingredientsList_recycleView.setLayoutManager(linearLayoutManager);
         ingredientsAdapter = new IngredientsAdapter(Meal_Details_Activity.this, ingredientList);
         mealDetails_ingredientsList_recycleView.setAdapter(ingredientsAdapter);
-        ingredientList = getIngredientList();
         ingredientsAdapter.setData(ingredientList);
     }
 
@@ -201,6 +222,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
             mealDetailsPresenter.getMealDetailsById(meal.getIdMeal());
         } else {
             updateUI();
+
         }
     }
 
@@ -211,6 +233,8 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
             updateUI();
         }
     }
+
+
 
     public List<Ingredient> getIngredientList() {
         ingredientList.add(new Ingredient(meal.getStrIngredient1(), "https://www.themealdb.com/images/ingredients/Lime.png"));

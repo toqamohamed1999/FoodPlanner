@@ -18,7 +18,7 @@ import eg.gov.iti.jets.foodplanner.authentication.presenter.LoginPresenterInterf
 
 public class LoginActivity extends AppCompatActivity implements LoginViewInterface {
     ImageView animButton;
-    TextView skipTv;
+    TextView skipTv,login_registerNow_txtview;
     MySharedPref mySharedPref;
     LoginPresenterInterface loginPresenterInterface;
     EditText login_email_edittxt;
@@ -34,11 +34,19 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         login_email_edittxt=findViewById(R.id.login_email_edittxt);
         login_password_edittxt=findViewById(R.id.login_password_edittxt);
         login_login_btn=findViewById(R.id.login_login_btn);
+        login_registerNow_txtview=findViewById(R.id.login_registerNow_txtview);
         loginPresenterInterface=new LoginPresenter(getApplicationContext(),this);
         login_login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Login(login_email_edittxt.getText().toString(),login_password_edittxt.getText().toString());
+            }
+        });
+        login_registerNow_txtview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(i);
             }
         });
 

@@ -59,6 +59,7 @@ public class OnSearchingActivity extends AppCompatActivity implements OnSearchin
         setUpPresenter();
         setUpAutoCompleteTv();
         handelSearchViewEvent();
+        handelBackButton();
     }
 
     private void initUI() {
@@ -66,6 +67,14 @@ public class OnSearchingActivity extends AppCompatActivity implements OnSearchin
         searchView = findViewById(R.id.onSearching_searchView);
         backImageButton = findViewById(R.id.onSearching_back_imageBtn);
         autoCompleteTextView = findViewById(R.id.onSearching_autoCompleteTextView);
+    }
+    private void handelBackButton(){
+        backImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     void setUpPresenter(){

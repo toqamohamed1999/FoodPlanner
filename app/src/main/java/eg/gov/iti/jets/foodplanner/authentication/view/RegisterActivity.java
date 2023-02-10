@@ -124,6 +124,12 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
                 }
             }
         });
+        haveAccountTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void onGoogleClick() {

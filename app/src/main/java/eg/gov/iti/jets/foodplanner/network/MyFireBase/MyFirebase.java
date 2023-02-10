@@ -47,7 +47,7 @@ public class MyFirebase {
 
     public  void getMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate){
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("meals").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot item : snapshot.getChildren()) {
@@ -69,7 +69,7 @@ public class MyFirebase {
 
     public void storeMealsToFirebase(NetworkProfileDelegate networkProfileDelegate,List<Meal> mealsList){
 
-        databaseReference.setValue(mealsList).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child("meals").setValue(mealsList).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 networkProfileDelegate.onResultStoreMealsToFirebase("success store backup");

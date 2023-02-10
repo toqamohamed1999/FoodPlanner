@@ -178,6 +178,12 @@ public class Repo implements RepositoryInterface, FirebaseInterface {
     }
 
     @Override
+    public void deleteDataWhenLogout() {
+        localSource.deletePlanMealTable();
+        localSource.deleteMealTable();
+    }
+
+    @Override
     public void getMealsFromFirebase(List<Meal> mealList) {
         for(int i = 0;i< mealList.size(); i++) {
             localSource.insertMeal(mealList.get(i));

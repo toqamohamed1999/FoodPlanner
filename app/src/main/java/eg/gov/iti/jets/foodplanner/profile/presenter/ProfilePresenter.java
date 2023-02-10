@@ -42,4 +42,9 @@ public class ProfilePresenter implements ProfilePresenterInterface, NetworkProfi
     public void storeMealsToFirebase() {
         repositoryInterface.storeMealsToFirebase(this);
     }
+
+    @Override
+    public void deleteDataWhenLogout() {
+        repositoryInterface.deleteDataWhenLogout();
+    }
 }

@@ -122,7 +122,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = MyDialog.myDialog(ProfileActivity.this);
-                builder.setMessage("Do you want to logout ?");
+                builder.setMessage("Do you want to logout ? \nYou will lose your data if you do not backup it..");
 
                 builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                     // finish();
@@ -131,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
                     if (user != null) {
                         mySharedPref.sharedPrefWrite("not found", "not found");
                         firebaseAuth.signOut();
+                        profilePresenter.deleteDataWhenLogout();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         finish();
                     }

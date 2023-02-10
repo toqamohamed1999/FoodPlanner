@@ -45,7 +45,8 @@ public class MyFirebase {
     public MyFirebase(FirebaseInterface firebaseInterface) {
         this.firebaseInterface = firebaseInterface;
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference =  FirebaseDatabase.getInstance().getReference().child(firebaseAuth.getUid());
+        if(firebaseAuth.getUid()!=null)
+             databaseReference =  FirebaseDatabase.getInstance().getReference().child(firebaseAuth.getUid());
     }
 
     public  void getMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate){

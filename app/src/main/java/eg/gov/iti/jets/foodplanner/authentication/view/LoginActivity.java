@@ -24,7 +24,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-
 import eg.gov.iti.jets.foodplanner.MainActivity;
 import eg.gov.iti.jets.foodplanner.MySharedPref;
 import eg.gov.iti.jets.foodplanner.R;

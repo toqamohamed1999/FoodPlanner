@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.FavInsertListener;
+import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
 import eg.gov.iti.jets.foodplanner.R;

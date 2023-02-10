@@ -5,7 +5,7 @@ public interface RemoteSourceInterface {
 
      void enqueueEgyptianMealsCall(NetworkDelegate networkDelegate);
 
-     void enqueueGetMealByIdCall(NetworkDelegate networkDelegate);
+     void enqueueGetMealByIdCall(NetworkDelegateDetails networkDelegateDetails,String idMeal);
      void enqueueGetMealByNameCall(NetworkDelegateSearchResult networkDelegate,String name);
 
      void enqueueGetAllCategoriesCall(NetworkDelegateSearch networkDelegateSearch);

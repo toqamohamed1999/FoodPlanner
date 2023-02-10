@@ -4,8 +4,10 @@ import android.content.Context;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MealDetails.view.MealDetailsViewInterface;
 import eg.gov.iti.jets.foodplanner.database.LocalSourceInterface;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegate;
+import eg.gov.iti.jets.foodplanner.network.NetworkDelegateDetails;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateOnSearching;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearch;
 import eg.gov.iti.jets.foodplanner.network.NetworkDelegateSearchResult;
@@ -45,9 +47,10 @@ public class Repo implements RepositoryInterface {
         remoteSource.enqueueEgyptianMealsCall(networkDelegate);
     }
 
+
     @Override
-    public void getMealById(NetworkDelegate networkDelegate) {
-        remoteSource.enqueueGetMealByIdCall(networkDelegate);
+    public void getMealById(NetworkDelegateDetails networkDelegateDetails, String idMeal) {
+        remoteSource.enqueueGetMealByIdCall(networkDelegateDetails,idMeal);
     }
 
     @Override

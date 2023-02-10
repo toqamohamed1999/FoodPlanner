@@ -39,7 +39,7 @@ public class HomePresenter implements HomePresenterInterface, NetworkDelegate {
 
     @Override
     public void getMealById() {
-        repositoryInterface.getMealById(this);
+       // repositoryInterface.getMealById(this);
     }
 
 

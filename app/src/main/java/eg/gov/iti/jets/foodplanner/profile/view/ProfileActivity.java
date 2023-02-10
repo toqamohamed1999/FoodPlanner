@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,17 +29,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import eg.gov.iti.jets.foodplanner.R;
+import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
 
     public static final int BACKUP_CODE = 12;
-    private Button logoutButton,backupButton;
+    private Button logoutBtn,backupButton;
 
     private ImageButton backBtn;
 
     private TextView emailTv,userNameTV;
+
+    private FirebaseAuth firebaseAuth;
 
 
     private LottieAnimationView lottieAnimationView;
@@ -50,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         initUI();
         setUpLottieAnimationView();
+        logout();
         handleSaveBackupToFirebase();
     }
 
@@ -57,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
         lottieAnimationView = findViewById(R.id.profile_animation_view);
         userNameTV = findViewById(R.id.profile_userName_textView);
         emailTv = findViewById(R.id.profile_email_textView);
-        logoutButton = findViewById(R.id.profile_logout_button);
+        logoutBtn = findViewById(R.id.profile_logout_button);
         backupButton = findViewById(R.id.profile_backup_button);
         backBtn = findViewById(R.id.profile_back_imageBtn);
     }
@@ -77,6 +83,38 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void logout(){
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                     final AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
+//                     alert.setTitle("Logout");
+//                     alert.setMessage("Are you sure you wish to logout?")
+//                             .setCancelable(false)
+//                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                 @Override
+//                                 public void onClick(DialogInterface dialogInterface, int i) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    firebaseAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    finish();
+//                                     }
+//                                 }
+//                             })
+//                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                 @Override
+//                                 public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                 }
+//                             });
+//                     alert.show();
+                }
+            }
+        });
+
     }
 
 

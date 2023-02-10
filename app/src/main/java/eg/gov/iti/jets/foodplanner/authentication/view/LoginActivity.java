@@ -32,6 +32,8 @@ import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.presenter.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewInterface {
+
+    private static final String TAG = "LoginActivity";
     ImageView animButton;
     TextView skipTv,login_registerNow_txtview;
     MySharedPref mySharedPref;
@@ -170,13 +172,15 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
                 }
             });
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
 
                 .addOnSuccessListener(this, authResult -> {
                     Toast.makeText(this, "Google login success", Toast.LENGTH_SHORT).show();
-                   /////////// mySharedPref.sharedPrefWrite(email,"");
+                    mySharedPref.sharedPrefWrite(account.getEmail(),"");
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 })

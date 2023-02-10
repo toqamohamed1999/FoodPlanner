@@ -50,8 +50,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
 
 
     private static final String TAG = "ProfileActivity";
-    public static final int BACKUP_CODE = 12;
-    private Button logoutBtn, backupButton;
+
+    private Button logoutBtn, backupButton,restoreBackupBtn;
 
     private ImageButton backBtn;
 
@@ -80,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
         setUPPresenter();
         logout();
         handleSaveBackupToFirebase();
+        handleRestoreBackupToFirebase();
         handelBackButton();
     }
 
@@ -90,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
         logoutBtn = findViewById(R.id.profile_logout_button);
         backupButton = findViewById(R.id.profile_backup_button);
         backBtn = findViewById(R.id.profile_back_imageBtn);
+        restoreBackupBtn = findViewById(R.id.profile_restore_backup_button);
         mySharedPref = new MySharedPref(getApplicationContext());
         firebaseAuth = FirebaseAuth.getInstance();
     }
@@ -166,9 +168,18 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
         backupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "onClick: handleSaveBackupToFirebase ");
                 profilePresenter.storeMealsToFirebase();
                 setupProgressDialog("Save Backup Data");
+            }
+        });
+    }
+
+    private void handleRestoreBackupToFirebase(){
+        restoreBackupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profilePresenter.getMealsFromFirebase();
+                setupProgressDialog("Restore Your Backup Data");
             }
         });
     }

@@ -40,6 +40,7 @@ public class MyFirebase {
     ArrayList<Meal> mealsList = new ArrayList<>();
 
     public MyFirebase(FirebaseInterface firebaseInterface) {
+        this.firebaseInterface = firebaseInterface;
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference =  FirebaseDatabase.getInstance().getReference().child(firebaseAuth.getUid());
     }

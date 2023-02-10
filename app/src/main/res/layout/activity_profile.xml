@@ -99,6 +99,21 @@
         app:layout_constraintTop_toBottomOf="@id/userDataCardView" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/profile_restore_backup_button"
+        style="@style/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:drawableLeft="@drawable/baseline_restore_24"
+        android:drawableTint="@color/white"
+        android:text="Restore your Backup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_backup_button" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/profile_logout_button"
         style="@style/loginButton"
         android:layout_width="match_parent"
@@ -111,5 +126,5 @@
         android:drawableTint="@color/white"
         android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_backup_button" />
+        app:layout_constraintTop_toBottomOf="@id/profile_restore_backup_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

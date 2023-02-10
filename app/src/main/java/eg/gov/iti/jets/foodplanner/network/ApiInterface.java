@@ -15,11 +15,10 @@ public interface ApiInterface {
     @GET("filter.php?a=Egyptian")
     Single<MealRoot> getEgyptianMeals();
 
-    @GET("lookup.php?i=52772")
-    Single<MealRoot> getMealById();
+    @GET("lookup.php")
+    Single<MealRoot> getMealById(@Query("i") String idMeal);
 
     @GET("search.php")
-        //f
     Single<MealRoot> getMealByName(@Query("s") String name);
 
 

@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.IngredientsAdapter;
+import eg.gov.iti.jets.foodplanner.MealDetails.view.IngredientsAdapter;
 import eg.gov.iti.jets.foodplanner.searchBy.view.OnSearchingActivity;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;

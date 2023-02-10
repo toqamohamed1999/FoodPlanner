@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.FavInsertListener;
+import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
 import eg.gov.iti.jets.foodplanner.R;
@@ -27,11 +27,16 @@ import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyViewHolder>{
     private Context context;
     private List<PlanMeal> mealsList;
-    public  static String MEAL_KEY="meal";
 
-    public PlanMealsAdapter(Context context, List<PlanMeal> mealsList) {
+    private PlanMealDeleteListener planMealDeleteListener;
+    public  static String PlAN_MEAL_KEY="planMeal";
+
+    public  static String PLAN_MEAL_ADAPTER_TYPE="PlanMealsAdapter";
+
+    public PlanMealsAdapter(Context context, List<PlanMeal> mealsList, PlanMealDeleteListener planMealDeleteListener) {
         this.context = context;
         this.mealsList = mealsList;
+        this.planMealDeleteListener = planMealDeleteListener;
     }
 
     @NonNull
@@ -44,32 +49,27 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        PlanMeal meal = mealsList.get(position);
-//        Picasso.get().load(meal.getStrMealThumb())
-//                .placeholder(R.mipmap.ic_launcher)
-//                .into(holder.mealImageView);
+        PlanMeal planMeal = mealsList.get(position);
 
-        Picasso.with(context).load(meal.getStrMealThumb())
+        Picasso.with(context).load(planMeal.getStrMealThumb())
                 .into(holder.mealImageView);
-
-        holder.mealNameTv.setText(meal.getStrMeal());
-        holder.mealCategoryTv.setText(meal.getStrCategory());
+        holder.mealNameTv.setText(planMeal.getStrMeal());
+        holder.mealCategoryTv.setText(planMeal.getStrCategory());
 
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                favInsertListener.insertFavClick(meal);
-//                holder.favImageView.setImageResource(R.drawable.ic_baseline_favorite_red);
-                //Toast.makeText(context, "Meal deleted from plan", Toast.LENGTH_SHORT).show();
+                planMealDeleteListener.removeFavMealClick(planMeal);
             }
         });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i=new Intent(context, Meal_Details_Activity.class);
-//                i.putExtra(MEAL_KEY,mealsList.get(position));
-//                context.startActivity(i);
+                Intent i=new Intent(context, Meal_Details_Activity.class);
+                i.putExtra(PlAN_MEAL_KEY,mealsList.get(position));
+                i.putExtra("adapterType",PLAN_MEAL_ADAPTER_TYPE);
+                context.startActivity(i);
             }
         });
     }

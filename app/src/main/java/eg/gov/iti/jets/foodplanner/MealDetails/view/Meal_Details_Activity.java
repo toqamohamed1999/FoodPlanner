@@ -27,18 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import eg.gov.iti.jets.foodplanner.IngredientsAdapter;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
 import eg.gov.iti.jets.foodplanner.MealDetails.presenter.MealDetailsPresenter;
 import eg.gov.iti.jets.foodplanner.R;
-import eg.gov.iti.jets.foodplanner.YouTupeConfig;
+import eg.gov.iti.jets.foodplanner.YouTubeConfig;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Ingredient;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
-import eg.gov.iti.jets.foodplanner.searchBy.view.OnSearchingActivity;
+import eg.gov.iti.jets.foodplanner.plan.view.PlanMealsAdapter;
 
 public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDetailsViewInterface {
     private Meal meal;
@@ -68,7 +67,6 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         init();
         getMeal();
         setUpAutoCompleteTv();
-        updateUI();
     }
 
     private void setUpAutoCompleteTv() {
@@ -83,7 +81,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
         arrayAdapter = new ArrayAdapter<>(Meal_Details_Activity.this, android.R.layout.simple_list_item_1, searchByList);
         autoCompleteTextView.setAdapter(arrayAdapter);
-        autoCompleteTextView.setText(arrayAdapter.getItem(0), false);
+       // autoCompleteTextView.setText(arrayAdapter.getItem(0), false);
         selectedDay = searchByList.get(0);
 
         setOnSelectFilterEvent();
@@ -149,7 +147,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         mealDetails_mealCateVal_txtView.setText(meal.getStrCategory());
         mealDetails_mealAreaVal_txtView.setText(meal.getStrArea());
         mealDetails_stepsVal_txtView.setText(meal.getStrInstructions());
-        youTubePlayerView.initialize(YouTupeConfig.API_KEY, new YouTubePlayer.OnInitializedListener() {
+        youTubePlayerView.initialize(YouTubeConfig.API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 String[] url = meal.getStrYoutube().split("=");
@@ -179,6 +177,41 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         return mealDetailsPresenter.MealIsExistInFav(idMeal);
     }
 
+
+
+    private void setupRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Meal_Details_Activity.this);
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mealDetails_ingredientsList_recycleView.setLayoutManager(linearLayoutManager);
+        ingredientsAdapter = new IngredientsAdapter(Meal_Details_Activity.this, ingredientList);
+        mealDetails_ingredientsList_recycleView.setAdapter(ingredientsAdapter);
+        ingredientList = getIngredientList();
+        ingredientsAdapter.setData(ingredientList);
+    }
+
+    private void getMeal() {
+        Intent i = getIntent();
+        if(i.getStringExtra("adapterType").equals(MealAdapter.MEAL_ADAPTER_TYPE)) {
+            meal = (Meal) i.getSerializableExtra(MealAdapter.MEAL_KEY);
+        }else{
+            planMeal = (PlanMeal) i.getSerializableExtra(PlanMealsAdapter.PlAN_MEAL_KEY);
+            meal = planMeal.getMealFromMealPlanMeal(planMeal);
+        }
+        if (meal.getStrCategory() == null) {
+            mealDetailsPresenter.getMealDetailsById(meal.getIdMeal());
+        } else {
+            updateUI();
+        }
+    }
+
+    @Override
+    public void getMealDetailsById(Meal myMeal) {
+        meal = myMeal;
+        if(meal.getStrCategory() != null){
+            updateUI();
+        }
+    }
+
     public List<Ingredient> getIngredientList() {
         ingredientList.add(new Ingredient(meal.getStrIngredient1(), "https://www.themealdb.com/images/ingredients/Lime.png"));
         ingredientList.add(new Ingredient(meal.getStrIngredient2(), "https://www.themealdb.com/images/ingredients/Lime.png"));
@@ -204,21 +237,5 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
         ingredientList = ingredientList.stream().filter(e -> !(e.getStrIngredient().equals(""))).collect(Collectors.toList());
         return ingredientList;
-    }
-
-    private void setupRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Meal_Details_Activity.this);
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mealDetails_ingredientsList_recycleView.setLayoutManager(linearLayoutManager);
-        ingredientsAdapter = new IngredientsAdapter(Meal_Details_Activity.this, ingredientList);
-        mealDetails_ingredientsList_recycleView.setAdapter(ingredientsAdapter);
-        ingredientList = getIngredientList();
-        ingredientsAdapter.setData(ingredientList);
-    }
-
-    private Meal getMeal() {
-        Intent i = getIntent();
-        meal = (Meal) i.getSerializableExtra(MealAdapter.MEAL_KEY);
-        return meal;
     }
 }

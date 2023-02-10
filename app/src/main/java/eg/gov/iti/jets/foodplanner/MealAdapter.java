@@ -18,12 +18,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
+import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> {
     private Context context;
     private List<Meal> mealsList;
     public  static String MEAL_KEY="meal";
+
+    public  static String MEAL_ADAPTER_TYPE="MealAdapter";
 
     private FavInsertListener favInsertListener;
 
@@ -49,10 +52,6 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Meal meal = mealsList.get(position);
-//        Picasso.get().load(meal.getStrMealThumb())
-//                .placeholder(R.mipmap.ic_launcher)
-//                .into(holder.mealImageView);
-
         Picasso.with(context).load(meal.getStrMealThumb())
                 .into(holder.mealImageView, new com.squareup.picasso.Callback() {
                     @Override
@@ -85,6 +84,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
             public void onClick(View v) {
                 Intent i=new Intent(context, Meal_Details_Activity.class);
                 i.putExtra(MEAL_KEY,mealsList.get(position));
+                i.putExtra("adapterType",MEAL_ADAPTER_TYPE);
                 context.startActivity(i);
             }
         });

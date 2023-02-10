@@ -1,5 +1,7 @@
 package eg.gov.iti.jets.foodplanner.favorites.view;
 
+import static eg.gov.iti.jets.foodplanner.MealAdapter.MEAL_KEY;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -61,7 +63,9 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MyViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, Meal_Details_Activity.class));
+                Intent i=new Intent(context, Meal_Details_Activity.class);
+                i.putExtra(MEAL_KEY,mealsList.get(position));
+                context.startActivity(i);
             }
         });
     }

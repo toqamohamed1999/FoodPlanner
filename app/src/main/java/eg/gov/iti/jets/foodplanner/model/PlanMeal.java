@@ -5,8 +5,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "planMeal",primaryKeys = {"weekDay", "strMeal"})
-public class PlanMeal {
+public class PlanMeal implements Serializable {
 
     @NonNull
     private String weekDay;
@@ -353,6 +355,42 @@ public class PlanMeal {
         planMeal.setStrIngredient20(meal.getStrIngredient20());
 
         return planMeal;
+
+    }
+
+    public Meal getMealFromMealPlanMeal(PlanMeal planMeal){
+        Meal meal=new Meal();
+        meal.setIdMeal(planMeal.getIdMeal());
+        meal.setStrArea(planMeal.getStrArea());
+        meal.setStrMeal(planMeal.getStrMeal());
+        meal.setStrCategory(planMeal.getStrCategory());
+        meal.setStrDrinkAlternate(planMeal.getStrDrinkAlternate());
+        meal.setStrInstructions(planMeal.getStrInstructions());
+        meal.setStrMealThumb(planMeal.getStrMealThumb());
+        meal.setStrTags(planMeal.getStrTags());
+        meal.setStrYoutube(planMeal.getStrYoutube());
+        meal.setStrIngredient1(planMeal.getStrIngredient1());
+        meal.setStrIngredient2(planMeal.getStrIngredient2());
+        meal.setStrIngredient3(planMeal.getStrIngredient3());
+        meal.setStrIngredient4(planMeal.getStrIngredient4());
+        meal.setStrIngredient5(planMeal.getStrIngredient5());
+        meal.setStrIngredient6(planMeal.getStrIngredient6());
+        meal.setStrIngredient7(planMeal.getStrIngredient7());
+        meal.setStrIngredient8(planMeal.getStrIngredient8());
+        meal.setStrIngredient9(planMeal.getStrIngredient9());
+        meal.setStrIngredient10(planMeal.getStrIngredient10());
+        meal.setStrIngredient11(planMeal.getStrIngredient11());
+        meal.setStrIngredient12(planMeal.getStrIngredient12());
+        meal.setStrIngredient13(planMeal.getStrIngredient13());
+        meal.setStrIngredient14(planMeal.getStrIngredient14());
+        meal.setStrIngredient15(planMeal.getStrIngredient15());
+        meal.setStrIngredient16(planMeal.getStrIngredient16());
+        meal.setStrIngredient17(planMeal.getStrIngredient17());
+        meal.setStrIngredient18(planMeal.getStrIngredient18());
+        meal.setStrIngredient19(planMeal.getStrIngredient19());
+        meal.setStrIngredient20(planMeal.getStrIngredient20());
+
+        return meal;
 
     }
 }

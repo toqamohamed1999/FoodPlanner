@@ -1,4 +1,4 @@
-package eg.gov.iti.jets.foodplanner;
+package eg.gov.iti.jets.foodplanner.plan.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.plan.view.WeekDayListener;
+import eg.gov.iti.jets.foodplanner.R;
 
 public class PlanRecycleAdapter extends RecyclerView.Adapter<PlanRecycleAdapter.ViewHolder> {
 

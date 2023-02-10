@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_bk_color"
-    tools:context=".ProfileActivity">
+    tools:context=".profile.view.ProfileActivity">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/imageCardView"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/resultSearch_back_imageBtn"
+            android:id="@+id/profile_back_imageBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,24 +59,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageCardView">
-        <!--
+
                 <TextView
                     android:id="@+id/profile_userName_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="top|center_horizontal"
                     android:padding="5dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/userName"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
-           -->
+
         <TextView
             android:id="@+id/profile_email_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom|center_horizontal"
             android:padding="5dp"
             android:text="@string/email"
+            android:layout_marginBottom="8dp"
             android:textColor="@color/black"
             android:textSize="20dp" />
     </com.google.android.material.card.MaterialCardView>

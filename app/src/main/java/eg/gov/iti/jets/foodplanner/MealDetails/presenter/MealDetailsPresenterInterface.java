@@ -8,4 +8,6 @@ public interface MealDetailsPresenterInterface {
     public  void deleteFavMeal(Meal meal);
     public  Boolean MealIsExistInFav(String idMeal);
     public void insertPlanMeal(PlanMeal meal);
+
+    public void getMealDetailsById(String idMeal);
 }

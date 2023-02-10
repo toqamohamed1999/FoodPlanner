@@ -35,10 +35,11 @@ public class RemoteSource implements RemoteSourceInterface{
         networkDelegate.getEgyptianMeals(observable);
     }
 
+
     @Override
-    public void enqueueGetMealByIdCall(NetworkDelegate networkDelegate) {
-        Single<MealRoot> observable = apiInterface.getMealById();
-        networkDelegate.getMealByName(observable);
+    public void enqueueGetMealByIdCall(NetworkDelegateDetails networkDelegateDetails, String idMeal) {
+        Single<MealRoot> observable = apiInterface.getMealById(idMeal);
+        networkDelegateDetails.getMealDetailsById(observable);
     }
 
     @Override

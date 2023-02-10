@@ -13,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import eg.gov.iti.jets.foodplanner.PlanRecycleAdapter;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
@@ -26,7 +26,7 @@ import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 import eg.gov.iti.jets.foodplanner.plan.presenter.PlanPresenter;
 
-public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayListener {
+public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayListener,PlanMealDeleteListener {
     PlanRecycleAdapter planRecycleAdapter;
     PlanMealsAdapter planMealsAdapter;
     PlanPresenter planPresenter;
@@ -36,6 +36,8 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
     String selectedDay;
     TextView plan_dayName_text;
     List<PlanMeal> planMealArrayList=new ArrayList<>();
+
+    private String weekDay = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,20 +78,28 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
         final LinearLayoutManager daysLayoutManager = new LinearLayoutManager(view.getContext());
         plan_day_recyclerView.setLayoutManager(daysLayoutManager);
        daysLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        planMealsAdapter = new PlanMealsAdapter(view.getContext(), planMealArrayList);
+
+        planMealsAdapter = new PlanMealsAdapter(view.getContext(), planMealArrayList,this);
         plan_day_recyclerView.setAdapter(planMealsAdapter);
     }
 
     @Override
     public void getStoredPlanMeals(String day) {
         planPresenter.getStoredPlanMeals(day);
+        weekDay = day;
     }
 
     @Override
     public void getStoredPlanMeals(List<PlanMeal> mealList) {
-        Log.i(TAG, "getStoredPlanMeals: "+mealList.toString());
+        if(mealList.size() == 0){
+            Toast.makeText(requireContext(), "No Planed Meals for "+weekDay, Toast.LENGTH_SHORT).show();
+        }
         planMealsAdapter.setData(mealList);
-        if(mealList.size()>0)
-            plan_dayName_text.setText(mealList.get(0).getWeekDay());
+        plan_dayName_text.setText(weekDay);
+    }
+
+    @Override
+    public void removeFavMealClick(PlanMeal planMeal) {
+        planPresenter.deletePlanMeal(planMeal);
     }
 }

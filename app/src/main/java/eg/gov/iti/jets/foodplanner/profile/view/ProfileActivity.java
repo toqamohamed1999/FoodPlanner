@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.utils.Utils;
@@ -30,18 +32,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.MyDialog;
 import eg.gov.iti.jets.foodplanner.MySharedPref;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
+import eg.gov.iti.jets.foodplanner.database.LocalSource;
+import eg.gov.iti.jets.foodplanner.homeScreen.presenter.HomePresenter;
+import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.model.User;
+import eg.gov.iti.jets.foodplanner.network.RemoteSource;
+import eg.gov.iti.jets.foodplanner.profile.presenter.ProfilePresenter;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements ProfileViewInterface{
+
 
     private static final String TAG = "ProfileActivity";
-    public static final int BACKUP_CODE = 12;
-    private Button logoutBtn, backupButton;
+
+    private Button logoutBtn, backupButton,restoreBackupBtn;
 
     private ImageButton backBtn;
 
@@ -52,17 +62,25 @@ public class ProfileActivity extends AppCompatActivity {
 
     private LottieAnimationView lottieAnimationView;
 
+    private ProfilePresenter profilePresenter;
+
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
 
+
+
         initUI();
         setUpLottieAnimationView();
         setupUserNameAndEmail();
+        setUPPresenter();
         logout();
         handleSaveBackupToFirebase();
+        handleRestoreBackupToFirebase();
         handelBackButton();
     }
 
@@ -73,8 +91,13 @@ public class ProfileActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.profile_logout_button);
         backupButton = findViewById(R.id.profile_backup_button);
         backBtn = findViewById(R.id.profile_back_imageBtn);
+        restoreBackupBtn = findViewById(R.id.profile_restore_backup_button);
         mySharedPref = new MySharedPref(getApplicationContext());
         firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    void setUPPresenter(){
+        profilePresenter = new ProfilePresenter(this, Repo.getInstance(getApplicationContext(), LocalSource.getLocalSource(getApplicationContext()), RemoteSource.getRemoteSource()));
     }
 
     private void setUpLottieAnimationView() {
@@ -85,14 +108,6 @@ public class ProfileActivity extends AppCompatActivity {
         animator.start();
     }
 
-    private void handleSaveBackupToFirebase() {
-        backupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
     private void handelBackButton(){
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,80 +155,52 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    void setupProgressDialog(String message) {
+        progressDialog = new ProgressDialog(ProfileActivity.this);
+        progressDialog.setMessage(message);
+        progressDialog.setTitle("Backup Loading..");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.show();
+    }
 
-//    private void restoreDBIntent() {
-//        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-//        i.setType("*/*");
-//        startActivityForResult(Intent.createChooser(i, "Select DB File"), BACKUP_CODE);
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == BACKUP_CODE && resultCode == RESULT_OK && data != null) {
-//            Uri fileUri = data.getData();
-//
-//            try {
-//                assert fileUri != null;
-//                InputStream inputStream = null;
-//                try {
-//                    inputStream = getContentResolver().openInputStream(fileUri);
-//                } catch (FileNotFoundException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                if (validFile(fileUri)) {
-//                    restoreDatabase(inputStream);
-//                } else {
-//                    Utils.showSnackbar(findViewById(android.R.id.content), getString(R.string.restore_failed), 1);
-//                }
-//                if (inputStream != null) {
-//                    try {
-//                        inputStream.close();
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    private boolean validFile(Uri fileUri) {
-//        ContentResolver cr = this.getContentResolver();
-//        String mime = cr.getType(fileUri);
-//        return "application/octet-stream".equals(mime);
-//    }
-//
-//
-//    public static void backupDatabaseForRestore(Activity activity, Context context) {
-//        File dbfile = activity.getDatabasePath("mydatabase");
-//        File sdir = new File(getFilePath(context, 0), "backup");
-//        String sfpath = sdir.getPath() + File.separator + BACKUP_RESTORE_ROLLBACK_FILE_NAME;
-//        if (!sdir.exists()) {
-//            sdir.mkdirs();
-//        }
-//        File savefile = new File(sfpath);
-//        if (savefile.exists()) {
-//            savefile.delete();
-//        }
-//        try {
-//            if (savefile.createNewFile()) {
-//                int buffersize = 8 * 1024;
-//                byte[] buffer = new byte[buffersize];
-//                int bytes_read = buffersize;
-//                OutputStream savedb = new FileOutputStream(sfpath);
-//                InputStream indb = new FileInputStream(dbfile);
-//                while ((bytes_read = indb.read(buffer, 0, buffersize)) > 0) {
-//                    savedb.write(buffer, 0, bytes_read);
-//                }
-//                savedb.flush();
-//                indb.close();
-//                savedb.close();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
-//    }
+    private void handleSaveBackupToFirebase(){
+        backupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profilePresenter.storeMealsToFirebase();
+                setupProgressDialog("Save Backup Data");
+            }
+        });
+    }
+
+    private void handleRestoreBackupToFirebase(){
+        restoreBackupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profilePresenter.getMealsFromFirebase();
+                setupProgressDialog("Restore Your Backup Data");
+            }
+        });
+    }
+
+    @Override
+    public void onResultGetMealsFromFirebase(String message) {
+        if(message.contains("success")){
+            Toast.makeText(this, "Restore Your Backup success", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Restore Your Backup failed,Maybe you have no internet connection", Toast.LENGTH_SHORT).show();
+        }
+        progressDialog.cancel();
+    }
+
+    @Override
+    public void onResultStoreMealsToFirebase(String message) {
+        if(message.contains("success")){
+            Toast.makeText(this, "Backup Data Successfully", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Backup Data Failed,Maybe you have no internet connection", Toast.LENGTH_SHORT).show();
+        }
+        progressDialog.cancel();
+    }
 }

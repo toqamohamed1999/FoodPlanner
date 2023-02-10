@@ -1,5 +1,7 @@
 package eg.gov.iti.jets.foodplanner.homeScreen.view;
 
+import static eg.gov.iti.jets.foodplanner.MealAdapter.MEAL_ADAPTER_TYPE;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -109,6 +111,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface, FavInse
             public void onClick(View v) {
                 Intent i=new Intent(requireContext(), Meal_Details_Activity.class);
                 i.putExtra(MealAdapter.MEAL_KEY,meal);
+                i.putExtra("adapterType",MEAL_ADAPTER_TYPE);
                 startActivity(i);
             }
         });

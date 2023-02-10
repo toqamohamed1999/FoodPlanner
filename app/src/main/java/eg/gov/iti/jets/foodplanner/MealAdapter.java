@@ -70,14 +70,14 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
         holder.mealNameTv.setText(meal.getStrMeal());
         holder.mealCategoryTv.setText(meal.getStrCategory());
 
-        holder.favImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                favInsertListener.insertFavClick(meal);
-                holder.favImageView.setImageResource(R.drawable.ic_baseline_favorite_red);
-                Toast.makeText(context, "Meal added to favorite", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        holder.favImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                favInsertListener.insertFavClick(meal);
+//                holder.favImageView.setImageResource(R.drawable.ic_baseline_favorite_red);
+//                Toast.makeText(context, "Meal added to favorite", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +111,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
             mealImageView = mealView.findViewById(R.id.meal_item_imageView);
             mealNameTv = mealView.findViewById(R.id.meal_item_title_textview);
             mealCategoryTv = mealView.findViewById(R.id.meal_item_category_textView);
-            favImageView = mealView.findViewById(R.id.meal_item_fav_imageview);
+           // favImageView = mealView.findViewById(R.id.meal_item_fav_imageview);
             progressBar = mealView.findViewById(R.id.meal_item_progressbar);
         }
     }

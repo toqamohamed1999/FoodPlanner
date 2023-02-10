@@ -1,5 +1,6 @@
 package eg.gov.iti.jets.foodplanner.favorites.view;
 
+import static eg.gov.iti.jets.foodplanner.MealAdapter.MEAL_ADAPTER_TYPE;
 import static eg.gov.iti.jets.foodplanner.MealAdapter.MEAL_KEY;
 
 import android.content.Context;
@@ -53,18 +54,19 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MyViewHolder> {
         holder.mealCategoryTv.setText(meal.getStrCategory());
 
 
-        holder.favImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                favListenerInterface.removeFavMealClick(meal);
-            }
-        });
+//        holder.favImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                favListenerInterface.removeFavMealClick(meal);
+//            }
+//        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(context, Meal_Details_Activity.class);
                 i.putExtra(MEAL_KEY,mealsList.get(position));
+                i.putExtra("adapterType",MEAL_ADAPTER_TYPE);
                 context.startActivity(i);
             }
         });

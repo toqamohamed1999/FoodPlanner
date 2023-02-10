@@ -67,18 +67,18 @@
             app:layout_constraintEnd_toEndOf="@id/meal_item_imageView"
             app:layout_constraintTop_toTopOf="@id/meal_item_imageView"
             app:layout_constraintBottom_toBottomOf="@id/meal_item_imageView"/>
-        <ImageView
-            android:id="@+id/meal_item_fav_imageview"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="#2AFFFFFF"
-            android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="@id/meal_item_imageView"
-            app:layout_constraintTop_toTopOf="@id/meal_item_imageView"
-            app:srcCompat="@drawable/baseline_favorite_24" />
+<!--        <ImageView-->
+<!--            android:id="@+id/meal_item_fav_imageview"-->
+<!--            android:layout_width="35dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="@drawable/circle"-->
+<!--            android:backgroundTint="#2AFFFFFF"-->
+<!--            android:padding="5dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/meal_item_imageView"-->
+<!--            app:layout_constraintTop_toTopOf="@id/meal_item_imageView"-->
+<!--            app:srcCompat="@drawable/baseline_favorite_24" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -1,5 +1,6 @@
 package eg.gov.iti.jets.foodplanner.plan.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 import eg.gov.iti.jets.foodplanner.plan.presenter.PlanPresenter;
+import eg.gov.iti.jets.foodplanner.searchBy.view.OnSearchingActivity;
 
 public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayListener,PlanMealDeleteListener {
     PlanRecycleAdapter planRecycleAdapter;
@@ -38,6 +43,8 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
     List<PlanMeal> planMealArrayList=new ArrayList<>();
 
     private String weekDay = "";
+
+    Button addBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,17 +65,20 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
         init(view);
         setUpRecyclerView(view);
         setUpPlanRecyclerView(view);
+        setAddPlanEvent();
     }
 
     public void init(View view) {
         recyclerView = view.findViewById(R.id.plan_weekDays_recyclerView);
         plan_day_recyclerView = view.findViewById(R.id.plan_day_recyclerView);
         plan_dayName_text = view.findViewById(R.id.plan_dayName_text);
+        addBtn = view.findViewById(R.id.plan_add_btn);
         planPresenter = new PlanPresenter(this, Repo.getInstance(requireContext(), LocalSource.getLocalSource(requireContext()), RemoteSource.getRemoteSource()));
     }
 
     private void setUpRecyclerView(View view) {
         final LinearLayoutManager daysLayoutManager = new LinearLayoutManager(view.getContext());
+        daysLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(daysLayoutManager);
         List<String> allDays = Arrays.asList("Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
         planRecycleAdapter = new PlanRecycleAdapter(view.getContext(), allDays,this);
@@ -81,6 +91,15 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
 
         planMealsAdapter = new PlanMealsAdapter(view.getContext(), planMealArrayList,this);
         plan_day_recyclerView.setAdapter(planMealsAdapter);
+    }
+
+    private void setAddPlanEvent(){
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddMenu();
+            }
+        });
     }
 
     @Override
@@ -101,5 +120,22 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
     @Override
     public void removeFavMealClick(PlanMeal planMeal) {
         planPresenter.deletePlanMeal(planMeal);
+    }
+
+    public void showAddMenu(){
+        PopupMenu popup = new PopupMenu(requireContext(), addBtn);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater().inflate(R.menu.add_btn_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(requireContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                if(item.getTitle().equals("Add from search")){
+                    startActivity(new Intent(requireContext(), OnSearchingActivity.class));
+                }
+                return true;
+            }
+        });
+
+        popup.show();
     }
 }

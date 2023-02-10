@@ -52,5 +52,7 @@ public interface RepositoryInterface {
       public void getMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate);
 
       public void storeMealsToFirebase(NetworkProfileDelegate networkProfileDelegate);
+      public void getPlanMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate);
+
 
 }

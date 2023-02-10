@@ -164,12 +164,30 @@ public class Repo implements RepositoryInterface, FirebaseInterface {
                 .subscribe(meals -> myFirebase.storeMealsToFirebase(networkProfileDelegate,meals),
                         error -> Log.i(TAG, "getRandomMeal: "+error));
 
+        localSource.getStoredPlanMeals().subscribeOn(Schedulers.io())
+                .filter(planmeals -> planmeals!=null && planmeals.size() > 0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(planmeals -> myFirebase.storePlanMealsToFirebase(networkProfileDelegate,planmeals),
+                        error -> Log.i(TAG, "getRandomMeal: "+error));
+
+    }
+
+    @Override
+    public void getPlanMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate) {
+        myFirebase.getPlanMealsFromFirebase(networkProfileDelegate);
     }
 
     @Override
     public void getMealsFromFirebase(List<Meal> mealList) {
         for(int i = 0;i< mealList.size(); i++) {
             localSource.insertMeal(mealList.get(i));
+        }
+    }
+
+    @Override
+    public void getPlanMealsFromFirebase(List<PlanMeal> planMealList) {
+        for(int i = 0;i< planMealList.size(); i++) {
+            localSource.insertPlanMeal(planMealList.get(i));
         }
     }
 }

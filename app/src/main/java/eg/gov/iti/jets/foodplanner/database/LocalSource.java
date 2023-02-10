@@ -73,6 +73,11 @@ public class LocalSource implements LocalSourceInterface {
     }
 
     @Override
+    public Flowable<List<PlanMeal>> getStoredPlanMeals() {
+        return planMealDao.getStoredPlanMeals();
+    }
+
+    @Override
     public void insertPlanMeal(PlanMeal planMeal) {
         new Thread(new Runnable() {
             @Override

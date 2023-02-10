@@ -35,6 +35,7 @@ public class ProfilePresenter implements ProfilePresenterInterface, NetworkProfi
     @Override
     public void getMealsFromFirebase() {
         repositoryInterface.getMealsFromFirebase(this);
+        repositoryInterface.getPlanMealsFromFirebase(this);
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 import eg.gov.iti.jets.foodplanner.network.FirebaseInterface;
 import eg.gov.iti.jets.foodplanner.network.NetworkProfileDelegate;
 
@@ -34,10 +35,12 @@ public class MyFirebase {
     private FirebaseAuth firebaseAuth;
 
     private Meal meal;
+    private PlanMeal planMeal;
 
     private FirebaseInterface firebaseInterface;
 
     ArrayList<Meal> mealsList = new ArrayList<>();
+    ArrayList<PlanMeal> planMealList = new ArrayList<>();
 
     public MyFirebase(FirebaseInterface firebaseInterface) {
         this.firebaseInterface = firebaseInterface;
@@ -47,7 +50,7 @@ public class MyFirebase {
 
     public  void getMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate){
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("meals").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot item : snapshot.getChildren()) {
@@ -69,7 +72,7 @@ public class MyFirebase {
 
     public void storeMealsToFirebase(NetworkProfileDelegate networkProfileDelegate,List<Meal> mealsList){
 
-        databaseReference.setValue(mealsList).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child("meals").setValue(mealsList).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 networkProfileDelegate.onResultStoreMealsToFirebase("success store backup");
@@ -80,7 +83,41 @@ public class MyFirebase {
             public void onFailure(@NonNull Exception e) {
                 Log.i(TAG, "onFailure storeMealsToFirebase: " + e.getMessage());
                 networkProfileDelegate.onResultStoreMealsToFirebase("failed store backup");
+            }
+        });
+    }
+    public  void getPlanMealsFromFirebase(NetworkProfileDelegate networkProfileDelegate){
+        databaseReference.child("plan meals").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    planMeal  = item.getValue(PlanMeal.class);
+                    planMealList.add(planMeal);
+                    Log.i(TAG, "onDataChange: " + planMeal.toString());
+                }
+                firebaseInterface.getPlanMealsFromFirebase(planMealList);
+                networkProfileDelegate.onResultGetMealsFromFirebase("success backup");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                networkProfileDelegate.onResultGetMealsFromFirebase("failed backup");
+                Log.i(TAG, "onCancelled: getMealsFromFirebase "+error.getMessage());
+            }
+        });
+    }
+    public void storePlanMealsToFirebase(NetworkProfileDelegate networkProfileDelegate,List<PlanMeal> planMealList){
+        databaseReference.child("plan meals").setValue(planMealList).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                networkProfileDelegate.onResultStoreMealsToFirebase("success store backup");
+                Log.i(TAG, "onComplete: storeMealsToFirebase");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "onFailure storeMealsToFirebase: " + e.getMessage());
+                networkProfileDelegate.onResultStoreMealsToFirebase("failed store backup");
             }
         });
     }

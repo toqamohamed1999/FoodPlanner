@@ -22,6 +22,7 @@ public interface LocalSourceInterface {
     void deleteMealTable();
 
     Flowable<List<PlanMeal>> getStoredPlanMeals(String day);
+    Flowable<List<PlanMeal>> getStoredPlanMeals();
 
     void insertPlanMeal(PlanMeal planMeal);
 

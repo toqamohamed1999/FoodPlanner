@@ -18,6 +18,8 @@ public interface PlanMealDao {
     @Query("SELECT * FROM planMeal where weekDay=:day")
     Flowable<List<PlanMeal>> getStoredPlanMeals(String  day);
 
+    @Query("SELECT * FROM planMeal ")
+    Flowable<List<PlanMeal>> getStoredPlanMeals();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPlanMeal(PlanMeal planMeal);

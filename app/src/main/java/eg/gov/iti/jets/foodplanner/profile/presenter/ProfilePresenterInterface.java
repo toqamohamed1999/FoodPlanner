@@ -10,4 +10,5 @@ public interface ProfilePresenterInterface {
     public void getMealsFromFirebase();
 
     public void storeMealsToFirebase();
+    public void deleteDataWhenLogout();
 }

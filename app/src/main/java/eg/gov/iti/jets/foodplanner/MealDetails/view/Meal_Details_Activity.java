@@ -1,8 +1,10 @@
 package eg.gov.iti.jets.foodplanner.MealDetails.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,8 +31,11 @@ import java.util.stream.Collectors;
 
 import eg.gov.iti.jets.foodplanner.MealAdapter;
 import eg.gov.iti.jets.foodplanner.MealDetails.presenter.MealDetailsPresenter;
+import eg.gov.iti.jets.foodplanner.MyDialog;
+import eg.gov.iti.jets.foodplanner.MySharedPref;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.YouTubeConfig;
+import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
 import eg.gov.iti.jets.foodplanner.model.Ingredient;
 import eg.gov.iti.jets.foodplanner.model.Meal;
@@ -57,6 +62,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
     private ProgressBar progressBar;
     String selectedDay;
+    MySharedPref mySharedPref;
 
     boolean isFavMeal = false;
 
@@ -86,6 +92,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.videoView);
         progressBar = findViewById(R.id.meal_details_progressbar);
         autoCompleteTextView = findViewById(R.id.mealDetails_autoCompleteTextView);
+        mySharedPref = new MySharedPref(getApplicationContext());
 
         handleMealAddToFav();
     }
@@ -114,20 +121,38 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
         setOnSelectFilterEvent();
     }
+
     private void setOnSelectFilterEvent() {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedDay = parent.getItemAtPosition(position).toString();
-                planMeal = planMeal.getPlanMealFromMeal(meal, selectedDay);
-                mealDetailsPresenter.insertPlanMeal(planMeal);
-                Toast.makeText(Meal_Details_Activity.this, "Meal Added to "+selectedDay, Toast.LENGTH_SHORT).show();
+                if (mySharedPref.sharedPrefRead().getEmail().equals("not found")) {
+                    AlertDialog.Builder builder = MyDialog.myDialog(Meal_Details_Activity.this);
+                    builder.setMessage("Do yo want to login?");
+                    builder.setTitle("You are not logged in!");
+                    builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // finish();
+                        Intent i = new Intent(Meal_Details_Activity.this, LoginActivity.class);
+                        startActivity(i);
+                    });
+
+                    builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                } else {
+                    selectedDay = parent.getItemAtPosition(position).toString();
+                    planMeal = planMeal.getPlanMealFromMeal(meal, selectedDay);
+                    mealDetailsPresenter.insertPlanMeal(planMeal);
+                    Toast.makeText(Meal_Details_Activity.this, "Meal Added to " + selectedDay, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
     }
 
-    private void handelBackButton(){
+    private void handelBackButton() {
         resultSearch_back_imageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,20 +162,37 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
     }
 
 
-    private void handleMealAddToFav(){
+    private void handleMealAddToFav() {
         mealDetails_card_fav_imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFavMeal) {
-                    mealDetailsPresenter.deleteFavMeal(meal);
-                    mealDetails_card_fav_imageview.setImageResource(R.drawable.baseline_favorite_24);
-                    isFavMeal = false;
-                    Toast.makeText(Meal_Details_Activity.this, "Removed From Favourite ", Toast.LENGTH_SHORT).show();
+                if (mySharedPref.sharedPrefRead().getEmail().equals("not found")) {
+                    AlertDialog.Builder builder = MyDialog.myDialog(Meal_Details_Activity.this);
+                    builder.setMessage("Do yo want to login?");
+                    builder.setTitle("You are not logged in!");
+                    builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // finish();
+                        Intent i = new Intent(Meal_Details_Activity.this, LoginActivity.class);
+                        startActivity(i);
+                    });
+
+                    builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 } else {
-                    mealDetailsPresenter.insertFavMeal(meal);
-                    mealDetails_card_fav_imageview.setImageResource(R.drawable.ic_baseline_favorite_red);
-                    isFavMeal = true;
-                    Toast.makeText(Meal_Details_Activity.this, "Added To Favourite.. ", Toast.LENGTH_SHORT).show();
+                    if (isFavMeal) {
+                        mealDetailsPresenter.deleteFavMeal(meal);
+                        mealDetails_card_fav_imageview.setImageResource(R.drawable.baseline_favorite_24);
+                        isFavMeal = false;
+                        Toast.makeText(Meal_Details_Activity.this, "Removed From Favourite ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        mealDetailsPresenter.insertFavMeal(meal);
+                        mealDetails_card_fav_imageview.setImageResource(R.drawable.ic_baseline_favorite_red);
+                        isFavMeal = true;
+                        Toast.makeText(Meal_Details_Activity.this, "Added To Favourite.. ", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -182,7 +224,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         handleYoutubeEvent();
     }
 
-    private void handleYoutubeEvent(){
+    private void handleYoutubeEvent() {
         youTubePlayerView.initialize(YouTubeConfig.API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
@@ -204,11 +246,10 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
     @Override
     public void checkMealIsFav(boolean isFav) {
         isFavMeal = isFav;
-        if(isFav){
+        if (isFav) {
             mealDetails_card_fav_imageview.setImageResource(R.drawable.ic_baseline_favorite_red);
         }
     }
-
 
 
     private void setupRecyclerView() {
@@ -222,9 +263,9 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
 
     private void getMeal() {
         Intent i = getIntent();
-        if(i.getStringExtra("adapterType").equals(MealAdapter.MEAL_ADAPTER_TYPE)) {
+        if (i.getStringExtra("adapterType").equals(MealAdapter.MEAL_ADAPTER_TYPE)) {
             meal = (Meal) i.getSerializableExtra(MealAdapter.MEAL_KEY);
-        }else{
+        } else {
             planMeal = (PlanMeal) i.getSerializableExtra(PlanMealsAdapter.PlAN_MEAL_KEY);
             meal = planMeal.getMealFromMealPlanMeal(planMeal);
         }
@@ -239,12 +280,10 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
     @Override
     public void getMealDetailsById(Meal myMeal) {
         meal = myMeal;
-        if(meal.getStrCategory() != null){
+        if (meal.getStrCategory() != null) {
             updateUI();
         }
     }
-
-
 
     public List<Ingredient> getIngredientList() {
         ingredientList.add(new Ingredient(meal.getStrIngredient1(), "https://www.themealdb.com/images/ingredients/Lime.png"));

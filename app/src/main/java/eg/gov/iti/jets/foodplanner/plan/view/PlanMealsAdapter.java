@@ -27,13 +27,16 @@ import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyViewHolder>{
     private Context context;
     private List<PlanMeal> mealsList;
+
+    private PlanMealDeleteListener planMealDeleteListener;
     public  static String PlAN_MEAL_KEY="planMeal";
 
     public  static String PLAN_MEAL_ADAPTER_TYPE="PlanMealsAdapter";
 
-    public PlanMealsAdapter(Context context, List<PlanMeal> mealsList) {
+    public PlanMealsAdapter(Context context, List<PlanMeal> mealsList, PlanMealDeleteListener planMealDeleteListener) {
         this.context = context;
         this.mealsList = mealsList;
+        this.planMealDeleteListener = planMealDeleteListener;
     }
 
     @NonNull
@@ -46,18 +49,17 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        PlanMeal meal = mealsList.get(position);
+        PlanMeal planMeal = mealsList.get(position);
 
-        Picasso.with(context).load(meal.getStrMealThumb())
+        Picasso.with(context).load(planMeal.getStrMealThumb())
                 .into(holder.mealImageView);
-
-        holder.mealNameTv.setText(meal.getStrMeal());
-        holder.mealCategoryTv.setText(meal.getStrCategory());
+        holder.mealNameTv.setText(planMeal.getStrMeal());
+        holder.mealCategoryTv.setText(planMeal.getStrCategory());
 
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//////////////////////////////////
+                planMealDeleteListener.removeFavMealClick(planMeal);
             }
         });
 

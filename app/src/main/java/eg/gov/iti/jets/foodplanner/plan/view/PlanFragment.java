@@ -26,7 +26,7 @@ import eg.gov.iti.jets.foodplanner.model.Repo;
 import eg.gov.iti.jets.foodplanner.network.RemoteSource;
 import eg.gov.iti.jets.foodplanner.plan.presenter.PlanPresenter;
 
-public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayListener {
+public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayListener,PlanMealDeleteListener {
     PlanRecycleAdapter planRecycleAdapter;
     PlanMealsAdapter planMealsAdapter;
     PlanPresenter planPresenter;
@@ -79,7 +79,7 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
         plan_day_recyclerView.setLayoutManager(daysLayoutManager);
        daysLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
-        planMealsAdapter = new PlanMealsAdapter(view.getContext(), planMealArrayList);
+        planMealsAdapter = new PlanMealsAdapter(view.getContext(), planMealArrayList,this);
         plan_day_recyclerView.setAdapter(planMealsAdapter);
     }
 
@@ -96,5 +96,10 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
         }
         planMealsAdapter.setData(mealList);
         plan_dayName_text.setText(weekDay);
+    }
+
+    @Override
+    public void removeFavMealClick(PlanMeal planMeal) {
+        planPresenter.deletePlanMeal(planMeal);
     }
 }

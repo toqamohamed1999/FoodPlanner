@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.plan.view.WeekDayListener;
+
 public class PlanRecycleAdapter extends RecyclerView.Adapter<PlanRecycleAdapter.ViewHolder> {
 
 
@@ -18,11 +20,13 @@ public class PlanRecycleAdapter extends RecyclerView.Adapter<PlanRecycleAdapter.
 
     private final List<String> days;
     private final LayoutInflater layoutInflater;
+    WeekDayListener weekDayListener;
 
-    public PlanRecycleAdapter(Context context, List<String> days) {
+    public PlanRecycleAdapter(Context context, List<String> days, WeekDayListener weekDayListener) {
         this.context = context;
-        layoutInflater = LayoutInflater.from(context);
         this.days = days;
+        this.weekDayListener = weekDayListener;
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
@@ -36,6 +40,12 @@ public class PlanRecycleAdapter extends RecyclerView.Adapter<PlanRecycleAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String d = days.get(position);
         holder.day.setText(d);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weekDayListener.getStoredPlanMeals(d);
+            }
+        });
 
     }
 

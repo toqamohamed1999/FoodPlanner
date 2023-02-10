@@ -20,11 +20,12 @@ public interface LocalSourceInterface {
 
     void deleteMealTable();
 
-    Single<List<PlanMeal>> getStoredPlanMeals();
+    Flowable<List<PlanMeal>> getStoredPlanMeals(String day);
 
     void insertPlanMeal(PlanMeal planMeal);
 
     void deletePlanMeal(PlanMeal planMeal);
 
     void deletePlanMealTable();
+    boolean MealIsExistInFav(String idMeal);
 }

@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
 import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 
@@ -83,7 +84,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(context,Meal_Details_Activity.class);
+                Intent i=new Intent(context, Meal_Details_Activity.class);
                 i.putExtra(MEAL_KEY,mealsList.get(position));
                 context.startActivity(i);
             }

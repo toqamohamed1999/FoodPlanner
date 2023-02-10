@@ -22,7 +22,7 @@
             android:name=".searchBy.view.OnSearchingActivity"
             android:exported="false" />
         <activity
-            android:name=".Meal_Details_Activity"
+            android:name=".MealDetails.view.Meal_Details_Activity"
             android:exported="true" >
 
 

@@ -40,6 +40,10 @@ public interface RepositoryInterface {
       void insertFavMeal(Meal meal);
 
       void deleteFavMeal(Meal meal);
+      boolean MealIsExistInFav(String idMeal);
+      Flowable<List<PlanMeal>> getStoredPlanMeals(String day);
+      void insertPlanMeal(PlanMeal meal);
+      void deletePlanMeal(PlanMeal meal);
 
 
 }

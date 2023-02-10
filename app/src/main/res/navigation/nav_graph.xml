@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/planFragment"
-        android:name="eg.gov.iti.jets.foodplanner.PlanFragment"
+        android:name="eg.gov.iti.jets.foodplanner.plan.view.PlanFragment"
         android:label="@string/plan"
         tools:layout="@layout/fragment_plan" />
     <fragment

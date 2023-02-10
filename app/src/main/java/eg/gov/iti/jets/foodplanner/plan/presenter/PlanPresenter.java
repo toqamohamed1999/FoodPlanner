@@ -34,5 +34,5 @@ public class PlanPresenter implements  PlanPresenterInterface{
                 .subscribe(meals -> planViewInterface.getStoredPlanMeals(meals),
                         error-> Log.i(TAG, "getStoredPlanMeals: "+error));
     }
-    
+
 }

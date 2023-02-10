@@ -76,7 +76,6 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
         final LinearLayoutManager daysLayoutManager = new LinearLayoutManager(view.getContext());
         plan_day_recyclerView.setLayoutManager(daysLayoutManager);
        daysLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-
         planMealsAdapter = new PlanMealsAdapter(view.getContext(), planMealArrayList);
         plan_day_recyclerView.setAdapter(planMealsAdapter);
     }
@@ -90,5 +89,7 @@ public class PlanFragment extends Fragment implements PlanViewInterface,WeekDayL
     public void getStoredPlanMeals(List<PlanMeal> mealList) {
         Log.i(TAG, "getStoredPlanMeals: "+mealList.toString());
         planMealsAdapter.setData(mealList);
+        if(mealList.size()>0)
+            plan_dayName_text.setText(mealList.get(0).getWeekDay());
     }
 }

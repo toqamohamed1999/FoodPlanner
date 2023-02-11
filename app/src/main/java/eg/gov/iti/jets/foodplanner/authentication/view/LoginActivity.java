@@ -160,17 +160,17 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                      if (result.getResultCode() == Activity.RESULT_OK) {
-                    // intent
-                    Intent data = result.getData();
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                    try {
-                        GoogleSignInAccount account = task.getResult(ApiException.class);
-                        firebaseAuthWithGoogle(account);
-                    } catch (ApiException e) {
-                        Log.i(TAG, "Google login failed");
-                        Toast.makeText(LoginActivity.this, "Google login failed", Toast.LENGTH_SHORT).show();
-                    }
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // intent
+                        Intent data = result.getData();
+                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                        try {
+                            GoogleSignInAccount account = task.getResult(ApiException.class);
+                            firebaseAuthWithGoogle(account);
+                        } catch (ApiException e) {
+                            Log.i(TAG, "Google login failed");
+                            Toast.makeText(LoginActivity.this, "Google login failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

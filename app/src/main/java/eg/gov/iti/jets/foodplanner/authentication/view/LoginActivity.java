@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
@@ -129,6 +130,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     public void onGoogleRegisterFail(String error) {
 
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
 
     private void onGoogleClick() {
         login_google_imageView.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +143,8 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         });
     }
 
-    @Override
+
+        @Override
     public void callGoogleBuilder(GoogleSignInOptions googleSignInOptions) {
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
         startGoogleSignInIntent();

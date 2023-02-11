@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         login_registerNow_txtview=findViewById(R.id.login_registerNow_txtview);
         login_google_imageView = findViewById(R.id.login_google_imageView);
         skipTv = findViewById(R.id.login_skip_textView);
+        mySharedPref = new MySharedPref(getApplicationContext());
         login_registerNow_txtview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

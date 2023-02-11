@@ -1,9 +1,11 @@
 package eg.gov.iti.jets.foodplanner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,18 +34,24 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     int fragmentID;
 
+    String fragmentLabel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        Log.i(TAG, "onCreate: ");
         initUi();
         setupBottomNav();
 
+        Log.i(TAG, "onCreate: lifeCycle");
+
         if(savedInstanceState!=null) {
             fragmentID = savedInstanceState.getInt("fragmentID");
+            fragmentLabel = savedInstanceState.getString("fragmentLabel");
+            Log.i(TAG, "onCreate: "+fragmentLabel);
             navController.navigate(fragmentID);
+            navController.navigate(fragmentLabel);
         }
     }
     void initUi(){
@@ -59,16 +67,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     void setupBottomNav(){
-        Log.i(TAG, "setupBottomNav: "+fragmentID);
+
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Log.i(TAG, "setupBottomNav: "+fragmentID);
+
         navController= Navigation.findNavController(this,R.id.nav_host_fragment);
-        fragmentID=navController.getCurrentDestination().getId();
-        Log.i(TAG, "setupBottomNav: "+fragmentID);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        fragmentID=navController.getCurrentDestination().getId();
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                Log.e(TAG, "onDestinationChanged: "+destination.getLabel());
+                fragmentLabel = destination.getLabel().toString();
+            }
+        });
 
     }
 
@@ -76,5 +91,37 @@ public class MainActivity extends AppCompatActivity {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("fragmentID",fragmentID);
+        outState.putString("fragmentLabel",fragmentLabel);
+        Log.i(TAG, "onSaveInstanceState: lifeCycle");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart: lifeCycle ");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart: lifeCycle ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause: lifeCycle ");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: lifeCycle ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop: lifeCycle ");
     }
 }

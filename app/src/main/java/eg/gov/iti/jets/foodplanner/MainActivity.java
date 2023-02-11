@@ -32,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     SwipeRefreshLayout swipeRefreshLayout;
     NavController navController;
-    int fragmentID;
+    int fragmentID = 0;
 
-    String fragmentLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +43,6 @@ public class MainActivity extends AppCompatActivity {
         initUi();
         setupBottomNav();
 
-        Log.i(TAG, "onCreate: lifeCycle");
-
-        if(savedInstanceState!=null) {
-            fragmentID = savedInstanceState.getInt("fragmentID");
-            fragmentLabel = savedInstanceState.getString("fragmentLabel");
-            Log.i(TAG, "onCreate: "+fragmentLabel);
-            navController.navigate(fragmentID);
-            navController.navigate(fragmentLabel);
-        }
     }
     void initUi(){
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -60,9 +50,8 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Intent i=new Intent(MainActivity.this,MainActivity.class);
-                startActivity(i);
-                swipeRefreshLayout.setRefreshing(false);
+                  navController.navigate(fragmentID);
+                  swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -80,48 +69,11 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                Log.e(TAG, "onDestinationChanged: "+destination.getLabel());
-                fragmentLabel = destination.getLabel().toString();
+                fragmentID = destination.getId();
             }
         });
 
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("fragmentID",fragmentID);
-        outState.putString("fragmentLabel",fragmentLabel);
-        Log.i(TAG, "onSaveInstanceState: lifeCycle");
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart: lifeCycle ");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG, "onRestart: lifeCycle ");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause: lifeCycle ");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy: lifeCycle ");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop: lifeCycle ");
-    }
 }

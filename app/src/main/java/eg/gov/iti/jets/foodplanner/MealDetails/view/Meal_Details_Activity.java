@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +50,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
     private Meal meal;
     private PlanMeal planMeal = new PlanMeal();
     private static final String TAG = "Meal_Details_Activity";
-    ImageView meal_details_imageView, mealDetails_card_fav_imageview;
+    ImageView meal_details_imageView, mealDetails_card_fav_imageview,calenderImageView;
     ImageButton resultSearch_back_imageBtn;
     TextView mealDetails_mealName_txtView, mealDetails_mealCateVal_txtView, mealDetails_mealAreaVal_txtView, mealDetails_stepsVal_txtView;
     RecyclerView mealDetails_ingredientsList_recycleView;
@@ -78,6 +80,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         checkFav();
         setUpAutoCompleteTv();
         handelBackButton();
+        handleCalenderEvent();
     }
 
     private void iniUI() {
@@ -92,6 +95,7 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.videoView);
         progressBar = findViewById(R.id.meal_details_progressbar);
         autoCompleteTextView = findViewById(R.id.mealDetails_autoCompleteTextView);
+        calenderImageView =findViewById(R.id.mealDetails_card_calender_imageview);
         mySharedPref = new MySharedPref(getApplicationContext());
 
         handleMealAddToFav();
@@ -283,6 +287,24 @@ public class Meal_Details_Activity extends YouTubeBaseActivity implements MealDe
         if (meal.getStrCategory() != null) {
             updateUI();
         }
+    }
+
+    private void handleCalenderEvent(){
+        calenderImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendarEvent = Calendar.getInstance();
+                Intent i = new Intent(Intent.ACTION_EDIT);
+                i.setType("vnd.android.cursor.item/event");
+                i.putExtra("beginTime", calendarEvent.getTimeInMillis());
+                i.putExtra("allDay", true);
+                i.putExtra("rule", "FREQ=YEARLY");
+                i.putExtra("endTime", calendarEvent.getTimeInMillis() + 60 * 60 * 1000);
+                i.putExtra("title", "Add "+ meal.getStrMeal()+ " Meal to Calender");
+                i.putExtra(CalendarContract.Events.DESCRIPTION, meal.getStrMeal()+" is a "+meal.getStrCategory()+" meal, from "+meal.getStrArea()+" area");
+                startActivity(i);
+            }
+        });
     }
 
     public List<Ingredient> getIngredientList() {

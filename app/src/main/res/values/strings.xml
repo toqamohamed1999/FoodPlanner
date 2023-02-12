@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FoodPlanner</string>
+    <string name="app_name">Develop-Meal</string>
 
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
@@ -52,6 +52,5 @@
 
     <string name="OnBoardingTitle3">Perfect meal plan for you</string>
     <string name="OnBoarding3">Enjoy your personalized meal plan and delicious recipes</string>
-
 
 </resources>

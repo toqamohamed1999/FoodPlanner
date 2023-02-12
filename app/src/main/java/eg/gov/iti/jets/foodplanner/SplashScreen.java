@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import eg.gov.iti.jets.foodplanner.OnBoarding.OnBoardingActivity;
 import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
 import eg.gov.iti.jets.foodplanner.model.User;
 
@@ -27,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 Log.i(TAG,user.getEmail()+"User Email ");
                 if(user.getEmail()=="not found"){
-                    Intent i=new Intent(SplashScreen.this, LoginActivity.class);
+                    Intent i=new Intent(SplashScreen.this, OnBoardingActivity.class);
                     startActivity(i);
                 }
                 else {

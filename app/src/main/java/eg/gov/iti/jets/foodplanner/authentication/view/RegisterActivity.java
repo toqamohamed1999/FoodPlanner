@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import eg.gov.iti.jets.foodplanner.MainActivity;
 import eg.gov.iti.jets.foodplanner.MySharedPref;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.presenter.RegisterPresenter;
+import eg.gov.iti.jets.foodplanner.profile.view.ProfileActivity;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterViewInterface {
 
@@ -52,13 +54,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     private RegisterPresenter authPresenter;
 
-    private String userName, email, password;
+    private String  email, password;
 
-    private GoogleSignInClient googleSignInClient;
-    public static int RC_SIGN_IN = 1001;
+    ProgressDialog progressDialog;
 
     MySharedPref mySharedPref;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +117,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
                 password = passwordEditText.getText().toString();
                 if(checkDataValidation()) {
                     authPresenter.Register(email, password);
+                    setupProgressDialog("Register...");
                 }
             }
         });
@@ -131,6 +132,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     @Override
     public void onSuccessRegister() {
+        progressDialog.cancel();
         Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
         mySharedPref.sharedPrefWrite(email,password);
         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
@@ -139,6 +141,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
 
     @Override
     public void onFailRegister(String error) {
+        progressDialog.cancel();
         Toast.makeText(this, "Register failed, Try again", Toast.LENGTH_SHORT).show();
     }
 
@@ -181,5 +184,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterViewI
             return false;
         }
         return true;
+    }
+
+    void setupProgressDialog(String message) {
+        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.setMessage(message);
+        progressDialog.setTitle("Develop Meal");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.show();
     }
 }

@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,8 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
 
     private GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +98,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
             @Override
             public void onClick(View v) {
                 Login(login_email_editTxt.getText().toString(), login_password_editTxt.getText().toString());
+                setupProgressDialog("Sign In ...");
             }
         });
     }
@@ -115,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
 
     @Override
     public void OnLoginSuccess() {
+        progressDialog.cancel();
         Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
         Intent i=new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
@@ -153,6 +158,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     public void startGoogleSignInIntent() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         someActivityResultLauncher.launch(signInIntent);
+        setupProgressDialog("Sign In with google account..");
     }
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -170,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
                         } catch (ApiException e) {
                             Log.i(TAG, "Google login failed");
                             Toast.makeText(LoginActivity.this, "Google login failed", Toast.LENGTH_SHORT).show();
+                            progressDialog.cancel();
                         }
                     }
                 }
@@ -182,13 +189,26 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         firebaseAuth.signInWithCredential(credential)
 
                 .addOnSuccessListener(this, authResult -> {
+                    progressDialog.cancel();
                     Toast.makeText(this, "Google login success", Toast.LENGTH_SHORT).show();
                     mySharedPref.sharedPrefWrite(account.getEmail(),"");
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 })
-                .addOnFailureListener(this, e -> Toast.makeText(LoginActivity.this, "Google login failed.",
-                        Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(this, e -> {
+                        progressDialog.cancel();
+                        Toast.makeText(LoginActivity.this, "Google login failed.",
+                        Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    void setupProgressDialog(String message) {
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage(message);
+        progressDialog.setTitle("Develop Meal");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.show();
     }
 
 

@@ -44,5 +44,14 @@
     <string name="search_by">Search By</string>
     <string name="egyptian_meals">Egyptian Meals</string>
 
+    <string name="OnBoardingTitle1">Inspiration Meal</string>
+    <string name="OnBoarding1">Get a random meal for inspiration</string>
+
+    <string name="OnBoardingTitle2">Filter Meals</string>
+    <string name="OnBoarding2">Customize your food search according to your own special needs</string>
+
+    <string name="OnBoardingTitle3">Perfect meal plan for you</string>
+    <string name="OnBoarding3">Enjoy your personalized meal plan and delicious recipes</string>
+
 
 </resources>

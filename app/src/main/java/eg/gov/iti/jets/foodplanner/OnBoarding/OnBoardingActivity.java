@@ -47,9 +47,9 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         // fill list screen
         final List<ScreenBoardingItem> mList = new ArrayList<>();
-        mList.add(new ScreenBoardingItem("Mlab Application", "Has a lot of helpful features ,and provide easy ways for both Doctors and Patients.", R.drawable.food1));
-        mList.add(new ScreenBoardingItem("Communication", "It allows permanent communication with doctors, as it allows the possibility of chatting and medical consultations.", R.drawable.food4));
-        mList.add(new ScreenBoardingItem("Home Visit", "It allows home visits to obtain medical analyzes as well as to deliver results in order to serve users and make it easier for patients.", R.drawable.food1));
+        mList.add(new ScreenBoardingItem(getString(R.string.OnBoardingTitle1), getString(R.string.OnBoarding1), R.drawable.onboarding1));
+        mList.add(new ScreenBoardingItem(getString(R.string.OnBoardingTitle2),  getString(R.string.OnBoarding2), R.drawable.onboarding2search));
+        mList.add(new ScreenBoardingItem(getString(R.string.OnBoardingTitle3),  getString(R.string.OnBoarding3), R.drawable.onboarding3));
 
         // setup viewpager
         screenPager = findViewById(R.id.intro_screen_viewpager);

@@ -160,10 +160,10 @@ public class PlanFragment extends Fragment implements PlanViewInterface, WeekDay
                 if (item.getTitle().equals("Add from search")) {
                     startActivity(new Intent(requireContext(), OnSearchingActivity.class));
                 }
-//                else if (item.getTitle().equals("Add from favorites")) {
-////                    MainActivity.navController.navigate(R.id.action_planFragment_to_favoritesFragment);
-//
-//                }
+                else if (item.getTitle().equals("Add from favorites")) {
+//                    MainActivity.navController.navigate(R.id.action_planFragment_to_favoritesFragment);
+                    MainActivity.navController.navigate( PlanFragmentDirections.actionPlanFragmentToFavoritesFragment());
+                }
                 return true;
             }
         });

@@ -27,12 +27,12 @@ import com.google.firebase.auth.FirebaseUser;
 import io.reactivex.rxjava3.core.Observable;
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
     private static final String TAG = "MainActivity";
-    SwipeRefreshLayout swipeRefreshLayout;
-    NavController navController;
-    int fragmentID = 0;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    public static NavController navController;
+    private static int fragmentID = 0;
 
 
     @Override

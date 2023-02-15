@@ -1,6 +1,7 @@
 package eg.gov.iti.jets.foodplanner.plan.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MyDialog;
 import eg.gov.iti.jets.foodplanner.favorites.view.FavInsertListener;
 import eg.gov.iti.jets.foodplanner.MealAdapter;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
@@ -59,7 +62,7 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                planMealDeleteListener.removeFavMealClick(planMeal);
+                deletePlanMeal(planMeal);
             }
         });
 
@@ -95,5 +98,23 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
             mealCategoryTv = mealView.findViewById(R.id.planMeal_item_category_textView);
             deleteImageView = mealView.findViewById(R.id.planMeal_item_delete_imageview);
         }
+    }
+
+    private void deletePlanMeal(PlanMeal planMeal){
+        AlertDialog.Builder builder = MyDialog.myDialog(context);
+        builder.setMessage("Do you want to remove "+planMeal.getStrMeal()+" meal from "+planMeal.getWeekDay()+"'s plan?");
+        builder.setIcon(R.drawable.baseline_delete_24);
+        builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+
+            planMealDeleteListener.removeFavMealClick(planMeal);
+
+        });
+
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            dialog.cancel();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

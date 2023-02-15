@@ -4,7 +4,9 @@ import static eg.gov.iti.jets.foodplanner.MealAdapter.MEAL_ADAPTER_TYPE;
 import static eg.gov.iti.jets.foodplanner.MealAdapter.MEAL_KEY;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
+import eg.gov.iti.jets.foodplanner.MyDialog;
 import eg.gov.iti.jets.foodplanner.R;
+import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
 import eg.gov.iti.jets.foodplanner.model.Meal;
+import eg.gov.iti.jets.foodplanner.profile.view.ProfileActivity;
 
 public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MyViewHolder> {
+    private static final String TAG = "FavAdapter";
     private Context context;
     private List<Meal> mealsList;
 
@@ -56,7 +64,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MyViewHolder> {
         holder.favImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favListenerInterface.removeFavMealClick(meal);
+                deleteMeal(meal);
             }
         });
 
@@ -94,5 +102,23 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MyViewHolder> {
             mealCategoryTv = mealView.findViewById(R.id.fav_item_category_textView);
 
         }
+    }
+
+    private void deleteMeal(Meal meal){
+        AlertDialog.Builder builder = MyDialog.myDialog(context);
+        builder.setMessage("Do you want to remove "+meal.getStrMeal()+" meal from favorites?");
+        builder.setIcon(R.drawable.baseline_delete_24);
+        builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+
+            favListenerInterface.removeFavMealClick(meal);
+
+        });
+
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            dialog.cancel();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

@@ -3,11 +3,11 @@
     <item
         android:id="@+id/add_from_search"
         android:title="Add from search"
-        android:icon="@drawable/baseline_search_24"
-        />
+        android:icon="@drawable/baseline_search_24" />
 <!--    <item-->
 <!--        android:id="@+id/add_from_fav"-->
-<!--        android:title="Add from favorites"/>-->
+<!--        android:title="Add from favorites"-->
+<!--        android:icon="@drawable/baseline_favorite_24"/>-->
 
 
 </menu>

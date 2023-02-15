@@ -19,7 +19,11 @@
         android:id="@+id/planFragment"
         android:name="eg.gov.iti.jets.foodplanner.plan.view.PlanFragment"
         android:label="@string/plan"
-        tools:layout="@layout/fragment_plan" />
+        tools:layout="@layout/fragment_plan" >
+        <action
+            android:id="@+id/action_planFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="eg.gov.iti.jets.foodplanner.search.view.SearchFragment"

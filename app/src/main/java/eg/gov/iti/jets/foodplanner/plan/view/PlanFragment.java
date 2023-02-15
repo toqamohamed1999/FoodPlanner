@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import eg.gov.iti.jets.foodplanner.MainActivity;
 import eg.gov.iti.jets.foodplanner.MealDetails.view.Meal_Details_Activity;
 import eg.gov.iti.jets.foodplanner.MyDialog;
 import eg.gov.iti.jets.foodplanner.MySharedPref;
@@ -158,6 +160,10 @@ public class PlanFragment extends Fragment implements PlanViewInterface, WeekDay
                 if (item.getTitle().equals("Add from search")) {
                     startActivity(new Intent(requireContext(), OnSearchingActivity.class));
                 }
+//                else if (item.getTitle().equals("Add from favorites")) {
+////                    MainActivity.navController.navigate(R.id.action_planFragment_to_favoritesFragment);
+//
+//                }
                 return true;
             }
         });

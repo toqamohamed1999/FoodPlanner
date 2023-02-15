@@ -36,6 +36,7 @@ import java.util.List;
 
 import eg.gov.iti.jets.foodplanner.MyDialog;
 import eg.gov.iti.jets.foodplanner.MySharedPref;
+import eg.gov.iti.jets.foodplanner.NetworkChecker;
 import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.authentication.view.LoginActivity;
 import eg.gov.iti.jets.foodplanner.database.LocalSource;
@@ -123,6 +124,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
             public void onClick(View v) {
                 AlertDialog.Builder builder = MyDialog.myDialog(ProfileActivity.this);
                 builder.setMessage("Do you want to logout ? \nYou will lose your data if you do not backup it..");
+                builder.setIcon(R.drawable.baseline_logout_24);
 
                 builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                     // finish();
@@ -169,8 +171,22 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
         backupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profilePresenter.storeMealsToFirebase();
-                setupProgressDialog("Save Backup Data");
+                if(NetworkChecker.isNetworkAvailable(getApplicationContext())) {
+                    profilePresenter.storeMealsToFirebase();
+                    setupProgressDialog("Save Backup Data");
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    builder.setTitle("No Network connection");
+                    builder.setMessage("Network connection is not available,  try again when it is available");
+                    builder.setIcon(R.drawable.baseline_wifi_off_24);
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
     }
@@ -179,8 +195,22 @@ public class ProfileActivity extends AppCompatActivity implements ProfileViewInt
         restoreBackupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profilePresenter.getMealsFromFirebase();
-                setupProgressDialog("Restore Your Backup Data");
+                if(NetworkChecker.isNetworkAvailable(getApplicationContext())) {
+                    profilePresenter.getMealsFromFirebase();
+                    setupProgressDialog("Restore Your Backup Data");
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    builder.setTitle("No Network connection");
+                    builder.setMessage("Network connection is not available,  try again when it is available");
+                    builder.setIcon(R.drawable.baseline_wifi_off_24);
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
     }

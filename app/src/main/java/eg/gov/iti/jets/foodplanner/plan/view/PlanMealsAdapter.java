@@ -27,19 +27,20 @@ import eg.gov.iti.jets.foodplanner.R;
 import eg.gov.iti.jets.foodplanner.model.Meal;
 import eg.gov.iti.jets.foodplanner.model.PlanMeal;
 
-public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyViewHolder>{
+public class PlanMealsAdapter extends RecyclerView.Adapter<PlanMealsAdapter.MyViewHolder> {
     private Context context;
     private List<PlanMeal> mealsList;
 
     private PlanMealDeleteListener planMealDeleteListener;
-    public  static String PlAN_MEAL_KEY="planMeal";
+    public static String PlAN_MEAL_KEY = "planMeal";
 
-    public  static String PLAN_MEAL_ADAPTER_TYPE="PlanMealsAdapter";
+    public static String PLAN_MEAL_ADAPTER_TYPE = "PlanMealsAdapter";
 
     public PlanMealsAdapter(Context context, List<PlanMeal> mealsList, PlanMealDeleteListener planMealDeleteListener) {
         this.context = context;
         this.mealsList = mealsList;
         this.planMealDeleteListener = planMealDeleteListener;
+
     }
 
     @NonNull
@@ -59,6 +60,10 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
         holder.mealNameTv.setText(planMeal.getStrMeal());
         holder.mealCategoryTv.setText(planMeal.getStrCategory());
 
+
+
+
+
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,9 +74,9 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(context, Meal_Details_Activity.class);
-                i.putExtra(PlAN_MEAL_KEY,mealsList.get(position));
-                i.putExtra("adapterType",PLAN_MEAL_ADAPTER_TYPE);
+                Intent i = new Intent(context, Meal_Details_Activity.class);
+                i.putExtra(PlAN_MEAL_KEY, mealsList.get(position));
+                i.putExtra("adapterType", PLAN_MEAL_ADAPTER_TYPE);
                 context.startActivity(i);
             }
         });
@@ -88,8 +93,8 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView mealImageView,deleteImageView;
-        TextView mealNameTv,mealCategoryTv;
+        ImageView mealImageView, deleteImageView;
+        TextView mealNameTv, mealCategoryTv;
 
         public MyViewHolder(@NonNull View mealView) {
             super(mealView);
@@ -100,9 +105,9 @@ public class PlanMealsAdapter  extends RecyclerView.Adapter<PlanMealsAdapter.MyV
         }
     }
 
-    private void deletePlanMeal(PlanMeal planMeal){
+    private void deletePlanMeal(PlanMeal planMeal) {
         AlertDialog.Builder builder = MyDialog.myDialog(context);
-        builder.setMessage("Do you want to remove "+planMeal.getStrMeal()+" meal from "+planMeal.getWeekDay()+"'s plan?");
+        builder.setMessage("Do you want to remove " + planMeal.getStrMeal() + " meal from " + planMeal.getWeekDay() + "'s plan?");
         builder.setIcon(R.drawable.baseline_delete_24);
         builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
 

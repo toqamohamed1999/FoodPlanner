@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -22,11 +24,15 @@ public class PlanRecycleAdapter extends RecyclerView.Adapter<PlanRecycleAdapter.
     private final LayoutInflater layoutInflater;
     WeekDayListener weekDayListener;
 
+    private static int rowIndex = -1;
+
     public PlanRecycleAdapter(Context context, List<String> days, WeekDayListener weekDayListener) {
         this.context = context;
         this.days = days;
         this.weekDayListener = weekDayListener;
         layoutInflater = LayoutInflater.from(context);
+        rowIndex = -1;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -40,10 +46,19 @@ public class PlanRecycleAdapter extends RecyclerView.Adapter<PlanRecycleAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String d = days.get(position);
         holder.day.setText(d);
+
+        if (rowIndex == holder.getLayoutPosition()) {
+            holder.day.setTextColor(holder.itemView.getContext().getColor(R.color.brown));
+        } else {
+            holder.day.setTextColor(holder.itemView.getContext().getColor(R.color.black));
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 weekDayListener.getStoredPlanMeals(d);
+
+                rowIndex = holder.getLayoutPosition();
+                notifyDataSetChanged();
             }
         });
 
@@ -57,11 +72,15 @@ public class PlanRecycleAdapter extends RecyclerView.Adapter<PlanRecycleAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView day;
+        ConstraintLayout layoutC ;
+        CardView card ;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             day = (TextView) itemView.findViewById(R.id.day);
+            layoutC = itemView.findViewById(R.id.layOutConstarin);
+            card = itemView.findViewById(R.id.cardWeek);
 
         }
     }

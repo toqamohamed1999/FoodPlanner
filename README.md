@@ -7,6 +7,7 @@ Description :-
 
 Technologies we used:-
       MVP Architecture Pattern
+      Repository Pattern,
       Rx-Java
       Retrofit
       Room

@@ -5,7 +5,7 @@ Description :-
       In addition to having the ability of viewing categories, suggesting meals and searching for a specific meal using many options. 
       User can save his favourite meals to browse it later on even without network connectivity.
 
-Technologies we used:-
+Technologies used:-
       MVP Architecture Pattern
       Repository Pattern,
       Rx-Java
